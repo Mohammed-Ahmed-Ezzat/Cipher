@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<html lang="en">
+<head>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#062f2e">
+<meta name="description" content="Cipher is a voluntary student initiative at Sohag University helping students explore technology, programming, and clear learning paths.">
+<meta name="author" content="Mohamed Ahmed Ezzat">
+<meta property="og:title" content="CIPHER — Choose Your Path">
+<meta property="og:description" content="Clear learning directions for students who want to explore technology and build real skills.">
+<meta property="og:image" content="https://i.ibb.co/XZ3x9yrx/Cipher.png">
+<meta property="og:type" content="website">
+<title>CIPHER — Choose Your Path</title>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<link rel="icon" type="image/png" href="https://i.ibb.co/XZ3x9yrx/Cipher.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+<style>
+/* Crafted with care by Mohamed Ahmed Ezzat */
+:root{
+  --bg:#031817;--bg2:#062d2b;--panel:#082421;--panel2:#0b302e;
+  --teal:#20f0d0;--teal2:#49ffe5;--yellow:#ffc928;--yellow2:#ffe56b;
+  --white:#f5fffc;--muted:#91aaa6;--line:rgba(166,255,242,.12);
+  --shadow:0 30px 100px rgba(0,0,0,.35);
+}
+/* Crafted with care by Mohamed Ahmed Ezzat */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:radial-gradient(circle at 75% 15%,rgba(32,240,208,.09),transparent 30%),var(--bg);
+  color:var(--white);font-family:Inter,sans-serif;overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-3;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:60px 60px;mask-image:linear-gradient(to bottom,#000,transparent 80%);
+  transform:translateY(var(--grid-parallax,0px));will-change:transform;
+}
+@media(prefers-reduced-motion:reduce){body:before{transform:none!important}}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.025;background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 4px)}
+a{text-decoration:none;color:inherit}
+.container-xl{max-width:1220px}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.loader{
+  position:fixed;inset:0;background:#041b1a;z-index:9999;display:grid;place-items:center;
+  transition:opacity .45s ease,visibility .45s ease;
+}
+.loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{width:min(86vw,520px);text-align:center;position:relative}
+.loader-logo{
+  width:min(65vw,360px);aspect-ratio:1;object-fit:contain;display:block;margin:0 auto 15px;
+  filter:drop-shadow(0 0 4px rgba(32,240,208,.15)) drop-shadow(0 0 18px rgba(255,201,40,.08));
+  animation:logoThink 2.6s ease-in-out infinite;
+}
+.loader-logo-fallback{display:grid;place-items:center;font-size:min(18vw,90px);background:linear-gradient(150deg,var(--teal2),var(--yellow));-webkit-background-clip:text;background-clip:text;color:transparent}
+.loader-ring{position:absolute;left:50%;top:44%;width:min(70vw,400px);height:min(70vw,400px);transform:translate(-50%,-50%);border:1px solid rgba(32,240,208,.11);border-radius:50%;pointer-events:none}
+.loader-ring:before,.loader-ring:after{content:"";position:absolute;inset:12%;border:1px dashed rgba(255,201,40,.16);border-radius:50%;animation:spin 8s linear infinite}
+.loader-ring:after{inset:25%;border-style:solid;border-color:rgba(32,240,208,.12);animation-duration:5s;animation-direction:reverse}
+.loader-status{font-family:"Space Grotesk";letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:#9fb9b4;margin-bottom:10px}
+.loader-percent{font-family:"Space Grotesk";font-weight:700;font-size:42px;line-height:1;color:#fff}
+.loader-percent span{color:var(--yellow)}
+.loader-tip{font-size:10px;color:#607873;margin-top:12px;letter-spacing:.08em}
+@keyframes logoThink{0%,100%{transform:scale(.985) rotate(-.4deg);filter:drop-shadow(0 0 3px rgba(32,240,208,.15))}50%{transform:scale(1.025) rotate(.4deg);filter:drop-shadow(0 0 8px rgba(32,240,208,.5)) drop-shadow(0 0 25px rgba(255,201,40,.18))}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.navbar{position:fixed;top:0;width:100%;z-index:100;padding:18px 0;transition:.35s;background:rgba(3,24,23,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.navbar.scrolled{padding:10px 0;background:rgba(3,24,23,.68)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 35px rgba(0,0,0,.12);border-bottom:1px solid var(--line)}
+.brand{font-family:"Space Grotesk";font-weight:800;letter-spacing:-.01em;font-size:21px;display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:15px;color:#03211e;
+  background:linear-gradient(150deg,var(--teal2),var(--teal) 55%,#0da8cf);
+  box-shadow:0 0 0 1px rgba(32,240,208,.4) inset,0 10px 26px rgba(32,240,208,.22);
+  transition:.35s cubic-bezier(.2,.8,.2,1);
+}
+.brand:hover .brand-mark{transform:rotate(-8deg) scale(1.08);box-shadow:0 0 0 1px rgba(32,240,208,.55) inset,0 12px 32px rgba(32,240,208,.32)}
+.brand-word{font-weight:800;font-size:21px;letter-spacing:.01em;background:linear-gradient(115deg,#fff 15%,#cdfff5 45%,var(--teal) 78%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-word i{font-style:normal;color:var(--yellow);-webkit-text-fill-color:var(--yellow);margin-left:1px}
+.nav-link{color:#a8bfbb!important;font-size:13px;margin:0 4px;padding:8px 12px;border-radius:10px;transition:color .3s ease,background .3s ease}
+.nav-link.active{color:#fff!important;background:rgba(32,240,208,.12)}
+.nav-link:hover{color:#fff!important;background:rgba(32,240,208,.07)}
+.nav-cta{
+  position:relative;overflow:hidden;gap:10px;border:1px solid rgba(32,240,208,.28);background:rgba(32,240,208,.055);
+  padding:10px 16px;border-radius:11px;color:var(--teal);font-size:12px;font-weight:800;transition:.25s;
+  box-shadow:inset 0 0 18px rgba(32,240,208,.025);
+}
+.nav-cta:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(32,240,208,.09) 50%,transparent 80%);transform:translateX(-120%);transition:transform .55s ease}
+.nav-cta:hover:before{transform:translateX(120%)}
+.nav-cta:hover{transform:translateY(-2px);background:rgba(32,240,208,.12)}
+.cta-arrow{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;border:1px solid rgba(32,240,208,.16);background:rgba(32,240,208,.045);transition:.3s ease}
+.cta-arrow i{font-size:11px;transition:transform .3s ease}
+.nav-cta:hover .cta-arrow{background:var(--teal);color:#03211e;border-color:transparent;transform:translateX(2px)}
+.nav-cta:hover .cta-arrow i{transform:translateX(2px)}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;padding:120px 0 70px}
+.hero-content{position:relative;z-index:5}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(32,240,208,.2);background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));backdrop-filter:blur(10px);color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 14px var(--yellow);animation:pulse 1.5s infinite}
+.hero h1{font-family:"Space Grotesk";font-size:clamp(48px,6.7vw,88px);line-height:.95;letter-spacing:-.06em;margin:0 0 24px;font-weight:700;max-width:800px}
+.gradient{background:linear-gradient(110deg,#fff 20%,#b5fff4 48%,var(--teal) 70%,var(--yellow) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:17px;line-height:1.85;max-width:620px;margin-bottom:30px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-main,.btn-ghost{padding:14px 18px;border-radius:12px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:10px;transition:.3s}
+.btn-main{background:linear-gradient(135deg,#f8fffd,#bffef1);color:#03211e;box-shadow:0 15px 50px rgba(32,240,208,.09)}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(32,240,208,.17)}
+.btn-ghost{border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));backdrop-filter:blur(10px);color:#d6e8e4}
+.btn-ghost:hover{transform:translateY(-3px);border-color:rgba(255,201,40,.35)}
+.hero-meta{display:flex;gap:32px;margin-top:40px}
+.meta strong{font-family:"Space Grotesk";font-size:24px;display:block;font-variant-numeric:tabular-nums}
+.meta span{font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#6d8883}
+.infinity-count{transform:scale(.4);opacity:0;transition:transform .6s cubic-bezier(.2,1.4,.4,1),opacity .5s ease}
+.infinity-count.pop{transform:scale(1);opacity:1}
+#three-root{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hero-vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(circle at 74% 48%,transparent 0 20%,rgba(3,24,23,.18) 42%,rgba(3,24,23,.9) 90%)}
+.hero-orb{position:absolute;z-index:1;width:500px;height:500px;right:8%;top:16%;border-radius:50%;background:radial-gradient(circle,rgba(32,240,208,.07),transparent 68%);filter:blur(4px)}
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:6;color:#63827c;font-size:9px;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:9px;transition:opacity .35s ease,transform .35s ease}
+.scroll-cue i{color:var(--teal);animation:bounce 1.5s infinite}
+.hero-divider{position:absolute;left:0;right:0;bottom:-1px;z-index:4;line-height:0;pointer-events:none}
+.hero-divider svg{display:block;width:100%;height:auto}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+section{padding:110px 0;position:relative;scroll-margin-top:88px}
+main{scroll-margin-top:88px}
+section:not(.hero):not(#roadmaps)::before{
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(420px,60%);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(32,240,208,.55),rgba(255,201,40,.4),transparent);
+  box-shadow:0 0 16px rgba(32,240,208,.25);
+}
+.section-kicker{color:var(--yellow);font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:"Space Grotesk";font-size:clamp(35px,4vw,56px);letter-spacing:-.045em;line-height:1.03;margin:0 0 14px}
+.section-desc{color:var(--muted);max-width:650px;line-height:1.8;margin:0 0 45px;font-size:14px}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.roadmap-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.roadmap-card{
+  position:relative;min-height:300px;padding:27px;border:1px solid rgba(166,255,242,.16);border-radius:24px;
+  display:flex;flex-direction:column;
+  background:linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.022));
+  backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -1px 0 rgba(0,0,0,.16),0 18px 55px rgba(0,0,0,.14);
+  overflow:hidden;transform-style:preserve-3d;
+  transition:border-color .35s,box-shadow .35s,transform .35s;
+}
+.roadmap-card:nth-child(1){grid-column:span 7;min-height:340px}
+.roadmap-card:nth-child(2){grid-column:span 5;min-height:340px}
+.roadmap-card:nth-child(3),.roadmap-card:nth-child(4),.roadmap-card:nth-child(5),.roadmap-card:nth-child(6){grid-column:span 6}
+.roadmap-card:hover{
+  transform:translateY(-9px) perspective(1000px) rotateX(1deg);
+  border-color:color-mix(in srgb,var(--accent) 55%,rgba(255,255,255,.18));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 28px 75px rgba(0,0,0,.28),0 0 45px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+.roadmap-card:before{content:"";position:absolute;width:260px;height:260px;right:-130px;top:-130px;border-radius:50%;background:var(--accent);filter:blur(85px);opacity:.06;transition:.5s}
+.roadmap-card:hover:before{opacity:.18}
+.roadmap-card:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.16}
+.roadmap-number{position:absolute;right:24px;top:20px;font-family:"Space Grotesk";font-size:11px;font-weight:700;letter-spacing:.15em;color:#5d7772}
+.roadmap-number b{color:var(--accent);font-size:13px}
+.icon-box{
+  width:52px;height:52px;border-radius:15px;display:grid;place-items:center;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);
+  margin-bottom:26px;flex:0 0 auto;transform:translateZ(20px);
+  box-shadow:inset 0 0 25px color-mix(in srgb,var(--accent) 10%,transparent),0 8px 25px color-mix(in srgb,var(--accent) 7%,transparent);
+  transition:transform .4s cubic-bezier(.2,.9,.3,1.3),background .35s;
+}
+.icon-box i{transition:transform .4s cubic-bezier(.2,.9,.3,1.3)}
+.roadmap-card:hover .icon-box{transform:translateZ(20px) rotate(-8deg) scale(1.08);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.roadmap-card:hover .icon-box i{transform:scale(1.1)}
+.roadmap-card h3{font-family:"Space Grotesk";font-size:clamp(19px,2vw,25px);letter-spacing:-.025em;margin:0 0 9px;flex:0 0 auto;transform:translateZ(18px)}
+.roadmap-card p{color:#78918d;font-size:12px;line-height:1.75;max-width:390px;flex:0 0 auto;transform:translateZ(10px);margin-bottom:0}
+.roadmap-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;flex:0 0 auto;transform:translateZ(14px)}
+.roadmap-tag{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#91aaa6;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.035);padding:6px 8px;border-radius:999px;transition:.25s}
+.roadmap-card:hover .roadmap-tag{border-color:color-mix(in srgb,var(--accent) 35%,transparent);color:#d7ece8}
+.roadmap-spacer{flex:1 1 auto;min-height:22px}
+.roadmap-line{position:relative;height:1px;flex:0 0 auto;background:linear-gradient(90deg,var(--accent),transparent);opacity:.15;margin-bottom:18px}
+.roadmap-line span{position:absolute;left:0;top:-2px;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 13px var(--accent)}
+.card-footer{position:relative;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;transform:translateZ(25px)}
+.view{font-size:9px;font-weight:800;letter-spacing:.15em;color:#c6dad6}
+.arrow{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.025);color:#9eb5b0;display:grid;place-items:center;transition:.3s;flex:0 0 auto}
+.roadmap-card:hover .arrow{background:var(--accent);color:#03211e;border-color:transparent;transform:translateX(5px) rotate(-3deg)}
+.roadmap-card:nth-child(1) .icon-box{width:58px;height:58px;border-radius:17px}
+.roadmap-card:nth-child(1) h3{font-size:30px}
+.roadmap-card:nth-child(1) p{max-width:520px;font-size:13px}
+
+
+.roadmap-card.coming-soon{opacity:.55;pointer-events:none}
+.roadmap-card.coming-soon .view{color:#7a9490}
+.roadmap-card.coming-soon .arrow{opacity:.4}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.intro-copy p{color:var(--muted);line-height:1.9;font-size:14px;max-width:650px}
+.info-panel{
+  border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+  backdrop-filter:blur(10px);padding:27px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 20px 60px rgba(0,0,0,.16);
+  position:relative;overflow:hidden;
+}
+.info-panel:after{content:"";position:absolute;width:220px;height:220px;right:-100px;top:-100px;background:var(--teal);filter:blur(90px);opacity:.08}
+.info-row{display:flex;gap:15px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:1;transition:transform .25s ease}
+.info-row:last-child{border-bottom:0}
+.info-row:hover{transform:translateX(3px)}
+.info-icon{width:36px;height:36px;flex:0 0 36px;border-radius:10px;display:grid;place-items:center;color:var(--teal);background:rgba(32,240,208,.06);border:1px solid rgba(32,240,208,.11);transition:.25s}
+.info-row:hover .info-icon{border-color:rgba(32,240,208,.35);background:rgba(32,240,208,.07);box-shadow:0 0 22px rgba(32,240,208,.08)}
+.info-label{font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:#607a75;margin-bottom:4px}
+.info-value{font-size:12px;color:#d3e5e1;line-height:1.6;word-break:break-word}
+.info-content-wide{min-width:0;flex:1}
+.team-value{white-space:nowrap;font-size:clamp(10px,1.15vw,12px);letter-spacing:-.01em}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.do-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.do-card{
+  --accent:var(--yellow);padding:25px;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+  backdrop-filter:blur(10px);transition:.3s;position:relative;overflow:hidden;
+}
+.do-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 40%,transparent);background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));box-shadow:0 20px 50px rgba(0,0,0,.22),0 0 30px color-mix(in srgb,var(--accent) 12%,transparent)}
+.do-card:before{content:"";position:absolute;width:160px;height:160px;right:-70px;top:-70px;border-radius:50%;background:var(--accent);filter:blur(70px);opacity:.05;transition:.5s}
+.do-card:hover:before{opacity:.16}
+.do-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,transparent);border:1px solid color-mix(in srgb,var(--accent) 24%,transparent);font-size:16px;margin-bottom:22px;position:relative;z-index:1;transition:transform .35s cubic-bezier(.2,.9,.3,1.3)}
+.do-card:hover .do-icon{transform:rotate(-8deg) scale(1.08)}
+.do-card h3{font-family:"Space Grotesk";font-size:18px;margin-bottom:8px}
+.do-card p{font-size:12px;line-height:1.8;color:#718a85;margin:0}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+.next-wrap{
+  border:1px solid rgba(32,240,208,.14);border-radius:26px;padding:48px;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 90% 10%,rgba(255,201,40,.08),transparent 28%),linear-gradient(135deg,rgba(32,240,208,.05),rgba(255,255,255,.015));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 25px 80px rgba(0,0,0,.18);
+}
+.next-wrap:before{content:"";position:absolute;inset:auto -10% -70% 20%;height:260px;background:radial-gradient(circle,rgba(32,240,208,.12),transparent 65%);filter:blur(30px)}
+.next-wrap p{color:var(--muted);max-width:730px;line-height:1.9;font-size:14px}
+.recruit{display:inline-flex;align-items:center;gap:8px;margin-top:15px;color:#06221f;background:var(--yellow);padding:11px 15px;border-radius:11px;font-size:11px;font-weight:900;box-shadow:0 10px 35px rgba(255,201,40,.12)}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+.connect-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.connect-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:38px}
+.connect-tile{
+  position:relative;overflow:hidden;text-align:center;flex:0 1 calc(20% - 11.2px);
+  border:1px solid var(--line);border-radius:20px;padding:30px 20px;
+  background:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 42%),linear-gradient(150deg,rgba(9,42,40,.88),rgba(4,25,24,.8));
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 45px rgba(0,0,0,.16);
+}
+.connect-tile:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 42%,transparent);box-shadow:0 20px 50px rgba(0,0,0,.26),0 0 26px color-mix(in srgb,var(--accent) 9%,transparent)}
+.connect-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);font-size:17px;transition:transform .35s cubic-bezier(.2,.9,.3,1.3)}
+.connect-tile:hover .connect-icon{transform:rotate(-8deg) scale(1.08)}
+.connect-label{font-family:"Space Grotesk";font-size:14.5px;font-weight:700;color:#fff}
+.connect-value{font-size:10.5px;color:#83a09b;word-break:break-word;line-height:1.5}
+.connect-go{position:absolute;top:14px;right:14px;font-size:10px;color:#4f6863;opacity:0;transform:translate(-3px,3px);transition:.3s}
+.connect-tile:hover .connect-go{opacity:1;transform:translate(0,0);color:var(--accent)}
+
+.copy-toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(6,42,42,.92);border:1px solid rgba(32,240,208,.3);color:#effff9;
+  padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;
+  opacity:0;visibility:hidden;transition:.3s;z-index:1001;backdrop-filter:blur(12px);
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+.copy-toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+footer{
+  position:relative;border-top:1px solid rgba(32,240,208,.12);padding:72px 0 0;color:#6c8580;font-size:12px;
+  background:radial-gradient(circle at 82% 10%,rgba(32,240,208,.06),transparent 28%),radial-gradient(circle at 10% 90%,rgba(255,201,40,.045),transparent 30%),linear-gradient(180deg,rgba(7,39,37,.85),rgba(3,24,23,.98));
+  overflow:hidden;
+}
+footer:before{
+  content:"";position:absolute;left:50%;top:-1px;width:min(460px,55%);height:1px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--teal) 35%,var(--yellow) 65%,transparent);background-size:200% 100%;
+  box-shadow:0 0 18px rgba(32,240,208,.28);animation:footerShimmer 5s ease-in-out infinite;
+}
+@keyframes footerShimmer{0%{background-position:0% 0}50%{background-position:100% 0}100%{background-position:0% 0}}
+footer:after{content:"";position:absolute;width:300px;height:160px;right:-90px;bottom:-80px;border-radius:50%;background:rgba(32,240,208,.07);filter:blur(60px);pointer-events:none}
+.footer-simple{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding-bottom:40px;width:100%}
+.footer-brand-link{width:fit-content;margin:0 auto;justify-content:center}
+.footer-tagline{color:#7d9691;font-size:12.5px;line-height:1.8;margin:0 auto;max-width:400px;text-align:center;width:100%}
+.footer-divider{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent)}
+.footer-bottom{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:22px 0 26px;text-align:center}
+.footer-meta{color:#637d78;text-align:center;width:100%}
+.footer-credit{color:#708984;text-align:center;width:100%}
+.footer-credit a.credit-name{
+  font-weight:800;transition:.25s;
+  background:linear-gradient(120deg,var(--teal2),var(--teal) 45%,var(--yellow));background-size:180% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:creditShimmer 6s ease-in-out infinite;
+}
+.footer-credit a.credit-name:hover{background-position:100% 0}
+@keyframes creditShimmer{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+#pdfModal .modal-dialog{max-width:1280px;width:100%;margin:0 auto;height:100%;padding:20px}
+#pdfModal .modal-content{
+  height:100%;background:rgba(3,24,23,.72)!important;border:1px solid rgba(166,255,242,.16)!important;
+  border-radius:28px!important;overflow:hidden;
+  backdrop-filter:blur(24px) saturate(135%);-webkit-backdrop-filter:blur(24px) saturate(135%);
+  box-shadow:0 35px 100px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.07);
+}
+#pdfModal .modal-header{
+  margin:14px 14px 0;padding:20px 24px!important;min-height:118px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  border:1px solid rgba(166,255,242,.16)!important;border-radius:22px!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+#pdfModal .modal-icon{width:62px;height:62px;flex:0 0 62px;border-radius:17px;display:grid;place-items:center;color:var(--teal);font-size:24px;background:rgba(32,240,208,.08);border:1px solid rgba(32,240,208,.3);box-shadow:inset 0 0 25px rgba(32,240,208,.08)}
+#pdfModal .modal-header>div:first-child{margin-right:auto;display:flex;align-items:center;gap:16px}
+#pdfModal .modal-title-wrap{min-width:0}
+#pdfModal .modal-title{font-family:'Space Grotesk';font-size:clamp(22px,2vw,30px);font-weight:700;color:#f5fffc;line-height:1.15}
+#pdfModal .modal-subtitle{font-size:15px;color:#9db8b3;margin-top:5px}
+#pdfModal .section-kicker{font-size:9px;margin-bottom:5px}
+#pdfModal .d-flex.gap-2{align-items:center;flex-wrap:nowrap;flex-shrink:0}
+#pdfModal .mini-btn{
+  min-height:54px;padding:0 24px;border-radius:18px!important;border:1px solid rgba(166,255,242,.18)!important;
+  background:rgba(255,255,255,.045)!important;color:#f5fffc!important;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:700;transition:.25s;backdrop-filter:blur(12px);
+  white-space:nowrap;flex-shrink:0;
+}
+#pdfModal .modal-title,#pdfModal .modal-subtitle{white-space:normal;overflow-wrap:break-word}
+#pdfModal .mini-btn:hover{transform:translateY(-2px);border-color:rgba(32,240,208,.45)!important;background:rgba(32,240,208,.09)!important;box-shadow:0 12px 30px rgba(32,240,208,.08)}
+#pdfModal #pdfClose{background:linear-gradient(135deg,#ff4d6d,#d61f4b)!important;border-color:transparent!important;min-width:138px}
+#pdfModal .pdf-frame-wrap{margin:14px;height:calc(100% - 160px);width:calc(100% - 28px);border:1px solid rgba(166,255,242,.1);border-radius:20px;background:#021b1a;position:relative;overflow:hidden}
+#pdfModal .pdf-frame{height:100%;width:100%;border:0;border-radius:inherit;background:#021b1a;display:block;overflow:hidden}
+#pdfModal .pdf-loading{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#a4c9c0;font-family:"Space Grotesk";font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+#pdfModal .pdf-loading.show{display:flex}
+#pdfModal .pdf-spinner{width:38px;height:38px;border-radius:50%;border:3px solid rgba(32,240,208,.15);border-top-color:var(--teal);animation:spin 1s linear infinite}
+#pdfModal .pdf-fallback{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:40px;color:#a4c9c0}
+#pdfModal .pdf-fallback.show{display:flex}
+#pdfModal .pdf-fallback i{font-size:52px;color:#4d6b66}
+#pdfModal .pdf-fallback h4{color:#effff9;margin:0;font-family:'Space Grotesk',sans-serif;font-size:20px}
+#pdfModal .pdf-fallback p{max-width:420px;line-height:1.7;font-size:13px;margin:0}
+.modal-backdrop.show{opacity:.86!important;background:#021212!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+
+.cursor-glow{position:fixed;width:260px;height:260px;border-radius:50%;pointer-events:none;z-index:999;left:0;top:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(32,240,208,.075) 0%,rgba(32,240,208,.035) 28%,transparent 68%);filter:blur(4px);opacity:0;transition:opacity .35s ease;mix-blend-mode:screen}
+.cursor-glow-dot{position:fixed;width:5px;height:5px;border-radius:50%;pointer-events:none;z-index:1000;left:0;top:0;transform:translate(-50%,-50%);background:#20f0d0;box-shadow:0 0 14px rgba(32,240,208,.85),0 0 28px rgba(32,240,208,.35);opacity:0;transition:opacity .25s ease}
+@media (pointer:coarse), (max-width:700px){.cursor-glow,.cursor-glow-dot{display:none!important}}
+.back-top{
+  position:fixed;right:24px;bottom:24px;width:46px;height:46px;border:1px solid rgba(32,240,208,.24);border-radius:14px;
+  display:grid;place-items:center;color:#20f0d0;background:rgba(4,27,26,.72);backdrop-filter:blur(14px);
+  box-shadow:0 15px 45px rgba(0,0,0,.28),inset 0 0 18px rgba(32,240,208,.025);
+  z-index:998;opacity:0;visibility:hidden;transform:translateY(16px) scale(.9);
+  transition:opacity .3s ease,visibility .3s ease,transform .3s ease,border-color .25s ease;cursor:pointer;
+}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.back-top:hover{border-color:rgba(32,240,208,.55);color:#031817;background:#20f0d0;transform:translateY(-4px) scale(1.03);box-shadow:0 18px 50px rgba(32,240,208,.16)}
+.nav-toggle{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;border-radius:11px;border:1px solid rgba(32,240,208,.24);background:rgba(32,240,208,.05);cursor:pointer;transition:.3s}
+.nav-toggle:hover{background:rgba(32,240,208,.1)}
+.nav-toggle span{display:block;width:19px;height:2px;border-radius:2px;background:#eafffa;transition:transform .3s ease,opacity .3s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-7deg)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.show{opacity:1;transform:none}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+@keyframes bounce{50%{transform:translateY(5px)}}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;z-index:10000;background:linear-gradient(90deg,#20f0d0,#ffc928);box-shadow:0 0 12px rgba(32,240,208,.45);transition:width .08s linear;pointer-events:none}
+#heroParticles{position:fixed;inset:0;width:100%;height:100vh;z-index:-1;pointer-events:none;overflow:hidden}
+.hero-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:#20f0d0;box-shadow:0 0 9px #20f0d0;opacity:0;animation:heroFloat linear infinite}
+.hero-particle.gold{background:#ffc928;box-shadow:0 0 10px #ffc928}
+@keyframes heroFloat{0%{transform:translate3d(0,20px,0);opacity:0}12%{opacity:.5}88%{opacity:.5}100%{transform:translate3d(var(--drift),-110vh,0);opacity:0}}
+[data-tilt]{transform-style:preserve-3d;will-change:transform}
+.magnetic{will-change:transform}
+
+@media(max-width:991px){
+  .hero{padding-top:135px;align-items:flex-start}
+  .hero-content{padding-top:45px}
+  .hero h1{max-width:680px}
+  #three-root{opacity:.62}
+  .hero-vignette{background:linear-gradient(90deg,rgba(3,24,23,.96) 0%,rgba(3,24,23,.75) 48%,rgba(3,24,23,.25) 100%)}
+  .roadmap-grid{grid-template-columns:repeat(2,1fr)}
+  .roadmap-card:nth-child(n){grid-column:span 1}
+  .roadmap-card:nth-child(1){grid-column:span 2}
+  .roadmap-card:nth-child(6){grid-column:span 2}
+  .roadmap-card:nth-child(1) h3{font-size:26px}
+  .intro-grid{grid-template-columns:1fr;gap:35px}
+  .do-grid{grid-template-columns:repeat(2,1fr)}
+  .connect-tile{flex-basis:calc(33.333% - 9.4px)}
+  .team-value{font-size:clamp(10px,1.55vw,12px)}
+  #pdfModal .modal-header{flex-wrap:wrap;row-gap:14px}
+  #pdfModal .d-flex.gap-2{width:100%}
+  #pdfModal .mini-btn{flex:1}
+}
+@media(max-width:700px){
+  body:before{background-size:42px 42px}
+  .navbar{padding:13px 0}
+  .brand,.brand-word{font-size:17px}
+  .brand-mark{width:30px;height:30px;border-radius:9px;font-size:12px}
+  .hero{min-height:100svh;padding:105px 0 75px}
+  .hero-content{padding-top:28px}
+  .hero h1{font-size:46px;letter-spacing:-.055em}
+  .hero p{font-size:14px;line-height:1.8}
+  .actions{display:grid;grid-template-columns:1fr;max-width:320px}
+  .btn-main,.btn-ghost{justify-content:center}
+  .hero-meta{gap:18px;margin-top:30px}
+  .meta strong{font-size:19px}
+  .meta span{font-size:8px}
+  #three-root{opacity:.35}
+  .hero-vignette{background:linear-gradient(180deg,rgba(3,24,23,.97) 0%,rgba(3,24,23,.82) 45%,rgba(3,24,23,.7) 100%)}
+  .hero-orb{width:300px;height:300px;right:-100px;top:42%}
+  section{padding:80px 0}
+  .section-title{font-size:38px}
+  .section-desc{font-size:13px;margin-bottom:32px}
+  .roadmap-grid{grid-template-columns:1fr;gap:12px}
+  .roadmap-card:nth-child(n){grid-column:span 1}
+  .roadmap-card,.roadmap-card:nth-child(1),.roadmap-card:nth-child(2){min-height:270px}
+  .roadmap-card:nth-child(1) h3{font-size:24px}
+  .roadmap-card{padding:23px}
+  .do-grid{grid-template-columns:1fr}
+  .next-wrap{padding:28px 22px;border-radius:20px}
+  .intro-grid{gap:25px}
+  .info-panel{padding:20px}
+  .loader-logo{width:min(72vw,300px)}
+  .loader-percent{font-size:36px}
+  .loader-ring{width:78vw;height:78vw}
+  .connect-grid{gap:10px;margin-top:28px}
+  .connect-tile{flex-basis:calc(50% - 5px);padding:24px 14px}
+  .connect-actions{display:grid;grid-template-columns:1fr}
+  .connect-actions .btn-main,.connect-actions .btn-ghost{justify-content:center}
+  .team-value{font-size:11px!important;letter-spacing:-.01em;white-space:normal!important;line-height:1.5}
+  footer{padding-top:56px}
+  .back-top{right:16px;bottom:16px;width:43px;height:43px;border-radius:13px}
+  #pdfModal .modal-dialog{padding:10px}
+  #pdfModal .modal-header{padding:16px!important;min-height:auto;flex-wrap:wrap}
+  #pdfModal .modal-icon{width:48px;height:48px;flex-basis:48px;font-size:18px;border-radius:13px}
+  #pdfModal .d-flex.gap-2{width:100%;flex-wrap:nowrap;gap:8px!important}
+  #pdfModal .mini-btn{flex:1;min-height:46px;padding:0 8px;font-size:12px;white-space:nowrap}
+  #pdfModal .mini-btn span{display:none}
+  #pdfModal #pdfClose{min-width:0}
+  #pdfModal .pdf-frame-wrap{height:calc(100% - 154px);border-radius:20px}
+}
+@media(max-width:767px){
+  .offcanvas.offcanvas-end{top:12px!important;right:12px!important;bottom:auto!important;height:auto!important;max-height:calc(100dvh - 24px);border-radius:22px!important;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+/* Crafted with care by Mohamed Ahmed Ezzat */
+</style>
+</head>
+<body>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<div class="scroll-progress" id="scrollProgress"></div>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-ring"></div>
+    <img class="loader-logo" id="loaderLogo" src="https://i.ibb.co/bg25xHM5/Cipher.png" alt="Cipher Logo" onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'loader-logo loader-logo-fallback',innerHTML:'<i class=&quot;fa-solid fa-terminal&quot;></i>'}))">
+    <div class="loader-status">Initializing Cipher</div>
+    <div class="loader-percent"><span id="loaderNumber">0</span>%</div>
+    <div class="loader-tip">mapping your next move...</div>
+  </div>
+</div>
+
+<div id="heroParticles" aria-hidden="true"></div>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<nav class="navbar" id="nav">
+  <div class="container-xl d-flex align-items-center justify-content-between">
+    <a href="#home" class="brand"><span class="brand-mark"><i class="fa-solid fa-terminal"></i></span><span class="brand-word">CIPHER<i>.</i></span></a>
+    <div class="d-none d-md-flex align-items-center">
+      <a class="nav-link" href="#home">Home</a>
+      <a class="nav-link" href="#roadmaps">Roadmaps</a>
+      <a class="nav-link" href="#intro">About</a>
+      <a class="nav-link" href="#what-we-do">What We Do</a>
+      <a class="nav-link" href="#connect">Connect</a>
+    </div>
+    <a class="nav-cta d-none d-md-inline-flex" href="#roadmaps">Explore Paths <span class="cta-arrow"><i class="fa-solid fa-arrow-right"></i></span></a>
+    <button class="nav-toggle d-md-none" id="navToggleBtn" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" style="background:#041b1a!important;border:1px solid var(--line)">
+  <div class="offcanvas-header">
+    <div class="brand"><span class="brand-mark"><i class="fa-solid fa-terminal"></i></span><span class="brand-word">CIPHER<i>.</i></span></div>
+    <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+    <a class="nav-link" href="#home">Home</a>
+    <a class="nav-link" href="#roadmaps">Roadmaps</a>
+    <a class="nav-link" href="#intro">About</a>
+    <a class="nav-link" href="#what-we-do">What We Do</a>
+    <a class="nav-link" href="#connect">Connect</a>
+  </div>
+</div>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<main id="home">
+<section class="hero">
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+  <div id="three-root"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-vignette"></div>
+
+  <div class="container-xl hero-content">
+    <div class="reveal">
+      <div class="eyebrow"><span class="pulse-dot"></span> STUDENT • TECH • COMMUNITY</div>
+      <h1>Choose Your <span class="gradient">Path.</span><br>Build Your Future.</h1>
+      <p>Clear learning directions for students who want to explore technology, build real skills, and know what to learn next.</p>
+      <div class="actions">
+        <a href="#roadmaps" class="btn-main">Explore Roadmaps <i class="fa-solid fa-arrow-down"></i></a>
+        <a href="#intro" class="btn-ghost">Meen Cipher <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="hero-meta">
+        <div class="meta"><strong data-count="6" data-pad="2">00</strong><span>Learning Paths</span></div>
+        <div class="meta"><strong data-count="1" data-pad="2">00</strong><span>Community</span></div>
+        <div class="meta"><strong class="infinity-count">∞</strong><span>Potential</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">Scroll to explore <i class="fa-solid fa-chevron-down"></i></div>
+  <div class="hero-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,60 L1440,0 L1440,60 Z" fill="#031817"></path>
+      <path d="M0,60 L1440,0" stroke="rgba(32,240,208,.16)" stroke-width="1" fill="none"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<section id="roadmaps">
+  <div class="container-xl">
+    <div class="reveal">
+      <div class="section-kicker">01 / Roadmaps</div>
+      <h2 class="section-title">Pick your direction.</h2>
+      <p class="section-desc">Choose a path and open its complete roadmap. More paths are coming soon.</p>
+    </div>
+    <div class="roadmap-grid" id="roadmapGrid"></div>
+  </div>
+</section>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<section id="intro">
+  <div class="container-xl">
+    <div class="intro-grid">
+      <div class="intro-copy reveal">
+        <div class="section-kicker">02 / Intro</div>
+        <h2 class="section-title">Who is <span class="gradient">Cipher?</span></h2>
+        <p>Maybe you've heard about us before. Maybe this is your first time seeing us. Either way, let's introduce ourselves.</p>
+        <p>Cipher is a voluntary student activity at Sohag University. Our goal is to help students discover technology and programming fields and start their journey with clear steps.</p>
+        <p>We believe every student can start, regardless of their current level or experience. Sometimes, all you need is someone to point you toward the first step.</p>
+      </div>
+
+      <div class="info-panel reveal">
+        <div class="info-row"><div class="info-icon"><i class="fa-solid fa-building-columns"></i></div><div class="info-content-wide"><div class="info-label">Team</div><div class="info-value team-value">Faculty of Computers and Information Technology Team · Sohag University</div></div></div>
+        <div class="info-row"><div class="info-icon"><i class="fa-solid fa-graduation-cap"></i></div><div><div class="info-label">Category</div><div class="info-value">Page · Computer Training School</div></div></div>
+        <div class="info-row"><div class="info-icon"><i class="fa-solid fa-location-dot"></i></div><div><div class="info-label">Location</div><div class="info-value">Sohag, Egypt</div></div></div>
+        <div class="info-row"><div class="info-icon"><i class="fa-solid fa-envelope"></i></div><div><div class="info-label">Email</div><div class="info-value"><a href="mailto:cipherteam77@gmail.com">cipherteam77@gmail.com</a></div></div></div>
+        <div class="info-row"><div class="info-icon"><i class="fa-solid fa-share-nodes"></i></div><div><div class="info-label">Connect</div><div class="info-value"><a href="https://www.linkedin.com/company/ciphersohag/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.facebook.com/CipherSohag" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.youtube.com/@cipherteam2019" target="_blank" rel="noopener">YouTube</a></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<section id="what-we-do">
+  <div class="container-xl">
+    <div class="reveal">
+      <div class="section-kicker">03 / What We Do</div>
+      <h2 class="section-title">More than just information.</h2>
+      <p class="section-desc">Throughout the season, Cipher creates experiences that help students learn, practice, and see technology from a clearer perspective.</p>
+    </div>
+    <div class="do-grid">
+      <div class="do-card reveal" style="--accent:#20f0d0"><div class="do-icon"><i class="fa-solid fa-route"></i></div><h3>Roadmaps</h3><p>Structured directions that help you understand where to begin and what to explore next.</p></div>
+      <div class="do-card reveal" style="--accent:#ffc928"><div class="do-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Camps</h3><p>Focused learning experiences built around technical fields and practical progress.</p></div>
+      <div class="do-card reveal" style="--accent:#6fffe1"><div class="do-icon"><i class="fa-solid fa-chalkboard-user"></i></div><h3>Workshops</h3><p>Short, practical sessions designed to introduce concepts and make technology easier to approach.</p></div>
+      <div class="do-card reveal" style="--accent:#ffe56b"><div class="do-icon"><i class="fa-solid fa-calendar-days"></i></div><h3>Events</h3><p>Activities and events that connect students with new ideas, people, and opportunities.</p></div>
+      <div class="do-card reveal" style="--accent:#49ffe5"><div class="do-icon"><i class="fa-solid fa-code"></i></div><h3>Technical Content</h3><p>Simple content that turns confusing questions into useful next steps.</p></div>
+      <div class="do-card reveal" style="--accent:#ffc928"><div class="do-icon"><i class="fa-solid fa-people-group"></i></div><h3>Community</h3><p>A student community where curiosity, collaboration, and growth come together.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<section id="next">
+  <div class="container-xl">
+    <div class="next-wrap reveal">
+      <div class="section-kicker">04 / What's Next</div>
+      <h2 class="section-title">This is only the beginning.</h2>
+      <p>The coming period will bring new content, clearer introductions to programming fields, more roadmaps, workshops, camps, events, and activities inside and outside the university.</p>
+      <p>Whether you are just starting university or already several years in, there will be something here to help you answer the questions you may be stuck on.</p>
+      <p>And keep an eye out — <strong style="color:#fff">Applications to join us will open again very soon.</strong> If you want to become part of Cipher and help create real impact, start preparing from now.</p>
+      <a class="recruit" href="#footer"><i class="fa-solid fa-bolt"></i> Get Ready to Join Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<section id="connect">
+  <div class="container-xl">
+    <div class="reveal">
+      <div class="section-kicker">05 / Connect</div>
+      <h2 class="section-title">Let's stay <span class="gradient">connected.</span></h2>
+      <p class="section-desc">Got a question, an idea, or just want to say hi? Cipher is one message away — pick whichever channel feels right.</p>
+      <div class="connect-actions">
+        <a class="btn-main" href="https://www.facebook.com/CipherSohag" target="_blank" rel="noopener">Join the Community <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a class="btn-ghost" href="mailto:cipherteam77@gmail.com">Message Us <i class="fa-solid fa-paper-plane"></i></a>
+      </div>
+    </div>
+
+    <div class="connect-grid">
+      <a class="connect-tile reveal" style="--accent:#20f0d0" href="https://www.facebook.com/CipherSohag" target="_blank" rel="noopener">
+        <i class="fa-solid fa-arrow-up-right-from-square connect-go"></i>
+        <div class="connect-icon"><i class="fa-brands fa-facebook-f"></i></div>
+        <div class="connect-label">Facebook</div>
+        <div class="connect-value">@CipherSohag</div>
+      </a>
+      <a class="connect-tile reveal" style="--accent:#6fffe1" href="https://www.linkedin.com/company/ciphersohag/" target="_blank" rel="noopener">
+        <i class="fa-solid fa-arrow-up-right-from-square connect-go"></i>
+        <div class="connect-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+        <div class="connect-label">LinkedIn</div>
+        <div class="connect-value">Cipher · Sohag</div>
+      </a>
+      <a class="connect-tile reveal" style="--accent:#ffc928" href="https://www.youtube.com/@cipherteam2019" target="_blank" rel="noopener">
+        <i class="fa-solid fa-arrow-up-right-from-square connect-go"></i>
+        <div class="connect-icon"><i class="fa-brands fa-youtube"></i></div>
+        <div class="connect-label">YouTube</div>
+        <div class="connect-value">@cipherteam2019</div>
+      </a>
+      <a class="connect-tile reveal" style="--accent:#ffe56b" href="mailto:cipherteam77@gmail.com" id="emailTile">
+        <i class="fa-solid fa-arrow-up-right-from-square connect-go"></i>
+        <div class="connect-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="connect-label">Email</div>
+        <div class="connect-value">cipherteam77@gmail.com</div>
+      </a>
+      <a class="connect-tile reveal" style="--accent:#49ffe5" href="https://maps.google.com/?q=Faculty+of+Computers+and+Information+Sohag+University" target="_blank" rel="noopener">
+        <i class="fa-solid fa-arrow-up-right-from-square connect-go"></i>
+        <div class="connect-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="connect-label">Location</div>
+        <div class="connect-value">Sohag University, Egypt</div>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-glow-dot" id="cursorGlowDot"></div>
+<div class="copy-toast" id="copyToast">Email copied!</div>
+
+<button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<footer id="footer">
+  <div class="container-xl footer-simple">
+    <a href="#home" class="brand footer-brand-link"><span class="brand-mark"><i class="fa-solid fa-terminal"></i></span><span class="brand-word">CIPHER<i>.</i></span></a>
+    <p class="footer-tagline">A voluntary student initiative at Sohag University, helping students explore technology and take their first confident step.</p>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="container-xl footer-bottom">
+    <div class="footer-meta">© 2026 Cipher. All rights reserved.</div>
+    <div class="footer-credit">Crafted with care by <a href="https://wa.me/201125296350" target="_blank" rel="noopener" class="credit-name">Mohamed Ahmed Ezzat</a></div>
+  </div>
+</footer>
+
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-lg-down modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header px-3 py-2">
+        <div>
+          <div class="modal-icon" id="modalIcon"><i class="fa-solid fa-code"></i></div>
+          <div class="modal-title-wrap">
+            <div class="modal-title" id="modalTitle">Roadmap</div>
+            <div class="modal-subtitle" id="modalDesc">Build modern and responsive web experiences.</div>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <a class="mini-btn" id="openPdf" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Open in New Tab</span></a>
+          <a class="mini-btn" id="downloadPdf" download><i class="fa-solid fa-download"></i> <span>Download</span></a>
+          <button class="mini-btn" id="pdfClose" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i> <span>Close</span></button>
+        </div>
+      </div>
+      <div class="pdf-frame-wrap">
+        <iframe class="pdf-frame" id="pdfViewer" title="PDF Viewer" loading="eager" allow="fullscreen"></iframe>
+        <div class="pdf-loading" id="pdfLoading">
+          <div class="pdf-spinner"></div>
+          <span>Loading PDF...</span>
+        </div>
+        <div class="pdf-fallback" id="pdfFallback">
+          <i class="fa-solid fa-file-circle-exclamation"></i>
+          <h4>Unable to load PDF</h4>
+          <p>Try opening it in a new tab or downloading it.</p>
+          <a href="#" class="mini-btn" id="fallbackDownload" download><i class="fa-solid fa-download"></i> <span>Download</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<script>
+/* Crafted with care by Mohamed Ahmed Ezzat */
+/* Crafted with care by Mohamed Ahmed Ezzat */
+const roadmaps = [
+  {
+    id: "problem-solving",
+    title: "Problem Solving",
+    desc: "Build logical thinking and problem-solving skills through structured practice.",
+    icon: "fa-puzzle-piece",
+    pdf: "https://drive.google.com/file/d/1X1F6qqdNtyfTPhWPzaYI5ynnUemcDOcu/preview",
+    download: "https://drive.google.com/uc?export=download&id=1X1F6qqdNtyfTPhWPzaYI5ynnUemcDOcu",
+    accent: "#ffc928",
+    tags: ["Logic", "Algorithms", "Practice"]
+  },
+  /* Crafted with care by Mohamed Ahmed Ezzat */
+  {
+    id: "network",
+    title: "Network",
+    desc: "Learn networking protocols, routing, and security fundamentals.",
+    icon: "fa-network-wired",
+    pdf: "https://drive.google.com/file/d/1ChNkgfgqERjMIrl5iMSWqXwZYvs5sGZa/preview",
+    download: "https://drive.google.com/uc?export=download&id=1ChNkgfgqERjMIrl5iMSWqXwZYvs5sGZa",
+    accent: "#5be0ff",
+    tags: ["Protocols", "Routing", "Security"]
+  },
+  /* Crafted with care by Mohamed Ahmed Ezzat */
+  {
+    id: "frontend",
+    title: "Frontend",
+    desc: "Build modern, responsive user interfaces and interactive web experiences.",
+    icon: "fa-laptop-code",
+    pdf: "https://drive.google.com/file/d/1NcECTvLRlMqjnP_xdrTsk3u7UuN3V2cT/preview",
+    download: "https://drive.google.com/uc?export=download&id=1NcECTvLRlMqjnP_xdrTsk3u7UuN3V2cT",
+    accent: "#20f0d0",
+    tags: ["HTML", "CSS", "JavaScript"]
+  },
+  /* Crafted with care by Mohamed Ahmed Ezzat */
+  {
+    id: "backend",
+    title: "Backend",
+    desc: "Design APIs, databases, and server-side logic that power real applications.",
+    icon: "fa-server",
+    pdf: "https://drive.google.com/file/d/1gU5fLVUll9e7XQAJiWLkBJKgX7RJKEao/preview",
+    download: "https://drive.google.com/uc?export=download&id=1gU5fLVUll9e7XQAJiWLkBJKgX7RJKEao",
+    accent: "#6fffe1",
+    tags: ["APIs", "Databases", "Node"]
+  },
+  /* Crafted with care by Mohamed Ahmed Ezzat */
+  {
+    id: "flutter",
+    title: "Flutter",
+    desc: "Build beautiful, natively compiled mobile apps from a single codebase.",
+    icon: "fa-mobile-screen-button",
+    pdf: "https://drive.google.com/file/d/1dfWSXdhZXlaohhhcUtL6oX_KqMEJiGjw/preview",
+    download: "https://drive.google.com/uc?export=download&id=1dfWSXdhZXlaohhhcUtL6oX_KqMEJiGjw",
+    accent: "#5be0ff",
+    tags: ["Dart", "Widgets", "Mobile"]
+  },
+  /* Crafted with care by Mohamed Ahmed Ezzat */
+  {
+    id: "devops",
+    title: "DevOps",
+    desc: "Learn CI/CD, containers, and the tools that keep systems running smoothly.",
+    icon: "fa-gears",
+    pdf: "https://drive.google.com/file/d/1sy6ojg6_bXYJ9eBl1msRwdC8HRovGZ8j/preview",
+    download: "https://drive.google.com/uc?export=download&id=1sy6ojg6_bXYJ9eBl1msRwdC8HRovGZ8j",
+    accent: "#49ffe5",
+    tags: ["Docker", "CI/CD", "Cloud"]
+  }
+];
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+const loader = document.getElementById("loader");
+const loaderNumber = document.getElementById("loaderNumber");
+let progress = 0;
+const start = performance.now();
+const duration = 1300;
+function animateLoader(now) {
+  const t = Math.min(1, (now - start) / duration);
+  const eased = 1 - Math.pow(1 - t, 3);
+  progress = Math.floor(eased * 100);
+  loaderNumber.textContent = progress;
+  if (t < 1) requestAnimationFrame(animateLoader);
+  else setTimeout(() => loader.classList.add("hide"), 250);
+}
+requestAnimationFrame(animateLoader);
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+const grid = document.getElementById("roadmapGrid");
+grid.innerHTML = roadmaps.map((r, i) => `
+<article class="roadmap-card reveal ${r.comingSoon ? 'coming-soon' : ''}" data-tilt style="--accent:${r.accent};transition-delay:${i * 70}ms">
+  <div class="roadmap-number"><b>0${i + 1}</b> / PATH</div>
+  <div class="icon-box"><i class="fa-solid ${r.icon}"></i></div>
+  <h3>${r.title}</h3>
+  <p>${r.desc}</p>
+  <div class="roadmap-tags">
+    ${(r.tags || []).map(t => `<span class="roadmap-tag">${t}</span>`).join("")}
+  </div>
+  <div class="roadmap-spacer"></div>
+  <div class="roadmap-line"><span></span></div>
+  <div class="card-footer">
+    <span class="view">${r.comingSoon ? 'COMING SOON' : 'OPEN ROADMAP'}</span>
+    ${r.comingSoon
+      ? `<div class="arrow" aria-hidden="true"><i class="fa-solid fa-lock"></i></div>`
+      : `<button class="arrow" onclick="openRoadmap('${r.id}')" aria-label="Open ${r.title}"><i class="fa-solid fa-arrow-right"></i></button>`
+    }
+  </div>
+</article>`).join("");
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+let roadmapOpenedByHistory = false;
+let roadmapHistoryState = false;
+
+function pushRoadmapHistory() {
+  if (roadmapHistoryState) return;
+  roadmapHistoryState = true;
+  history.pushState({ roadmapModal: true }, "", window.location.href);
+}
+
+window.addEventListener("popstate", (e) => {
+  const modalEl = document.getElementById("pdfModal");
+  if (!modalEl) return;
+  if (roadmapHistoryState) {
+    roadmapHistoryState = false;
+    roadmapOpenedByHistory = true;
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    if (modalEl.classList.contains("show")) modal.hide();
+    roadmapOpenedByHistory = false;
+  }
+});
+
+function openRoadmap(id) {
+  const r = roadmaps.find(x => x.id === id);
+  if (!r || r.comingSoon) return;
+
+  document.getElementById("modalTitle").textContent = r.title;
+  document.getElementById("modalDesc").textContent = r.desc;
+  document.getElementById("modalIcon").innerHTML = `<i class="fa-solid ${r.icon}"></i>`;
+
+  const viewer = document.getElementById("pdfViewer");
+  const loading = document.getElementById("pdfLoading");
+  const fallback = document.getElementById("pdfFallback");
+  const openBtn = document.getElementById("openPdf");
+  const downloadBtn = document.getElementById("downloadPdf");
+
+  fallback.classList.remove("show");
+  loading.classList.add("show");
+
+  openBtn.href = r.pdf;
+  openBtn.target = "_blank";
+  openBtn.rel = "noopener";
+  downloadBtn.href = r.download || r.pdf;
+  downloadBtn.setAttribute("download", "");
+
+  pushRoadmapHistory();
+  bootstrap.Modal.getOrCreateInstance(document.getElementById("pdfModal")).show();
+
+  viewer.setAttribute("sandbox", "allow-scripts allow-same-origin allow-forms allow-popups");
+  viewer.src = r.pdf;
+  viewer.onload = () => loading.classList.remove("show");
+  viewer.onerror = () => {
+    loading.classList.remove("show");
+    fallback.classList.add("show");
+    document.getElementById("fallbackDownload").href = r.download || r.pdf;
+  };
+}
+
+document.getElementById("pdfModal").addEventListener("hidden.bs.modal", () => {
+  if (roadmapHistoryState && !roadmapOpenedByHistory) {
+    roadmapHistoryState = false;
+    history.back();
+  }
+  const viewer = document.getElementById("pdfViewer");
+  viewer.removeAttribute("sandbox");
+  viewer.src = "about:blank";
+  document.getElementById("pdfLoading").classList.remove("show");
+  document.getElementById("pdfFallback").classList.remove("show");
+});
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+const observer = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add("show");
+}), { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(e => observer.observe(e));
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+(function () {
+  const blocks = document.querySelectorAll(".hero-meta");
+  if (!blocks.length) return;
+  blocks.forEach(wrap => {
+    let done = false;
+    const nums = wrap.querySelectorAll("strong[data-count]");
+    const inf = wrap.querySelector(".infinity-count");
+    function run() {
+      if (done) return;
+      done = true;
+      nums.forEach(el => {
+        const target = parseInt(el.dataset.count, 10);
+        const pad = parseInt(el.dataset.pad || "1", 10);
+        const t0 = performance.now(), dur = 900;
+        function step(now) {
+          const p = Math.min(1, (now - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = String(Math.floor(eased * target)).padStart(pad, "0");
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = String(target).padStart(pad, "0");
+        }
+        requestAnimationFrame(step);
+      });
+      if (inf) inf.classList.add("pop");
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) run(); });
+    }, { threshold: 0.4 });
+    io.observe(wrap);
+  });
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+(function () {
+  const bar = document.getElementById("scrollProgress");
+  function update() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+  }
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+})();
+
+window.addEventListener("scroll", () => document.getElementById("nav").classList.toggle("scrolled", scrollY > 18), { passive: true });
+
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let ticking = false;
+  function apply() {
+    document.documentElement.style.setProperty("--grid-parallax", (scrollY * 0.06) + "px");
+    ticking = false;
+  }
+  window.addEventListener("scroll", () => {
+    if (!ticking) { requestAnimationFrame(apply); ticking = true; }
+  }, { passive: true });
+})();
+
+(function () {
+  const cue = document.getElementById("scrollCue");
+  if (!cue) return;
+  window.addEventListener("scroll", () => {
+    cue.style.opacity = scrollY > 60 ? "0" : "1";
+    cue.style.transform = scrollY > 60 ? "translate(-50%,10px)" : "translate(-50%,0)";
+  }, { passive: true });
+})();
+
+
+(function () {
+  const map = [
+    [document.querySelector(".hero"), "#home"],
+    [document.getElementById("roadmaps"), "#roadmaps"],
+    [document.getElementById("intro"), "#intro"],
+    [document.getElementById("what-we-do"), "#what-we-do"],
+    [document.getElementById("connect"), "#connect"]
+  ].filter(([el]) => el);
+  const links = document.querySelectorAll('.nav-link[href^="#"]');
+  if (!map.length || !links.length) return;
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const match = map.find(([el]) => el === entry.target);
+        if (match) links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === match[1]));
+      }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+  map.forEach(([el]) => spy.observe(el));
+})();
+
+(function () {
+  const toggleBtn = document.getElementById("navToggleBtn");
+  const menu = document.getElementById("mobileMenu");
+  if (!toggleBtn || !menu) return;
+  menu.addEventListener("show.bs.offcanvas", () => toggleBtn.classList.add("open"));
+  menu.addEventListener("hidden.bs.offcanvas", () => toggleBtn.classList.remove("open"));
+})();
+
+document.querySelectorAll('a[href="#roadmaps"]').forEach(link => {
+  if (link.closest("#mobileMenu")) return;
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    document.getElementById("roadmaps").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+
+(function () {
+  const offcanvasEl = document.getElementById("mobileMenu");
+  if (!offcanvasEl) return;
+  offcanvasEl.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      if (!target) return;
+      const instance = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+      const onHidden = () => {
+        offcanvasEl.removeEventListener("hidden.bs.offcanvas", onHidden);
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      offcanvasEl.addEventListener("hidden.bs.offcanvas", onHidden);
+      instance.hide();
+    });
+  });
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+(function () {
+  const root = document.getElementById("three-root");
+  const heroEl = document.querySelector(".hero");
+  if (!root || !heroEl) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 7.2);
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.3));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  root.appendChild(renderer.domElement);
+
+  const group = new THREE.Group();
+  group.rotation.x = 0.12;
+  scene.add(group);
+
+  const particleCount = innerWidth < 700 ? 180 : 380;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount; i++) {
+    const phi = Math.acos(1 - 2 * Math.random());
+    const theta = Math.random() * Math.PI * 2;
+    const radius = 1.65 + Math.random() * 0.34;
+    positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = radius * Math.cos(phi);
+    positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+    const yellow = Math.random() > 0.78;
+    colors[i * 3] = yellow ? 1 : 0.12;
+    colors[i * 3 + 1] = yellow ? 0.72 : 0.94;
+    colors[i * 3 + 2] = yellow ? 0.08 : 0.82;
+  }
+
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  const pMat = new THREE.PointsMaterial({
+    size: innerWidth < 700 ? 0.026 : 0.035,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.72,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  const points = new THREE.Points(pGeo, pMat);
+  group.add(points);
+
+  const ring1 = new THREE.Mesh(
+    new THREE.TorusGeometry(2.05, 0.012, 8, 110),
+    new THREE.MeshBasicMaterial({ color: 0x20f0d0, transparent: true, opacity: 0.14, wireframe: true })
+  );
+  ring1.rotation.x = Math.PI / 2.7;
+  group.add(ring1);
+
+  const ring2 = new THREE.Mesh(
+    new THREE.TorusGeometry(2.25, 0.009, 8, 110),
+    new THREE.MeshBasicMaterial({ color: 0xffc928, transparent: true, opacity: 0.12, wireframe: true })
+  );
+  ring2.rotation.y = Math.PI / 2.1;
+  group.add(ring2);
+
+  const core = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(0.88, 2),
+    new THREE.MeshBasicMaterial({ color: 0x20f0d0, wireframe: true, transparent: true, opacity: 0.11 })
+  );
+  group.add(core);
+
+  scene.add(new THREE.PointLight(0x20f0d0, 4, 10).translateX(2).translateY(2).translateZ(3));
+  scene.add(new THREE.PointLight(0xffc928, 2.4, 8).translateX(-2).translateY(-1).translateZ(2));
+
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  window.addEventListener("pointermove", e => {
+    mx = (e.clientX / innerWidth - 0.5) * 2;
+    my = (e.clientY / innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  function resize() {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.3));
+    renderer.setSize(innerWidth, innerHeight);
+  }
+  addEventListener("resize", resize, { passive: true });
+
+  let heroVisible = true, tabVisible = !document.hidden, raf3d = 0;
+  const io = new IntersectionObserver(entries => {
+    heroVisible = entries[0].isIntersecting;
+    if (heroVisible && tabVisible && !raf3d) tick();
+  }, { threshold: 0 });
+  io.observe(heroEl);
+  document.addEventListener("visibilitychange", () => {
+    tabVisible = !document.hidden;
+    if (tabVisible && heroVisible && !raf3d) tick();
+  });
+
+  const clock = new THREE.Clock();
+  function tick() {
+    if (!heroVisible || !tabVisible) { raf3d = 0; return; }
+    raf3d = requestAnimationFrame(tick);
+    const t = clock.getElapsedTime();
+    tx += (mx * 0.28 - tx) * 0.025;
+    ty += (my * 0.18 - ty) * 0.025;
+    group.rotation.y = t * 0.10 + tx;
+    group.rotation.x = 0.12 + ty;
+    points.rotation.z = t * 0.035;
+    ring1.rotation.z = t * 0.18;
+    ring2.rotation.x = t * 0.12;
+    core.rotation.x = t * 0.16;
+    core.rotation.y = -t * 0.12;
+    renderer.render(scene, camera);
+  }
+  tick();
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+(function () {
+  const glow = document.getElementById("cursorGlow");
+  const dot = document.getElementById("cursorGlowDot");
+  if (!glow || !dot || !matchMedia("(pointer:fine)").matches) return;
+
+  let targetX = innerWidth / 2, targetY = innerHeight / 2;
+  let currentX = targetX, currentY = targetY;
+  let active = false;
+
+  window.addEventListener("pointermove", e => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!active) {
+      active = true;
+      glow.style.opacity = ".9";
+      dot.style.opacity = "1";
+    }
+  }, { passive: true });
+
+  window.addEventListener("mouseout", e => {
+    if (!e.relatedTarget) {
+      active = false;
+      glow.style.opacity = "0";
+      dot.style.opacity = "0";
+    }
+  });
+
+  function animateCursor() {
+    currentX += (targetX - currentX) * 0.13;
+    currentY += (targetY - currentY) * 0.13;
+    glow.style.left = currentX + "px";
+    glow.style.top = currentY + "px";
+    dot.style.left = targetX + "px";
+    dot.style.top = targetY + "px";
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+(function () {
+  const backTop = document.getElementById("backTop");
+  if (!backTop) return;
+  function toggleBackTop() {
+    backTop.classList.toggle("show", window.scrollY > 650);
+  }
+  window.addEventListener("scroll", toggleBackTop, { passive: true });
+  toggleBackTop();
+  backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+(function () {
+  const wrap = document.getElementById("heroParticles");
+  if (!wrap) return;
+  const count = window.innerWidth < 768 ? 8 : 14;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "hero-particle" + (Math.random() > 0.75 ? " gold" : "");
+    p.style.left = Math.random() * 100 + "%";
+    p.style.bottom = "-10px";
+    p.style.animationDuration = (13 + Math.random() * 16) + "s";
+    p.style.animationDelay = (Math.random() * 10) + "s";
+    p.style.setProperty("--drift", (Math.random() * 90 - 45) + "px");
+    const size = 1.5 + Math.random() * 2.2;
+    p.style.width = size + "px";
+    p.style.height = size + "px";
+    wrap.appendChild(p);
+  }
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+(function () {
+  if (!window.matchMedia("(pointer:fine)").matches) return;
+  document.querySelectorAll("[data-tilt]").forEach(card => {
+    card.addEventListener("pointermove", e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rx = (py - 0.5) * -7;
+      const ry = (px - 0.5) * 7;
+      card.style.transform = "translateY(-8px) perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+    });
+    card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+  });
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+
+(function () {
+  if (!window.matchMedia("(pointer:fine)").matches) return;
+  document.querySelectorAll(".btn-main,.btn-ghost,.nav-cta,.arrow").forEach(btn => {
+    btn.classList.add("magnetic");
+    btn.addEventListener("pointermove", e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = "translate(" + x * 0.08 + "px," + y * 0.10 + "px)";
+    });
+    btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
+  });
+})();
+
+/* Crafted with care by Mohamed Ahmed Ezzat */
+(function () {
+  const tile = document.getElementById("emailTile");
+  const toast = document.getElementById("copyToast");
+  if (!tile || !toast) return;
+  tile.addEventListener("click", e => {
+    // allow normal mailto, but also copy
+    navigator.clipboard?.writeText("cipherteam77@gmail.com").then(() => {
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }).catch(() => {});
+  });
+})();
+/* Crafted with care by Mohamed Ahmed Ezzat */
+</script>
+<!-- Crafted with care by Mohamed Ahmed Ezzat -->
+</body>
+</html>

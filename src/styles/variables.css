@@ -1,0 +1,183 @@
+/* ==========================================================
+   CIPHER DESIGN SYSTEM & TOKENS
+   Crafted with care by Mohamed Ahmed Ezzat
+   ========================================================== */
+:root {
+  --bg: #031817;
+  --bg2: #062d2b;
+  --panel: #082421;
+  --panel2: #0b302e;
+  --teal: #20f0d0;
+  --teal2: #49ffe5;
+  --yellow: #ffc928;
+  --yellow2: #ffe56b;
+  --white: #f5fffc;
+  --muted: #91aaa6;
+  --line: rgba(166, 255, 242, 0.12);
+  --line-strong: rgba(166, 255, 242, 0.28);
+  --shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: radial-gradient(circle at 75% 15%, rgba(32, 240, 208, 0.09), transparent 30%), var(--bg);
+  color: var(--white);
+  font-family: var(--font-base);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -3;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, #000, transparent 80%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    transform: none !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, button, a {
+  outline: none;
+}
+
+input:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.container-xl {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 32px);
+  width: 100%;
+}
+
+section {
+  padding: clamp(70px, 10vw, 110px) 0;
+  position: relative;
+  scroll-margin-top: 80px;
+}
+
+section:not(.hero):not(#roadmaps)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 60%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(32, 240, 208, 0.55), rgba(255, 201, 40, 0.4), transparent);
+  box-shadow: 0 0 16px rgba(32, 240, 208, 0.25);
+}
+
+.section-kicker {
+  color: var(--yellow);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 5vw, 56px);
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 650px;
+  line-height: 1.8;
+  margin: 0 0 clamp(28px, 5vw, 42px);
+  font-size: clamp(13.5px, 2.2vw, 15px);
+}
+
+.gradient {
+  background: linear-gradient(110deg, #fff 20%, #b5fff4 48%, var(--teal) 70%, var(--yellow) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-main,
+.btn-ghost {
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-main {
+  background: linear-gradient(135deg, #f8fffd, #bffef1);
+  color: #03211e;
+  box-shadow: 0 15px 50px rgba(32, 240, 208, 0.12);
+}
+
+.btn-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(32, 240, 208, 0.25);
+}
+
+.btn-ghost {
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018));
+  backdrop-filter: blur(10px);
+  color: #d6e8e4;
+}
+
+.btn-ghost:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 201, 40, 0.35);
+}
