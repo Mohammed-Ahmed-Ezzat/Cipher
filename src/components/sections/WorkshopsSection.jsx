@@ -62,7 +62,8 @@ export default function WorkshopsSection() {
     'network-2': 'المحاضرة 02: التوجيه والـ Routing والـ Switching',
     'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
     'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
-    'frontend-1': 'المحاضرة 01: أساسيات الفرونت إند والـ UI'
+    'frontend-1': 'المحاضرة 01: أساسيات الويب والـ HTML والـ CSS',
+    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي'
   };
 
   const sessionKey = `${selectedTrack}-${currentSession.day}`;
@@ -426,9 +427,9 @@ export default function WorkshopsSection() {
                 </a>
               )}
 
-              {workshop.folderDriveUrl && (
+              {(currentSession.folderDriveUrl || workshop.folderDriveUrl) && (
                 <a
-                  href={workshop.folderDriveUrl}
+                  href={currentSession.folderDriveUrl || workshop.folderDriveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="stage-resource-item"
@@ -437,8 +438,16 @@ export default function WorkshopsSection() {
                     <i className="fa-brands fa-google-drive" />
                   </div>
                   <div className="stage-resource-info">
-                    <h6>{isRTL ? 'فولدر الورشة الكامل على درايف' : 'Complete Google Drive Folder'}</h6>
-                    <p>{t('workshops', 'driveFolderSub', 'Browse all raw files, recordings, and workshop assets.')}</p>
+                    <h6>
+                      {currentSession.folderDriveUrl
+                        ? (isRTL ? `فولدر سيشن 0${currentSession.day} على درايف` : `Session 0${currentSession.day} Google Drive Folder`)
+                        : (isRTL ? 'فولدر الورشة الكامل على درايف' : 'Complete Google Drive Folder')}
+                    </h6>
+                    <p>
+                      {currentSession.folderDriveUrl
+                        ? (isRTL ? `تصفح كل ملفات وفيديوهات وسلايدز سيشن 0${currentSession.day} على درايف.` : `Browse raw recordings, slides, and files for Session 0${currentSession.day}.`)
+                        : t('workshops', 'driveFolderSub', 'Browse all raw files, recordings, and workshop assets.')}
+                    </p>
                   </div>
                   <div className="stage-resource-action">
                     <i className="fa-solid fa-folder-open" />

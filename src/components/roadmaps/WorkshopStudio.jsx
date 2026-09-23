@@ -4,9 +4,15 @@ import { sfx } from '../../utils/soundEffects';
 import { getAssetUrl } from '../../utils/urlHelper';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
+export default function WorkshopStudio({
+  workshop,
+  accent = '#5be0ff',
+  selectedDayIndex: controlledDayIndex,
+  onSelectDayIndex
+}) {
   const { t, isRTL } = useLanguage();
-  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+  const [internalDayIndex, setInternalDayIndex] = useState(0);
+  const selectedDayIndex = controlledDayIndex !== undefined ? controlledDayIndex : internalDayIndex;
   const [activeView, setActiveView] = useState('video'); // 'video' | 'slides'
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
@@ -27,7 +33,8 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
     'network-2': 'المحاضرة 02: التوجيه والـ Routing والـ Switching',
     'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
     'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
-    'frontend-1': 'المحاضرة 01: أساسيات الفرونت إند والـ UI'
+    'frontend-1': 'المحاضرة 01: أساسيات الويب والـ HTML والـ CSS',
+    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي'
   };
 
   const sessionKey = `${workshop.id}-${currentSession.day}`;
@@ -43,7 +50,11 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
 
   const handleSelectDay = (index) => {
     sfx.playClick();
-    setSelectedDayIndex(index);
+    if (onSelectDayIndex) {
+      onSelectDayIndex(index);
+    } else {
+      setInternalDayIndex(index);
+    }
     setIsVideoLoading(true);
   };
 
@@ -353,17 +364,25 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
             )}
 
             {/* Google Drive Folder Resource */}
-            {workshop.folderDriveUrl && (
+            {(currentSession.folderDriveUrl || workshop.folderDriveUrl) && (
               <div className="resource-card">
                 <div className="resource-icon" style={{ color: '#34a853' }}>
                   <i className="fa-brands fa-google-drive" />
                 </div>
                 <div className="resource-body">
-                  <h6>{isRTL ? 'فولدر الورشة المشترك على درايف' : 'Shared Workshop Folder'}</h6>
-                  <p>{t('workshops', 'driveFolderSub', 'Access all raw recordings, presentation files, and workshop assets.')}</p>
+                  <h6>
+                    {currentSession.folderDriveUrl
+                      ? (isRTL ? `فولدر سيشن 0${currentSession.day} على درايف` : `Session 0${currentSession.day} Drive Folder`)
+                      : (isRTL ? 'فولدر الورشة المشترك على درايف' : 'Shared Workshop Folder')}
+                  </h6>
+                  <p>
+                    {currentSession.folderDriveUrl
+                      ? (isRTL ? `تصفح كل ملفات وفيديوهات وسلايدز سيشن 0${currentSession.day} على درايف.` : `Browse raw recordings, slides, and files for Session 0${currentSession.day}.`)
+                      : t('workshops', 'driveFolderSub', 'Access all raw recordings, presentation files, and workshop assets.')}
+                  </p>
                   <div className="resource-links">
                     <a
-                      href={workshop.folderDriveUrl}
+                      href={currentSession.folderDriveUrl || workshop.folderDriveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="resource-btn-link secondary"

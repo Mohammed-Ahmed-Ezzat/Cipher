@@ -118,24 +118,54 @@ export const workshopsData = {
   frontend: {
     id: "frontend",
     trackTitle: "Frontend Track Workshop",
-    badge: "Recorded Live Session",
+    badge: "2 Live Sessions Recorded",
     instructor: "Cipher Frontend Mentors",
-    description: "Hands-on recorded masterclass exploring modern frontend architecture, component lifecycles, interactive state management, and responsive UI engineering.",
-    folderDriveUrl: "https://drive.google.com/drive/folders/1EsQJIBI_ePDreZdGAC4WtWV-L4tkmsre",
+    description: "Hands-on 2-day recorded masterclass exploring modern web fundamentals, HTML5 structure, CSS styling, frontend architecture, and interactive JavaScript.",
+    folderDriveUrl: "https://drive.google.com/drive/folders/1zg1IrPmxsus0KXbngz_4w6Ts5tfMQl61?usp=drive_link",
+    hasSeparateSessionFolders: true,
     sessions: [
+      {
+        day: 1,
+        title: "Session 1: Web Fundamentals, HTML & CSS",
+        date: "12 Sep 2026",
+        duration: "Recorded Live Session",
+        // Direct stream embed via Google Drive preview
+        videoUrl: "https://drive.google.com/file/d/1eUukfcS0K-wYSwZFXB3C6FBDPZODhqd1/preview",
+        videoDriveUrl: "https://drive.google.com/file/d/1eUukfcS0K-wYSwZFXB3C6FBDPZODhqd1/view?usp=sharing",
+        // Slides for local canvas viewer & drive backup
+        slidesTitle: "Cipher Frontend Workshop - Day 1 Slides",
+        slidesCipher: "/pdf-data/frontend-workshop-session1.cipher",
+        slidesPdf: "/pdf/Frontend-Workshop-Session1.pdf",
+        slidesDriveUrl: "https://drive.google.com/file/d/1GdnXgUnCA5I5-1uSl-bAJoKyT8A4mZZd/view?usp=sharing",
+        // Google Docs meeting notes & Gemini AI summary
+        notesTitle: "Session 1 Notes & Gemini AI Summary",
+        notesUrl: "https://docs.google.com/document/d/1xWvM0wNNq0h0zf_RwAF5X0KfH1KuWTafOa6T1wBComI/edit?usp=sharing",
+        // Specific Google Drive folder for Session 1
+        folderDriveUrl: "https://drive.google.com/drive/folders/1zg1IrPmxsus0KXbngz_4w6Ts5tfMQl61?usp=drive_link",
+        topics: [
+          "Web Architecture: Frontend (Browser) vs Backend (Server)",
+          "The Frontend Core Trio: HTML (Structure), CSS (Style), JS (Behavior)",
+          "HTML5 Essentials: Elements, Texts, Images, Buttons & Links",
+          "CSS3 Fundamentals: Selectors, Colors, Fonts & Box Model",
+          "Visual Comparison: Raw HTML vs Styled HTML+CSS",
+          "Hands-on Live Coding Demo: Interactive Card & Button"
+        ]
+      },
       {
         day: 2,
         title: "Session 2: Frontend Engineering & Interactive UI",
         date: "13 Sep 2026",
         duration: "Recorded Live Session",
-        videoUrl: "https://drive.google.com/file/d/1ATz23fIJlijjMr5_lIeE19AhS4DvodY3/preview",
-        videoDriveUrl: "https://drive.google.com/file/d/1ATz23fIJlijjMr5_lIeE19AhS4DvodY3/view?usp=sharing",
+        videoUrl: "https://drive.google.com/file/d/1dqfPFRCHg-qu1hVPWQUpK4YfeyJsRQuQ/preview",
+        videoDriveUrl: "https://drive.google.com/file/d/1dqfPFRCHg-qu1hVPWQUpK4YfeyJsRQuQ/view?usp=sharing",
         slidesTitle: "Cipher Frontend Workshop - Day 2 Slides",
         slidesCipher: "/pdf-data/frontend-workshop-session2.cipher",
         slidesPdf: "/pdf/Frontend-Workshop-Session2.pdf",
         slidesDriveUrl: "https://drive.google.com/file/d/1yuaUBnxe_Mh8QyktDfpE0c5PeNNA3i4f/view?usp=sharing",
         notesTitle: "Lecture Notes & Key Takeaways",
         notesUrl: "https://docs.google.com/document/d/10y5560N_zaIHPkqmbdIVGEVnG1rXUe93WXS5valErUo/edit?usp=sharing",
+        // Specific Google Drive folder for Session 2
+        folderDriveUrl: "https://drive.google.com/drive/folders/1EsQJIBI_ePDreZdGAC4WtWV-L4tkmsre?usp=drive_link",
         topics: [
           "Frontend Architecture & Modern Web Standards",
           "DOM Manipulation, Events & Component Thinking",

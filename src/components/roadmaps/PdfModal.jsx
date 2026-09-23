@@ -11,6 +11,7 @@ export default function PdfModal({ roadmap, onClose }) {
   const workshopInfo = roadmap ? workshopsData[roadmap.id] : null;
   const hasWorkshop = Boolean(workshopInfo);
   const [activeTab, setActiveTab] = useState('roadmap'); // 'roadmap' | 'workshop'
+  const [workshopDayIndex, setWorkshopDayIndex] = useState(0);
 
   useEffect(() => {
     if (!roadmap) return;
@@ -72,8 +73,10 @@ export default function PdfModal({ roadmap, onClose }) {
 
   const localPdfUrl = roadmap.pdf || roadmap.download;
   const localDataUrl = roadmap.dataUrl || localPdfUrl;
-  const openInTabUrl = activeTab === 'workshop' && workshopInfo?.folderDriveUrl
-    ? workshopInfo.folderDriveUrl
+  const activeSession = workshopInfo?.sessions?.[workshopDayIndex] || workshopInfo?.sessions?.[0];
+  const activeWorkshopFolder = activeSession?.folderDriveUrl || workshopInfo?.folderDriveUrl;
+  const openInTabUrl = activeTab === 'workshop' && activeWorkshopFolder
+    ? activeWorkshopFolder
     : (roadmap.driveUrl || getAssetUrl(localPdfUrl));
 
   return (
@@ -203,6 +206,8 @@ export default function PdfModal({ roadmap, onClose }) {
               <WorkshopStudio
                 workshop={workshopInfo}
                 accent={roadmap.accent}
+                selectedDayIndex={workshopDayIndex}
+                onSelectDayIndex={setWorkshopDayIndex}
               />
             )}
           </div>

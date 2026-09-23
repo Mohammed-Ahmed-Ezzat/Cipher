@@ -43,7 +43,7 @@ export const roadmapsData = [
     tags: ["HTML5", "CSS3", "JavaScript", "React", "Responsive UI"],
     level: "Beginner Friendly",
     hasWorkshop: true,
-    workshopBadge: "Live Session Recorded"
+    workshopBadge: "2 Live Sessions"
   },
   {
     id: "backend",
