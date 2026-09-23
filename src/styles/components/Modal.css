@@ -667,17 +667,17 @@
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 14px 18px 26px;
+  padding: 10px 16px 14px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   overscroll-behavior: auto !important;
   scrollbar-width: thin;
   scrollbar-color: rgba(91, 224, 255, 0.3) rgba(0, 0, 0, 0.2);
 }
 
 .workshop-studio-root::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 .workshop-studio-root::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.2);
@@ -695,8 +695,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 10px;
   flex-wrap: wrap;
+  max-width: min(840px, 92vw);
+  margin: 0 auto;
+  width: 100%;
 }
 
 .workshop-day-selector {
@@ -803,12 +806,12 @@
 .workshop-studio-root .video-theater-wrapper {
   position: relative;
   width: 100%;
-  max-width: 100%;
+  max-width: min(820px, 90vw);
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 18px;
   padding: 3px;
   background: linear-gradient(135deg, rgba(91, 224, 255, 0.3), rgba(32, 240, 208, 0.1) 60%, rgba(0, 0, 0, 0.5));
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5);
 }
 
 .workshop-studio-root .stage-desktop-player {
@@ -816,7 +819,17 @@
   width: 100%;
 }
 
-.workshop-studio-root .stage-iframe-holder,
+.workshop-studio-root .stage-iframe-holder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: clamp(260px, 44vh, 420px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #011212;
+  z-index: 1;
+}
+
 .video-iframe-container {
   position: relative;
   width: 100%;
@@ -971,32 +984,35 @@
 .workshop-slides-pane {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  width: 100%;
+  max-width: min(840px, 92vw);
+  margin: 0 auto;
 }
 
 .slides-header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 12px 18px;
+  gap: 10px;
+  padding: 8px 14px;
   background: rgba(3, 24, 24, 0.7);
   border: 1px solid rgba(166, 255, 242, 0.12);
-  border-radius: 16px;
+  border-radius: 14px;
   flex-wrap: wrap;
 }
 
 .slides-title-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .slides-title-info h4 {
   margin: 0;
   color: #fff;
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 14.5px;
 }
 
 .slides-actions {
@@ -1007,10 +1023,14 @@
 
 .slides-canvas-frame {
   width: 100%;
+  height: clamp(280px, 44vh, 420px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   background: rgba(1, 15, 15, 0.8);
   border: 1px solid rgba(166, 255, 242, 0.12);
-  border-radius: 18px;
-  overflow: visible;
+  border-radius: 16px;
+  overflow: hidden;
   overscroll-behavior: auto !important;
 }
 
@@ -1018,29 +1038,32 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto;
-  overflow: visible;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
   background: #021414;
-  border-radius: 18px;
+  border-radius: 16px;
   overscroll-behavior: auto !important;
 }
 
 .slides-canvas-frame .pdf-viewer-toolbar {
-  position: sticky;
-  top: -14px;
-  z-index: 15;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  z-index: 5;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   background: rgba(2, 20, 20, 0.95);
 }
 
 .slides-canvas-frame .pdf-canvas-viewport {
-  overflow-y: visible !important;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto !important;
   overflow-x: auto;
-  min-height: 480px;
-  padding: clamp(16px, 3vw, 32px);
+  padding: clamp(10px, 1.8vw, 20px);
   display: flex;
   justify-content: center;
   background: radial-gradient(circle at center, #031e1c 0%, #010f0e 100%);
@@ -1053,8 +1076,43 @@
 .workshop-details-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 2px;
+  max-width: min(840px, 92vw);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.workshop-studio-root .resource-card {
+  padding: 8px 12px;
+  border-radius: 14px;
+  gap: 10px;
+  align-items: center;
+}
+
+.workshop-studio-root .resource-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.workshop-studio-root .resource-body h6 {
+  margin: 0 0 1px;
+  font-size: 12px;
+}
+
+.workshop-studio-root .resource-body p {
+  margin: 0 0 4px;
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.workshop-studio-root .resource-btn-link {
+  height: 25px;
+  padding: 0 8px;
+  font-size: 10.5px;
+  gap: 4px;
 }
 
 .workshop-topics-box {
@@ -1463,18 +1521,27 @@
 
   .slides-canvas-frame {
     width: 100%;
-    height: auto;
-    overflow: visible;
+    height: clamp(260px, 42vh, 380px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  .slides-canvas-frame .pdf-viewer-toolbar {
-    top: -10px;
+  .slides-canvas-frame .local-pdf-viewer {
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .slides-canvas-frame .pdf-canvas-viewport {
-    min-height: 320px;
-    padding: 12px 6px;
-    overflow-y: visible !important;
+    flex: 1;
+    min-height: 0;
+    padding: 8px 4px;
+    overflow-y: auto !important;
   }
 }
 
