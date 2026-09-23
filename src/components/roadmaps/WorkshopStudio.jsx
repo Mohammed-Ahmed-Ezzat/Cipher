@@ -234,23 +234,7 @@ export default function WorkshopStudio({
 
         {/* Session Topics & Resources Section */}
         <div className="workshop-details-section">
-          {/* Topics Covered */}
-          {currentSession.topics && currentSession.topics.length > 0 && (
-            <div className="workshop-topics-box">
-              <h5 className="box-title">
-                <i className="fa-solid fa-list-check" style={{ color: accent }} />
-                <span>{t('modal', 'topicsCovered', 'Topics Covered in this Session')}</span>
-              </h5>
-              <div className="topics-grid">
-                {currentSession.topics.map((topic, i) => (
-                  <div key={i} className="topic-item">
-                    <span className="topic-bullet" style={{ background: accent }} />
-                    <span className="topic-text">{topic}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
 
           {/* Resources & Materials Cards */}
           <div className="workshop-resources-grid">
