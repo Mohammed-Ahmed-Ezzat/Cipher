@@ -179,5 +179,70 @@ export const workshopsData = {
         ]
       }
     ]
+  },
+
+  flutter: {
+    id: "flutter",
+    trackTitle: "Flutter Track Workshop",
+    badge: "2 Live Sessions Recorded",
+    instructor: "Alaa Elnagih (Cipher Flutter Mentor)",
+    description: "Hands-on 2-day recorded mobile masterclass. Learn Dart fundamentals, widget tree architecture, StatelessWidget vs StatefulWidget, setState mechanics, and build working mobile apps.",
+    descriptionAr: "ورشة عمل متسجلة لايف بتغطي أساسيات فلاتر وتطوير تطبيقات الموبايل، من بناء شجرة الودجت وتصميم الـ UI لحد إدارة الـ State وتطبيق عملي كامل مع مينتورز سايفر.",
+    folderDriveUrl: "https://drive.google.com/drive/folders/13xNJGVPXZ8iEO25xqVUuPLvUvSXVgFXJ?usp=sharing",
+    hasSeparateSessionFolders: true,
+    sessions: [
+      {
+        day: 1,
+        title: "Day 1: Flutter Basics & First Widgets (Profile Card App)",
+        date: "22 Sep 2026",
+        duration: "Recorded Live Session",
+        // Direct stream embed via Google Drive preview
+        videoUrl: "https://drive.google.com/file/d/1kCldvUfaF630llPZwof2w0R7tHrVzh-E/preview",
+        videoDriveUrl: "https://drive.google.com/file/d/1kCldvUfaF630llPZwof2w0R7tHrVzh-E/view?usp=sharing",
+        // Slides for local canvas viewer & drive backup
+        slidesTitle: "Flutter Fundamentals - Day 1 Slides",
+        slidesCipher: "/pdf-data/flutter-workshop-day1.cipher",
+        slidesPdf: "/pdf/Flutter-Workshop-Day1.pdf",
+        slidesDriveUrl: "https://drive.google.com/file/d/1bGF4CSDNftgQJdURBwk1HGKnN2rP4m0N/view?usp=sharing",
+        // Google Docs meeting notes
+        notesTitle: "Day 1 Notes & Gemini AI Summary",
+        notesUrl: "https://docs.google.com/document/d/1va_eTFh-3O2S9mGzyQbBGPLLMahXjXTIFJhDaCv-OVw/edit?usp=sharing",
+        // Specific Google Drive folder for Day 1
+        folderDriveUrl: "https://drive.google.com/drive/folders/1eI3VC3RP5BI3jXLNq8kcSi88OXdNfDYe?usp=sharing",
+        topics: [
+          "Introduction to Flutter: Google Cross-Platform Framework",
+          "Flutter vs Native: Architecture, Performance & Codebase",
+          "Flutter Project Anatomy: lib/, main.dart & pubspec.yaml",
+          "Widget Tree: Scaffold, Center, Column & CircleAvatar",
+          "StatelessWidget Architecture & Immutability Rules",
+          "Hands-on Project: Building a Complete Profile Card App"
+        ]
+      },
+      {
+        day: 2,
+        title: "Day 2: State, StatefulWidget & Interactive Counter App",
+        date: "23 Sep 2026",
+        duration: "Recorded Live Session",
+        videoUrl: "https://drive.google.com/file/d/1N-zbhwgHhUOISChba9U0s6N0xi8Yl_za/preview",
+        videoDriveUrl: "https://drive.google.com/file/d/1N-zbhwgHhUOISChba9U0s6N0xi8Yl_za/view?usp=sharing",
+        slidesTitle: "Flutter Fundamentals - Day 2 Slides",
+        slidesCipher: "/pdf-data/flutter-workshop-day2.cipher",
+        slidesPdf: "/pdf/Flutter-Workshop-Day2.pdf",
+        slidesDriveUrl: "https://drive.google.com/file/d/1GYgMqgQlBtRHavH7FKlHGt-YXqtTZt_7/view?usp=sharing",
+        notesTitle: "Day 2 Notes & Gemini AI Summary",
+        notesUrl: "https://docs.google.com/document/d/1BO6L6KbYkpQiqqw35vknv7jwUn1mtg0IQf8-7wPsZvM/edit?usp=sharing",
+        // Specific Google Drive folder for Day 2
+        folderDriveUrl: "https://drive.google.com/drive/folders/15r-1KombgQ-pQmuRtyVeFzT_yY6UEZWP?usp=sharing",
+        topics: [
+          "StatelessWidget vs StatefulWidget: Key Differences",
+          "The Core Engine: setState() Lifecycle & Widget Rebuilds",
+          "State Management: Variables, In-Memory Values vs Screen Rendering",
+          "Handling User Actions with ElevatedButton & Callbacks",
+          "Hands-on Project: Building a Fully Functional Counter App",
+          "Next Steps Roadmap: Navigation, Provider/Bloc & API Integration"
+        ]
+      }
+    ]
   }
 };
+

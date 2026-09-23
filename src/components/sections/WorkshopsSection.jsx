@@ -49,12 +49,15 @@ export default function WorkshopsSection() {
     ? 'fa-solid fa-network-wired'
     : selectedTrack === 'backend'
     ? 'fa-solid fa-server'
+    : selectedTrack === 'flutter'
+    ? 'fa-solid fa-mobile-screen-button'
     : 'fa-solid fa-laptop-code';
 
   const trackTitlesAr = {
     network: 'ورشة شبكات الحاسب والـ OSI',
     backend: 'ورشة تطوير الباك إند والـ APIs',
-    frontend: 'ورشة تطوير الفرونت إند والـ UI'
+    frontend: 'ورشة تطوير الفرونت إند والـ UI',
+    flutter: 'ورشة تطبيقات الموبايل وفلاتر'
   };
 
   const sessionTitlesAr = {
@@ -63,7 +66,9 @@ export default function WorkshopsSection() {
     'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
     'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
     'frontend-1': 'المحاضرة 01: أساسيات الويب والـ HTML والـ CSS',
-    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي'
+    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي',
+    'flutter-1': 'المحاضرة 01: أساسيات فلاتر وبناء الودجت وتطبيق Profile Card',
+    'flutter-2': 'المحاضرة 02: إدارة الحالة والـ State وتطبيق العداد Counter App'
   };
 
   const sessionKey = `${selectedTrack}-${currentSession.day}`;
@@ -93,6 +98,8 @@ export default function WorkshopsSection() {
               ? 'fa-solid fa-network-wired'
               : key === 'backend'
               ? 'fa-solid fa-server'
+              : key === 'flutter'
+              ? 'fa-solid fa-mobile-screen-button'
               : 'fa-solid fa-laptop-code';
             const title = isRTL ? (trackTitlesAr[key] || item.trackTitle) : item.trackTitle;
             return (

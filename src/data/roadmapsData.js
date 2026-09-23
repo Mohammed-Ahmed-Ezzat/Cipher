@@ -73,7 +73,9 @@ export const roadmapsData = [
     driveUrl: "https://drive.google.com/file/d/1dfWSXdhZXlaohhhcUtL6oX_KqMEJiGjw/view",
     accent: "#5be0ff",
     tags: ["Dart", "Flutter", "Mobile UI", "State Management", "Cross-Platform"],
-    level: "Beginner Friendly"
+    level: "Beginner Friendly",
+    hasWorkshop: true,
+    workshopBadge: "2 Live Sessions"
   },
   {
     id: "devops",

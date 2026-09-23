@@ -35,7 +35,9 @@ export default function WorkshopStudio({
     'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
     'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
     'frontend-1': 'المحاضرة 01: أساسيات الويب والـ HTML والـ CSS',
-    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي'
+    'frontend-2': 'المحاضرة 02: هندسة الواجهات والـ UI التفاعلي',
+    'flutter-1': 'المحاضرة 01: أساسيات فلاتر وبناء الودجت وتطبيق Profile Card',
+    'flutter-2': 'المحاضرة 02: إدارة الحالة والـ State وتطبيق العداد Counter App'
   };
 
   const sessionKey = `${workshop.id}-${currentSession.day}`;
