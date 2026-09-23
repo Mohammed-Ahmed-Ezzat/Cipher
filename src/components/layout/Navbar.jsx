@@ -25,6 +25,7 @@ export default function Navbar({ activeSection, isScrolled }) {
     '#home': t('nav', 'home', 'Home'),
     '#roadmaps': t('nav', 'roadmaps', 'Roadmaps'),
     '#workshops': t('nav', 'workshops', 'Workshops'),
+    '#intro': t('nav', 'about', 'About'),
     '#about': t('nav', 'about', 'About'),
     '#what-we-do': t('nav', 'whatWeDo', 'What We Do'),
     '#faq': t('nav', 'faq', 'FAQ'),
