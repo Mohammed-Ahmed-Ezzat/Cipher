@@ -486,13 +486,13 @@ body:has(.video-theater-wrapper:hover) .cursor-glow-dot {
     width: 100%;
   }
   .mini-btn span {
-    display: none;
+    display: inline;
   }
   .mini-btn i {
-    font-size: 15px;
+    font-size: 13px;
   }
   .pdf-close-btn {
-    min-width: 50px;
+    min-width: 75px;
   }
   .faq-question-btn {
     padding: 16px;
