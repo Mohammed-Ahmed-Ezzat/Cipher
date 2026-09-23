@@ -1787,3 +1787,11 @@
   border-color: #20f0d0;
 }
 
+@media (max-width: 768px) {
+  .stage-resource-item.stage-download-card,
+  .stage-download-card,
+  .teaser-download-btn {
+    display: none !important;
+  }
+}
+

@@ -241,12 +241,12 @@ export default function WorkshopsSection() {
                       <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
 
-                    {/* Download Workshop Slides PDF Button */}
+                    {/* Download Workshop Slides PDF Button (Desktop Only) */}
                     {currentSession.slidesPdf && (
                       <a
                         href={getAssetUrl(currentSession.slidesPdf)}
                         download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-                        className="teaser-launch-btn teaser-download-btn"
+                        className="teaser-launch-btn teaser-download-btn desktop-only"
                         onClick={() => sfx.playClick()}
                         title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download Workshop Slides PDF"}
                       >
@@ -412,12 +412,12 @@ export default function WorkshopsSection() {
 
             {/* Quick Resources List */}
             <div className="stage-resources-panel">
-              {/* Workshop Presentation Slides PDF Download */}
+              {/* Workshop Presentation Slides PDF Download (Desktop only) */}
               {currentSession.slidesPdf && (
                 <a
                   href={getAssetUrl(currentSession.slidesPdf)}
                   download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-                  className="stage-resource-item stage-download-card"
+                  className="stage-resource-item stage-download-card desktop-only"
                   onClick={() => sfx.playClick()}
                   title={isRTL ? "تحميل ملف سلايدز الورشة PDF مباشرة على جهازك" : "Download session presentation slides PDF"}
                 >
