@@ -3,11 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://mohammed-ahmed-ezzat.github.io/Cipher/",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
@@ -19,6 +22,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
+    "gh-pages": "^6.3.0",
     "vite": "^5.4.2"
   }
 }
