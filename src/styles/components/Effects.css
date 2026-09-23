@@ -151,6 +151,25 @@
   transition: opacity 0.25s ease;
 }
 
+/* Instantly hide custom cursor when cursor enters any video player, iframe, or cinema */
+body.hide-cursor-glow .cursor-glow,
+body.hide-cursor-glow .cursor-glow-dot,
+body:has(iframe:hover) .cursor-glow,
+body:has(iframe:hover) .cursor-glow-dot,
+body:has(.stage-iframe-holder:hover) .cursor-glow,
+body:has(.stage-iframe-holder:hover) .cursor-glow-dot,
+body:has(.stage-desktop-player:hover) .cursor-glow,
+body:has(.stage-desktop-player:hover) .cursor-glow-dot,
+body:has(.stage-player-box:hover) .cursor-glow,
+body:has(.stage-player-box:hover) .cursor-glow-dot,
+body:has(.video-theater-wrapper:hover) .cursor-glow,
+body:has(.video-theater-wrapper:hover) .cursor-glow-dot {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.15s ease, visibility 0.15s ease !important;
+}
+
 @media (pointer: coarse), (max-width: 768px) {
   .cursor-glow,
   .cursor-glow-dot {

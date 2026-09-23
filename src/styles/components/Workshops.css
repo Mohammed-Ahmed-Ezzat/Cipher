@@ -1678,3 +1678,112 @@
   background: rgba(91, 224, 255, 0.12);
 }
 
+/* Workshop PDF Download Buttons & Cards */
+.stage-view-btn.stage-download-btn {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.28);
+  background: rgba(255, 107, 107, 0.08);
+  text-decoration: none;
+}
+
+.stage-view-btn.stage-download-btn:hover {
+  background: rgba(255, 107, 107, 0.22);
+  border-color: rgba(255, 107, 107, 0.6);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.25);
+  transform: translateY(-1px);
+}
+
+.stage-meta-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stage-meta-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.18), rgba(255, 142, 83, 0.12));
+  border: 1px solid rgba(255, 107, 107, 0.45);
+  color: #ff8e72;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stage-meta-download-btn:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 24px rgba(255, 107, 107, 0.5);
+  transform: translateY(-2px);
+}
+
+.teaser-launch-btn.teaser-download-btn {
+  background: rgba(255, 107, 107, 0.12);
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  color: #ff8e72;
+  text-decoration: none;
+}
+
+.teaser-launch-btn.teaser-download-btn:hover {
+  background: rgba(255, 107, 107, 0.25);
+  border-color: rgba(255, 107, 107, 0.65);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.35);
+  transform: translateY(-2px);
+}
+
+.stage-resource-item.stage-download-card {
+  border-color: rgba(255, 107, 107, 0.25);
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.06), rgba(255, 142, 83, 0.03));
+}
+
+.stage-resource-item.stage-download-card:hover {
+  border-color: rgba(255, 107, 107, 0.55);
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.12), rgba(255, 142, 83, 0.08));
+  box-shadow: 0 8px 30px rgba(255, 107, 107, 0.18);
+  transform: translateY(-3px);
+}
+
+.stage-resource-item.stage-download-card .stage-resource-action i {
+  color: #ff6b6b;
+  transition: transform 0.25s ease;
+}
+
+.stage-resource-item.stage-download-card:hover .stage-resource-action i {
+  transform: translateY(3px);
+}
+
+.view-switch-btn.download-pdf-btn {
+  color: #ff8e72;
+  border-color: rgba(255, 107, 107, 0.25);
+  background: rgba(255, 107, 107, 0.08);
+  text-decoration: none;
+}
+
+.view-switch-btn.download-pdf-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.5);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.toolbar-btn.download-toolbar-btn {
+  color: #20f0d0;
+  border-color: rgba(32, 240, 208, 0.3);
+  text-decoration: none;
+}
+
+.toolbar-btn.download-toolbar-btn:hover {
+  background: rgba(32, 240, 208, 0.18);
+  color: #fff;
+  border-color: #20f0d0;
+}
+

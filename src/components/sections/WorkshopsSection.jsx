@@ -141,7 +141,7 @@ export default function WorkshopsSection() {
               ))}
             </div>
 
-            {/* View Switcher: Video vs Slides */}
+            {/* View Switcher: Video vs Slides vs Download */}
             <div className="stage-view-switcher">
               <button
                 className={`stage-view-btn ${activeView === 'video' ? 'active' : ''}`}
@@ -159,6 +159,18 @@ export default function WorkshopsSection() {
                 <i className="fa-solid fa-file-powerpoint" />
                 <span>{t('workshops', 'sessionSlides', 'Session Slides')}</span>
               </button>
+              {currentSession.slidesPdf && (
+                <a
+                  href={getAssetUrl(currentSession.slidesPdf)}
+                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                  className="stage-view-btn stage-download-btn"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF مباشرة على جهازك" : "Download Workshop Slides PDF"}
+                >
+                  <i className="fa-solid fa-download" />
+                  <span>{isRTL ? 'تحميل PDF' : 'Download PDF'}</span>
+                </a>
+              )}
             </div>
           </div>
 
@@ -228,6 +240,20 @@ export default function WorkshopsSection() {
                       <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
                       <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
+
+                    {/* Download Workshop Slides PDF Button */}
+                    {currentSession.slidesPdf && (
+                      <a
+                        href={getAssetUrl(currentSession.slidesPdf)}
+                        download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                        className="teaser-launch-btn teaser-download-btn"
+                        onClick={() => sfx.playClick()}
+                        title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download Workshop Slides PDF"}
+                      >
+                        <i className="fa-solid fa-download" />
+                        <span>{isRTL ? 'تحميل السلايدز (PDF)' : 'Download Slides (PDF)'}</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -256,7 +282,11 @@ export default function WorkshopsSection() {
 
                 {/* Desktop Player: Video embedded directly on computer */}
                 <div className="stage-desktop-player">
-                  <div className="stage-iframe-holder">
+                  <div
+                    className="stage-iframe-holder"
+                    onPointerEnter={() => document.body.classList.add('hide-cursor-glow')}
+                    onPointerLeave={() => document.body.classList.remove('hide-cursor-glow')}
+                  >
                     {isVideoLoading && (
                       <div className="video-skeleton">
                         <div className="video-spinner" />
@@ -341,6 +371,21 @@ export default function WorkshopsSection() {
                 </span>
               </div>
             </div>
+
+            {currentSession.slidesPdf && (
+              <div className="stage-meta-actions">
+                <a
+                  href={getAssetUrl(currentSession.slidesPdf)}
+                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                  className="mini-btn stage-meta-download-btn"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download Workshop Slides PDF"}
+                >
+                  <i className="fa-solid fa-download" />
+                  <span>{isRTL ? 'تحميل السلايدز (PDF)' : 'Download Slides (PDF)'}</span>
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Stage Bottom Grid: Topics Covered & Material Links */}
@@ -367,6 +412,28 @@ export default function WorkshopsSection() {
 
             {/* Quick Resources List */}
             <div className="stage-resources-panel">
+              {/* Workshop Presentation Slides PDF Download */}
+              {currentSession.slidesPdf && (
+                <a
+                  href={getAssetUrl(currentSession.slidesPdf)}
+                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                  className="stage-resource-item stage-download-card"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF مباشرة على جهازك" : "Download session presentation slides PDF"}
+                >
+                  <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
+                    <i className="fa-solid fa-file-pdf" />
+                  </div>
+                  <div className="stage-resource-info">
+                    <h6>{isRTL ? 'تحميل سلايدز الورشة (PDF)' : 'Download Workshop Slides (PDF)'}</h6>
+                    <p>{isRTL ? `تحميل ملف العرض التقديمي كامل لـ ${currentSessionTitle} للمذاكرة أوفلاين.` : `Download full presentation slides deck for ${currentSession.title}.`}</p>
+                  </div>
+                  <div className="stage-resource-action">
+                    <i className="fa-solid fa-download" />
+                  </div>
+                </a>
+              )}
+
               {/* Desktop Only: Replace button with Watch on Google Drive in a new tab */}
               <a
                 href={currentSession.videoDriveUrl}

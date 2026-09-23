@@ -84,7 +84,7 @@ export default function WorkshopStudio({
           ))}
         </div>
 
-        {/* View Switcher: Video vs Slides */}
+        {/* View Switcher: Video vs Slides vs Download */}
         <div className="workshop-view-switch">
           <button
             className={`view-switch-btn ${activeView === 'video' ? 'active' : ''}`}
@@ -102,6 +102,18 @@ export default function WorkshopStudio({
             <i className="fa-solid fa-file-powerpoint" />
             <span>{t('modal', 'sessionSlides', 'Session Slides')}</span>
           </button>
+          {currentSession.slidesPdf && (
+            <a
+              href={getAssetUrl(currentSession.slidesPdf)}
+              download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+              className="view-switch-btn download-pdf-btn"
+              onClick={() => sfx.playClick()}
+              title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download workshop slides PDF"}
+            >
+              <i className="fa-solid fa-download" />
+              <span>{isRTL ? 'تحميل PDF' : 'Download PDF'}</span>
+            </a>
+          )}
         </div>
       </div>
 
@@ -114,7 +126,11 @@ export default function WorkshopStudio({
 
               {/* Desktop Player: Video embedded directly on computer */}
               <div className="stage-desktop-player">
-                <div className="stage-iframe-holder">
+                <div
+                  className="stage-iframe-holder"
+                  onPointerEnter={() => document.body.classList.add('hide-cursor-glow')}
+                  onPointerLeave={() => document.body.classList.remove('hide-cursor-glow')}
+                >
                   {isVideoLoading && (
                     <div className="video-skeleton">
                       <div className="video-spinner" />
@@ -234,6 +250,18 @@ export default function WorkshopStudio({
                   <i className="fa-solid fa-play" />
                   <span>{t('modal', 'backToVideo', 'Back to Video')}</span>
                 </button>
+                {currentSession.slidesPdf && (
+                  <a
+                    href={getAssetUrl(currentSession.slidesPdf)}
+                    download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                    className="mini-btn workshop-action-btn highlight"
+                    onClick={() => sfx.playClick()}
+                    title={isRTL ? "تحميل ملف السلايدز بصيغة PDF" : "Download presentation slides PDF"}
+                  >
+                    <i className="fa-solid fa-download" />
+                    <span>{isRTL ? 'تحميل PDF' : 'Download PDF'}</span>
+                  </a>
+                )}
                 <a
                   href={currentSession.slidesDriveUrl}
                   target="_blank"
@@ -303,42 +331,45 @@ export default function WorkshopStudio({
               </div>
             </div>
 
-            {/* Mobile Only: Slides Resource */}
-            <div className="resource-card mobile-only">
-              <div className="resource-icon" style={{ color: '#ff5c5c' }}>
-                <i className="fa-solid fa-file-powerpoint" />
-              </div>
-              <div className="resource-body">
-                <h6>{isRTL ? 'سلايدز الجلسة التفاعلية' : 'Session Slides Deck'}</h6>
-                <p>{isRTL ? 'عرض مرئي كامل والمخططات اللي استخدمت في الشرح اللايف.' : 'Complete visual presentation and diagrams used in the live lecture.'}</p>
-                <div className="resource-links">
-                  <button
-                    className="resource-btn-link"
-                    onClick={() => handleToggleView('slides')}
-                    title={isRTL ? "استعراض السلايدز" : "View slides inside the studio"}
-                  >
-                    <i className="fa-solid fa-eye" /> {isRTL ? 'استعراض السلايدز' : 'View Slides'}
-                  </button>
-                  <a
-                    href={getAssetUrl(currentSession.slidesPdf)}
-                    download={`${currentSession.title} Slides.pdf`}
-                    className="resource-btn-link secondary"
-                    title={isRTL ? "تحميل ملف السلايدز" : "Download slides PDF directly"}
-                  >
-                    <i className="fa-solid fa-download" /> {isRTL ? 'تحميل' : 'Download'}
-                  </a>
-                  <a
-                    href={currentSession.slidesDriveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="resource-btn-link secondary"
-                    title={isRTL ? "فتح على درايف" : "Open slides file in Google Drive"}
-                  >
-                    {isRTL ? 'رابط درايف' : 'Drive Link'}
-                  </a>
+            {/* Slides Resource */}
+            {currentSession.slidesPdf && (
+              <div className="resource-card">
+                <div className="resource-icon" style={{ color: '#ff5c5c' }}>
+                  <i className="fa-solid fa-file-powerpoint" />
+                </div>
+                <div className="resource-body">
+                  <h6>{isRTL ? 'سلايدز الجلسة التفاعلية (PDF)' : 'Session Slides Deck (PDF)'}</h6>
+                  <p>{isRTL ? 'عرض مرئي كامل والمخططات اللي استخدمت في الشرح اللايف.' : 'Complete visual presentation and diagrams used in the live lecture.'}</p>
+                  <div className="resource-links">
+                    <button
+                      className="resource-btn-link"
+                      onClick={() => handleToggleView('slides')}
+                      title={isRTL ? "استعراض السلايدز" : "View slides inside the studio"}
+                    >
+                      <i className="fa-solid fa-eye" /> {isRTL ? 'استعراض السلايدز' : 'View Slides'}
+                    </button>
+                    <a
+                      href={getAssetUrl(currentSession.slidesPdf)}
+                      download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                      className="resource-btn-link highlight"
+                      title={isRTL ? "تحميل ملف السلايدز مباشرة بصيغة PDF" : "Download slides PDF directly"}
+                      onClick={() => sfx.playClick()}
+                    >
+                      <i className="fa-solid fa-download" /> {isRTL ? 'تحميل PDF' : 'Download PDF'}
+                    </a>
+                    <a
+                      href={currentSession.slidesDriveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="resource-btn-link secondary"
+                      title={isRTL ? "فتح على درايف" : "Open slides file in Google Drive"}
+                    >
+                      {isRTL ? 'رابط درايف' : 'Drive Link'}
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Notes Resource */}
             {currentSession.notesUrl && (

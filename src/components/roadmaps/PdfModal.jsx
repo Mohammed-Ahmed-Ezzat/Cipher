@@ -126,7 +126,7 @@ export default function PdfModal({ roadmap, onClose }) {
             </div>
 
             <div className="modal-header-actions">
-              {activeTab === 'roadmap' && (
+              {activeTab === 'roadmap' ? (
                 <a
                   className="mini-btn download-btn"
                   href={getAssetUrl(localPdfUrl)}
@@ -136,6 +136,18 @@ export default function PdfModal({ roadmap, onClose }) {
                   <i className="fa-solid fa-download" />
                   <span>{t('modal', 'downloadPdf', 'Download')}</span>
                 </a>
+              ) : (
+                activeSession?.slidesPdf && (
+                  <a
+                    className="mini-btn download-btn"
+                    href={getAssetUrl(activeSession.slidesPdf)}
+                    download={`${activeSession.slidesTitle || activeSession.title}.pdf`}
+                    title={isRTL ? "تحميل سلايدز الورشة PDF مباشرة على جهازك" : "Download workshop slides PDF"}
+                  >
+                    <i className="fa-solid fa-download" />
+                    <span>{t('modal', 'downloadPdf', 'Download')}</span>
+                  </a>
+                )
               )}
 
               <a

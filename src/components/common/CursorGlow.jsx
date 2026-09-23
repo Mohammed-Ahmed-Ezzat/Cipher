@@ -18,7 +18,26 @@ export default function CursorGlow() {
     let active = false;
     let animationFrame;
 
+    const isVideoOrIframe = (target) => {
+      if (!target) return false;
+      if (target.tagName === 'IFRAME') return true;
+      if (typeof target.closest === 'function') {
+        return !!target.closest('iframe, .stage-iframe, .stage-iframe-holder, .stage-desktop-player, .video-theater-wrapper, .stage-player-box');
+      }
+      return false;
+    };
+
+    const hideCursor = () => {
+      active = false;
+      glow.style.opacity = '0';
+      dot.style.opacity = '0';
+    };
+
     const handlePointerMove = (e) => {
+      if (isVideoOrIframe(e.target)) {
+        hideCursor();
+        return;
+      }
       targetX = e.clientX;
       targetY = e.clientY;
       if (!active) {
@@ -29,10 +48,14 @@ export default function CursorGlow() {
     };
 
     const handleMouseOut = (e) => {
-      if (!e.relatedTarget) {
-        active = false;
-        glow.style.opacity = '0';
-        dot.style.opacity = '0';
+      if (!e.relatedTarget || isVideoOrIframe(e.relatedTarget)) {
+        hideCursor();
+      }
+    };
+
+    const handleMouseOver = (e) => {
+      if (isVideoOrIframe(e.target)) {
+        hideCursor();
       }
     };
 
@@ -46,11 +69,17 @@ export default function CursorGlow() {
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('mouseout', handleMouseOut);
+    document.addEventListener('mouseover', handleMouseOver, true);
+    document.addEventListener('mouseleave', hideCursor);
+    window.addEventListener('blur', hideCursor);
     animationFrame = requestAnimationFrame(animateCursor);
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('mouseout', handleMouseOut);
+      document.removeEventListener('mouseover', handleMouseOver, true);
+      document.removeEventListener('mouseleave', hideCursor);
+      window.removeEventListener('blur', hideCursor);
       cancelAnimationFrame(animationFrame);
     };
   }, []);

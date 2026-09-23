@@ -293,6 +293,20 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
             <i className="fa-solid fa-arrows-left-right" />
             <span className="hide-on-mobile">Fit</span>
           </button>
+
+          {pdfUrl && (
+            <a
+              href={getAssetUrl(pdfUrl)}
+              download={`${title || 'Document'}.pdf`}
+              className="toolbar-btn download-toolbar-btn"
+              onClick={() => sfx.playClick()}
+              title="Download PDF"
+              aria-label="Download PDF"
+            >
+              <i className="fa-solid fa-download" />
+              <span className="hide-on-mobile">Download</span>
+            </a>
+          )}
         </div>
       </div>
 
