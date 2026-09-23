@@ -142,6 +142,19 @@ html[dir="rtl"] .reset-filters-btn {
 }
 
 /* Workshops RTL Adjustments */
+html[dir="rtl"] .workshops-header-wrap {
+  text-align: center;
+  align-items: center;
+}
+
+html[dir="rtl"] .workshops-header-wrap .section-kicker,
+html[dir="rtl"] .workshops-header-wrap .section-title,
+html[dir="rtl"] .workshops-header-wrap .section-desc {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 html[dir="rtl"] .workshop-track-selector-bar {
   direction: rtl;
 }
