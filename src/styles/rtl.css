@@ -318,10 +318,12 @@ html[dir="rtl"] .slides-actions {
 
 html[dir="rtl"] .workshop-topics-box {
   text-align: right;
+  direction: rtl;
 }
 
 html[dir="rtl"] .resource-card {
   text-align: right;
+  direction: rtl;
 }
 
 /* Footer Section RTL */

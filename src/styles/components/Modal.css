@@ -176,6 +176,9 @@
 .pdf-frame-wrap {
   margin: 12px;
   flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(166, 255, 242, 0.1);
   border-radius: 18px;
   background: #021b1a;
@@ -650,13 +653,17 @@
 /* Workshop Studio Container */
 .workshop-studio-root {
   flex: 1;
+  height: 100%;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 16px 20px 30px;
+  padding: 14px 18px 26px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(91, 224, 255, 0.3) rgba(0, 0, 0, 0.2);
 }
 
 .workshop-studio-root::-webkit-scrollbar {
@@ -779,15 +786,43 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-items: center;
+  width: 100%;
 }
 
-.video-theater-wrapper {
+.workshop-studio-root .video-theater-wrapper {
   position: relative;
   width: 100%;
+  max-width: min(100%, calc(52vh * 1.777), 920px);
+  margin: 0 auto;
   border-radius: 20px;
   padding: 3px;
   background: linear-gradient(135deg, rgba(91, 224, 255, 0.3), rgba(32, 240, 208, 0.1) 60%, rgba(0, 0, 0, 0.5));
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.workshop-studio-root .stage-desktop-player {
+  display: block;
+  width: 100%;
+}
+
+.workshop-studio-root .stage-iframe-holder,
+.video-iframe-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #011212;
+  z-index: 1;
+}
+
+.workshop-studio-root .stage-iframe,
+.workshop-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
 
 .video-ambient-glow {
@@ -799,23 +834,6 @@
   z-index: 0;
   pointer-events: none;
   opacity: 0.6;
-}
-
-.video-iframe-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #021212;
-  z-index: 1;
-}
-
-.workshop-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
 }
 
 .video-skeleton {
@@ -978,7 +996,7 @@
 }
 
 .slides-canvas-frame {
-  height: 600px;
+  height: clamp(380px, 54vh, 600px);
   background: rgba(1, 15, 15, 0.8);
   border: 1px solid rgba(166, 255, 242, 0.12);
   border-radius: 18px;
