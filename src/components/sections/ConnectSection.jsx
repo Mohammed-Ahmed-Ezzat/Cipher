@@ -1,7 +1,10 @@
 import React from 'react';
 import { siteConfig } from '../../data/siteConfig';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function ConnectSection({ onCopyEmail }) {
+  const { t, isRTL } = useLanguage();
+
   const handleTileClick = (e, item) => {
     if (item.isEmail) {
       if (navigator.clipboard) {
@@ -15,13 +18,13 @@ export default function ConnectSection({ onCopyEmail }) {
     <section id="connect">
       <div className="container-xl">
         <div className="connect-head-wrap reveal-on-scroll">
-          <div className="section-kicker">07 / Connect</div>
+          <div className="section-kicker">{t('connect', 'kicker', '07 / Connect')}</div>
           <h2 className="section-title">
-            Let's stay <span className="gradient">connected.</span>
+            {t('connect', 'title', "Let's stay")}{' '}
+            <span className="gradient">{t('connect', 'titleGradient', 'connected.')}</span>
           </h2>
           <p className="section-desc">
-            Got a question, an idea, or just want to say hi? Cipher is one message away — pick
-            whichever channel feels right.
+            {t('connect', 'desc', 'Got a question, an idea, or just want to say hi? Cipher is one message away — pick whichever channel feels right.')}
           </p>
           <div className="connect-actions">
             <a
@@ -30,10 +33,10 @@ export default function ConnectSection({ onCopyEmail }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Join the Community <i className="fa-solid fa-arrow-up-right-from-square" />
+              {t('connect', 'joinCommunity', 'Join the Community')} <i className="fa-solid fa-arrow-up-right-from-square" />
             </a>
             <a className="btn-ghost" href="mailto:cipherteam77@gmail.com">
-              Message Us <i className="fa-solid fa-paper-plane" />
+              {t('connect', 'messageUs', 'Message Us')} <i className="fa-solid fa-paper-plane" />
             </a>
           </div>
         </div>

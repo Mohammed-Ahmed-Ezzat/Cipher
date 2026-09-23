@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { siteConfig } from '../../data/siteConfig';
 import { sfx } from '../../utils/soundEffects';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function FaqSection() {
+  const { t, isRTL } = useLanguage();
   const [openIndex, setOpenIndex] = useState(0); // first item open by default
 
   const handleToggle = (index) => {
@@ -10,22 +12,24 @@ export default function FaqSection() {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
+  const faqItems = t('faq', 'items', siteConfig.faqs);
+
   return (
     <section id="faq">
       <div className="container-xl">
         <div className="faq-head-wrap reveal-on-scroll">
-          <div className="section-kicker">06 / FAQ & Guidance</div>
+          <div className="section-kicker">{t('faq', 'kicker', '06 / FAQ & Guidance')}</div>
           <h2 className="section-title">
-            Frequently Asked <span className="gradient">Questions.</span>
+            {t('faq', 'title', 'Frequently Asked')}{' '}
+            <span className="gradient">{t('faq', 'titleGradient', 'Questions.')}</span>
           </h2>
           <p className="section-desc">
-            Got questions about starting with Cipher, attending camps, or joining the team?
-            Here are the answers to the most common inquiries.
+            {t('faq', 'desc', 'Got questions about starting with Cipher, attending camps, or joining the team? Here are the answers to the most common inquiries.')}
           </p>
         </div>
 
         <div className="faq-accordion-list reveal-stagger">
-          {siteConfig.faqs.map((faq, index) => {
+          {faqItems.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div

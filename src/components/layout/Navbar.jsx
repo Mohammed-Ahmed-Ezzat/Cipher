@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { siteConfig } from '../../data/siteConfig';
 import { sfx } from '../../utils/soundEffects';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Navbar({ activeSection, isScrolled }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   const toggleMobileMenu = () => {
     sfx.playClick();
@@ -17,6 +19,16 @@ export default function Navbar({ activeSection, isScrolled }) {
   const handleNavLinkClick = () => {
     sfx.playClick();
     closeMobileMenu();
+  };
+
+  const navLinkLabels = {
+    '#home': t('nav', 'home', 'Home'),
+    '#roadmaps': t('nav', 'roadmaps', 'Roadmaps'),
+    '#workshops': t('nav', 'workshops', 'Workshops'),
+    '#about': t('nav', 'about', 'About'),
+    '#what-we-do': t('nav', 'whatWeDo', 'What We Do'),
+    '#faq': t('nav', 'faq', 'FAQ'),
+    '#connect': t('nav', 'connect', 'Connect')
   };
 
   return (
@@ -37,6 +49,7 @@ export default function Navbar({ activeSection, isScrolled }) {
             {siteConfig.navLinks.map((link) => {
               const targetId = link.href.replace('#', '');
               const isActive = activeSection === targetId;
+              const label = navLinkLabels[link.href] || link.label;
               return (
                 <a
                   key={link.href}
@@ -44,24 +57,46 @@ export default function Navbar({ activeSection, isScrolled }) {
                   href={link.href}
                   onClick={() => sfx.playClick()}
                 >
-                  {link.label}
+                  {label}
                 </a>
               );
             })}
           </div>
 
-          {/* Desktop Action Cluster: CTA */}
+          {/* Desktop Action Cluster: Language Switcher & CTA */}
           <div className="nav-actions-desktop">
+            <button
+              type="button"
+              className="lang-toggle-btn"
+              onClick={toggleLanguage}
+              title={language === 'en' ? 'التحويل للمصري' : 'Switch to English'}
+              aria-label="Toggle language"
+            >
+              <i className="fa-solid fa-globe" />
+              <span className="lang-toggle-badge">{language === 'en' ? 'EG' : 'EN'}</span>
+            </button>
+
             <a className="nav-cta" href="#roadmaps" onClick={() => sfx.playClick()}>
-              Explore Paths
+              {t('nav', 'exploreBtn', 'Explore Paths')}
               <span className="cta-arrow">
                 <i className="fa-solid fa-arrow-right" />
               </span>
             </a>
           </div>
 
-          {/* Mobile Right Controls: Burger Menu */}
+          {/* Mobile Right Controls: Language Switcher & Burger Menu */}
           <div className="nav-mobile-actions">
+            <button
+              type="button"
+              className="lang-toggle-btn mobile-lang-btn"
+              onClick={toggleLanguage}
+              title={language === 'en' ? 'التحويل للمصري' : 'Switch to English'}
+              aria-label="Toggle language"
+            >
+              <i className="fa-solid fa-globe" />
+              <span className="lang-toggle-badge">{language === 'en' ? 'EG' : 'EN'}</span>
+            </button>
+
             <button
               className={`nav-toggle ${mobileMenuOpen ? 'open' : ''}`}
               onClick={toggleMobileMenu}
@@ -113,6 +148,7 @@ export default function Navbar({ activeSection, isScrolled }) {
           {siteConfig.navLinks.map((link) => {
             const targetId = link.href.replace('#', '');
             const isActive = activeSection === targetId;
+            const label = navLinkLabels[link.href] || link.label;
             return (
               <a
                 key={link.href}
@@ -120,7 +156,7 @@ export default function Navbar({ activeSection, isScrolled }) {
                 href={link.href}
                 onClick={handleNavLinkClick}
               >
-                {link.label}
+                {label}
               </a>
             );
           })}
@@ -132,7 +168,7 @@ export default function Navbar({ activeSection, isScrolled }) {
             className="btn-main mobile-cta"
             onClick={handleNavLinkClick}
           >
-            Explore Roadmaps <i className="fa-solid fa-arrow-right" />
+            {t('nav', 'exploreBtn', 'Explore Roadmaps')} <i className="fa-solid fa-arrow-right" />
           </a>
 
           <div className="mobile-socials-row">

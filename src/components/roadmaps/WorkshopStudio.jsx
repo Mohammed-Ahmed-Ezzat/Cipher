@@ -1,54 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import LocalPdfViewer from './LocalPdfViewer';
 import { sfx } from '../../utils/soundEffects';
+import { getAssetUrl } from '../../utils/urlHelper';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
+  const { t, isRTL } = useLanguage();
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [activeView, setActiveView] = useState('video'); // 'video' | 'slides'
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
-  const [playerMode, setPlayerMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const isMobileWidth = window.innerWidth <= 768;
-      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      return (isMobileWidth || isMobileUA) ? 'direct' : 'embed';
-    }
-    return 'embed';
-  });
 
   if (!workshop || !workshop.sessions || workshop.sessions.length === 0) {
     return (
       <div className="workshop-empty">
         <i className="fa-solid fa-graduation-cap" />
-        <p>Workshop sessions will be announced soon.</p>
+        <p>{isRTL ? 'سيتم الإعلان عن محاضرات الورشة قريباً.' : 'Workshop sessions will be announced soon.'}</p>
       </div>
     );
   }
 
   const currentSession = workshop.sessions[selectedDayIndex] || workshop.sessions[0];
 
+  const sessionTitlesAr = {
+    'network-1': 'المحاضرة 01: أساسيات الشبكات ونموذج OSI',
+    'network-2': 'المحاضرة 02: التوجيه والـ Routing والـ Switching',
+    'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
+    'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
+    'frontend-1': 'المحاضرة 01: أساسيات الفرونت إند والـ UI'
+  };
+
+  const sessionKey = `${workshop.id}-${currentSession.day}`;
+  const currentSessionTitle = isRTL ? (sessionTitlesAr[sessionKey] || currentSession.title) : currentSession.title;
+
   useEffect(() => {
-    // Safety timer: Dismiss skeleton after 3.5s if onLoad is delayed or blocked by mobile privacy shields
+    // Safety timer: Dismiss skeleton after 3.5s if onLoad is delayed
     const timer = setTimeout(() => {
       setIsVideoLoading(false);
     }, 3500);
     return () => clearTimeout(timer);
   }, [selectedDayIndex, reloadKey]);
-
-  useEffect(() => {
-    let prevWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    const handleResize = () => {
-      const currentWidth = window.innerWidth;
-      if (prevWidth > 768 && currentWidth <= 768) {
-        setPlayerMode('direct');
-      } else if (prevWidth <= 768 && currentWidth > 768) {
-        setPlayerMode('embed');
-      }
-      prevWidth = currentWidth;
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleSelectDay = (index) => {
     sfx.playClick();
@@ -59,12 +50,6 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
   const handleToggleView = (view) => {
     sfx.playClick();
     setActiveView(view);
-  };
-
-  const handleReloadVideo = () => {
-    sfx.playClick();
-    setIsVideoLoading(true);
-    setReloadKey(prev => prev + 1);
   };
 
   return (
@@ -82,7 +67,7 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
               }}
             >
               <span className="day-number">0{session.day}</span>
-              <span className="day-label">Day {session.day}</span>
+              <span className="day-label">{isRTL ? `المحاضرة 0${session.day}` : `Day ${session.day}`}</span>
               {session.date && <span className="day-date">{session.date}</span>}
             </button>
           ))}
@@ -93,18 +78,18 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
           <button
             className={`view-switch-btn ${activeView === 'video' ? 'active' : ''}`}
             onClick={() => handleToggleView('video')}
-            title="Watch recorded live session"
+            title={isRTL ? 'مشاهدة تسجيل المحاضرة' : 'Watch recorded live session'}
           >
             <i className="fa-solid fa-play" />
-            <span>Watch Video</span>
+            <span>{t('modal', 'watchVideo', 'Watch Video')}</span>
           </button>
           <button
             className={`view-switch-btn ${activeView === 'slides' ? 'active' : ''}`}
             onClick={() => handleToggleView('slides')}
-            title="View session presentation slides"
+            title={isRTL ? 'عرض سلايدز المحاضرة' : 'View session presentation slides'}
           >
             <i className="fa-solid fa-file-powerpoint" />
-            <span>Session Slides</span>
+            <span>{t('modal', 'sessionSlides', 'Session Slides')}</span>
           </button>
         </div>
       </div>
@@ -116,138 +101,74 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
             <div className="video-theater-wrapper" style={{ '--theater-accent': accent }}>
               <div className="video-ambient-glow" />
 
-              {/* Player Mode Switcher Tabs */}
-              <div className="stage-player-mode-tabs">
-                <button
-                  type="button"
-                  className={`player-mode-tab ${playerMode === 'direct' ? 'active' : ''}`}
-                  onClick={() => {
-                    sfx.playClick();
-                    setPlayerMode('direct');
-                  }}
-                  title="Direct high-speed video player"
-                >
-                  <i className="fa-solid fa-bolt" />
-                  <span>Instant Player</span>
-                  <span className="player-tab-chip">Fast & Direct</span>
-                </button>
-                <button
-                  type="button"
-                  className={`player-mode-tab ${playerMode === 'embed' ? 'active' : ''}`}
-                  onClick={() => {
-                    sfx.playClick();
-                    setPlayerMode('embed');
-                  }}
-                  title="Embedded in-page video player"
-                >
-                  <i className="fa-solid fa-window-maximize" />
-                  <span>Embedded Player</span>
-                </button>
-              </div>
-
-              {playerMode === 'direct' ? (
-                /* Cinematic Direct Mobile Player Stage */
-                <div className="stage-iframe-holder direct-mode modal-direct-holder">
-                  <div className="direct-player-backdrop">
-                    <div className="direct-player-glow" />
-                  </div>
-
-                  <a
-                    href={currentSession.videoDriveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="direct-play-hero-btn"
-                    title="Launch session video stream"
-                    onClick={() => sfx.playClick()}
-                  >
-                    <div className="direct-play-circle">
-                      <i className="fa-solid fa-play" />
-                    </div>
-                    <div className="direct-play-meta">
-                      <span className="direct-play-heading">Play Recorded Workshop</span>
-                      <span className="direct-play-subtext">
-                        <i className="fa-solid fa-bolt" /> 1080p Full HD • Instant Smooth Stream
-                      </span>
-                      <span className="direct-play-prompt">
-                        Click to stream via Google Drive Player <i className="fa-solid fa-arrow-up-right-from-square" />
-                      </span>
-                    </div>
-                  </a>
-
-                  <div className="direct-player-footer">
-                    <span className="direct-track-tag">
-                      <i className="fa-solid fa-video" /> Live Stream
-                    </span>
-                    <span className="direct-session-tag">
-                      Session {currentSession.day} • {currentSession.date}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div className="video-iframe-container">
+              {/* Desktop Player: Video embedded directly on computer */}
+              <div className="stage-desktop-player">
+                <div className="stage-iframe-holder">
                   {isVideoLoading && (
                     <div className="video-skeleton">
                       <div className="video-spinner" />
-                      <span>Connecting to Google Drive Stream...</span>
+                      <span>{isRTL ? 'جاري الاتصال بالبث...' : 'Loading Video Stream...'}</span>
                     </div>
                   )}
-
-                  <div className="stage-floating-launch-bar">
-                    <a
-                      href={currentSession.videoDriveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="floating-launch-btn"
-                      title="Launch video in high-definition native player"
-                      onClick={() => sfx.playClick()}
-                    >
-                      <i className="fa-brands fa-google-drive" />
-                      <span>Launch Stream (1080p)</span>
-                      <i className="fa-solid fa-arrow-up-right-from-square" />
-                    </a>
-                  </div>
 
                   <iframe
                     key={`${currentSession.videoUrl}-${reloadKey}`}
                     src={currentSession.videoUrl}
                     title={currentSession.title}
-                    className="workshop-iframe"
+                    className="stage-iframe"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     loading="eager"
                     onLoad={() => setIsVideoLoading(false)}
                   />
                 </div>
-              )}
+              </div>
 
-              {/* In-Modal Player Bottom Helper */}
-              <div className="stage-player-helper modal-variant">
-                <div className="helper-hint">
-                  <i className="fa-solid fa-circle-info" />
-                  <span>
-                    Chrome DevTools touch mode drops clicks on iframes. Use <b>Instant Player</b> above or click <b>Open in Drive</b> for 1-click playback.
-                  </span>
+              {/* Mobile Player: Stream Card with Watch on Google Drive for phone */}
+              <div className="stage-mobile-player">
+                <div className="stage-drive-stream-card modal-stream-card">
+                  <div className="stream-card-glow" />
+                  <div className="stream-card-top">
+                    <span className="stream-card-session">
+                      {isRTL ? `المحاضرة 0${currentSession.day}` : `Day 0${currentSession.day}`}
+                    </span>
+                  </div>
+
+                  <div className="stream-card-body">
+                    <div className="stream-play-glow-wrap">
+                      <div className="stream-play-pulse-ring" />
+                      <div className="stream-play-icon-circle">
+                        <i className="fa-solid fa-play" />
+                      </div>
+                    </div>
+                    <h4 className="stream-card-title">{currentSessionTitle}</h4>
+                    <p className="stream-card-subtitle">
+                      {isRTL ? 'محاضرة لايف مسجلة من مينتورز سايفر.' : 'Recorded live masterclass by Cipher mentors.'}
+                    </p>
+                  </div>
+
+                  <a
+                    href={currentSession.videoDriveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="stream-card-action-btn"
+                    onClick={() => sfx.playClick()}
+                  >
+                    <i className="fa-brands fa-google-drive" />
+                    <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
+                    <i className="fa-solid fa-arrow-up-right-from-square" />
+                  </a>
                 </div>
-                <a
-                  href={currentSession.videoDriveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="helper-direct-link"
-                >
-                  <i className="fa-brands fa-google-drive" />
-                  <span>Open in Drive</span>
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                </a>
               </div>
             </div>
 
-            {/* Video Meta Info Bar */}
-            <div className="workshop-meta-bar">
+            {/* Video Meta Info Bar (Desktop only, hidden on mobile) */}
+            <div className="workshop-meta-bar stage-desktop-player">
               <div className="meta-info-left">
                 <span className="session-badge">
-                  <i className="fa-solid fa-video" /> Live Recording
+                  <i className="fa-solid fa-video" /> {t('modal', 'liveRecording', 'Live Recording')}
                 </span>
-                <h4 className="session-title">{currentSession.title}</h4>
+                <h4 className="session-title">{currentSessionTitle}</h4>
                 <div className="session-subline">
                   <span>
                     <i className="fa-regular fa-calendar" /> {currentSession.date}
@@ -264,20 +185,21 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                   href={currentSession.videoDriveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mini-btn workshop-action-btn drive-highlight"
-                  title="Open video directly in Google Drive"
+                  className="mini-btn workshop-action-btn highlight stage-desktop-player"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "افتح الفيديو في تاب منفصل على درايف" : "Open video in new tab on Google Drive"}
                 >
                   <i className="fa-brands fa-google-drive" />
-                  <span>Open in Drive</span>
+                  <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
                   <i className="fa-solid fa-arrow-up-right-from-square" />
                 </a>
                 <button
-                  className="mini-btn workshop-action-btn highlight"
+                  className="mini-btn workshop-action-btn"
                   onClick={() => handleToggleView('slides')}
-                  title="Read presentation slides for this session"
+                  title={isRTL ? "قراءة السلايدز" : "Read presentation slides for this session"}
                 >
                   <i className="fa-solid fa-file-pdf" />
-                  <span>Read Slides</span>
+                  <span>{t('modal', 'readSlides', 'Read Slides')}</span>
                 </button>
               </div>
             </div>
@@ -288,7 +210,7 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
             <div className="slides-header-bar">
               <div className="slides-title-info">
                 <span className="session-badge">
-                  <i className="fa-solid fa-file-pdf" /> Presentation Slides
+                  <i className="fa-solid fa-file-pdf" /> {t('modal', 'sessionSlides', 'Presentation Slides')}
                 </span>
                 <h4>{currentSession.slidesTitle || `${currentSession.title} - Slides`}</h4>
               </div>
@@ -296,20 +218,20 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                 <button
                   className="mini-btn workshop-action-btn"
                   onClick={() => handleToggleView('video')}
-                  title="Return to video recording"
+                  title={isRTL ? "الرجوع لتسجيل الفيديو" : "Return to video recording"}
                 >
                   <i className="fa-solid fa-play" />
-                  <span>Back to Video</span>
+                  <span>{t('modal', 'backToVideo', 'Back to Video')}</span>
                 </button>
                 <a
                   href={currentSession.slidesDriveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mini-btn workshop-action-btn"
-                  title="Open slides file in Google Drive"
+                  title={isRTL ? "فتح ملف السلايدز على درايف" : "Open slides file in Google Drive"}
                 >
                   <i className="fa-solid fa-arrow-up-right-from-square" />
-                  <span>Open in Drive</span>
+                  <span>{t('modal', 'openInDrive', 'Open in Drive')}</span>
                 </a>
               </div>
             </div>
@@ -332,7 +254,7 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
             <div className="workshop-topics-box">
               <h5 className="box-title">
                 <i className="fa-solid fa-list-check" style={{ color: accent }} />
-                <span>Topics Covered in this Session</span>
+                <span>{t('modal', 'topicsCovered', 'Topics Covered in this Session')}</span>
               </h5>
               <div className="topics-grid">
                 {currentSession.topics.map((topic, i) => (
@@ -347,38 +269,61 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
 
           {/* Resources & Materials Cards */}
           <div className="workshop-resources-grid">
-            {/* Slides Resource */}
-            <div className="resource-card">
+            {/* Desktop Only: Watch on Google Drive */}
+            <div className="resource-card desktop-only">
+              <div className="resource-icon" style={{ color: '#20f0d0' }}>
+                <i className="fa-brands fa-google-drive" />
+              </div>
+              <div className="resource-body">
+                <h6>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</h6>
+                <p>{t('workshops', 'watchOnDriveSub', 'Open and stream recorded session in a new tab.')}</p>
+                <div className="resource-links">
+                  <a
+                    href={currentSession.videoDriveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="resource-btn-link"
+                    onClick={() => sfx.playClick()}
+                  >
+                    <i className="fa-brands fa-google-drive" /> {t('workshops', 'watchOnDrive', 'Watch on Google Drive')}{' '}
+                    <i className="fa-solid fa-arrow-up-right-from-square" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Only: Slides Resource */}
+            <div className="resource-card mobile-only">
               <div className="resource-icon" style={{ color: '#ff5c5c' }}>
                 <i className="fa-solid fa-file-powerpoint" />
               </div>
               <div className="resource-body">
-                <h6>Session Slides Deck</h6>
-                <p>Complete visual presentation and diagrams used in the live lecture.</p>
+                <h6>{isRTL ? 'سلايدز الجلسة التفاعلية' : 'Session Slides Deck'}</h6>
+                <p>{isRTL ? 'عرض مرئي كامل والمخططات اللي استخدمت في الشرح اللايف.' : 'Complete visual presentation and diagrams used in the live lecture.'}</p>
                 <div className="resource-links">
                   <button
                     className="resource-btn-link"
                     onClick={() => handleToggleView('slides')}
-                    title="View slides inside the studio"
+                    title={isRTL ? "استعراض السلايدز" : "View slides inside the studio"}
                   >
-                    <i className="fa-solid fa-eye" /> View Slides
+                    <i className="fa-solid fa-eye" /> {isRTL ? 'استعراض السلايدز' : 'View Slides'}
                   </button>
                   <a
-                    href={currentSession.slidesPdf}
+                    href={getAssetUrl(currentSession.slidesPdf)}
                     download={`${currentSession.title} Slides.pdf`}
                     className="resource-btn-link secondary"
-                    title="Download slides PDF directly"
+                    title={isRTL ? "تحميل ملف السلايدز" : "Download slides PDF directly"}
                   >
-                    <i className="fa-solid fa-download" /> Download
+                    <i className="fa-solid fa-download" /> {isRTL ? 'تحميل' : 'Download'}
                   </a>
                   <a
                     href={currentSession.slidesDriveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="resource-btn-link secondary"
-                    title="Open slides file in Google Drive"
+                    title={isRTL ? "فتح على درايف" : "Open slides file in Google Drive"}
                   >
-                    Drive Link
+                    {isRTL ? 'رابط درايف' : 'Drive Link'}
                   </a>
                 </div>
               </div>
@@ -391,8 +336,8 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                   <i className="fa-solid fa-file-lines" />
                 </div>
                 <div className="resource-body">
-                  <h6>Meeting Notes & Gemini Summary</h6>
-                  <p>Timestamped notes, discussed points, and AI-generated session overview.</p>
+                  <h6>{currentSession.notesTitle}</h6>
+                  <p>{t('workshops', 'meetingNotesSub', 'Timestamped notes and AI summary on Google Docs.')}</p>
                   <div className="resource-links">
                     <a
                       href={currentSession.notesUrl}
@@ -400,7 +345,7 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                       rel="noopener noreferrer"
                       className="resource-btn-link"
                     >
-                      Open Google Doc <i className="fa-solid fa-arrow-up-right-from-square" />
+                      {isRTL ? 'فتح ملف Google Doc' : 'Open Google Doc'} <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
                   </div>
                 </div>
@@ -414,8 +359,8 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                   <i className="fa-brands fa-google-drive" />
                 </div>
                 <div className="resource-body">
-                  <h6>Shared Workshop Folder</h6>
-                  <p>Access all raw recordings, presentation files, and workshop assets.</p>
+                  <h6>{isRTL ? 'فولدر الورشة المشترك على درايف' : 'Shared Workshop Folder'}</h6>
+                  <p>{t('workshops', 'driveFolderSub', 'Access all raw recordings, presentation files, and workshop assets.')}</p>
                   <div className="resource-links">
                     <a
                       href={workshop.folderDriveUrl}
@@ -423,7 +368,7 @@ export default function WorkshopStudio({ workshop, accent = '#5be0ff' }) {
                       rel="noopener noreferrer"
                       className="resource-btn-link secondary"
                     >
-                      Open Drive Folder <i className="fa-solid fa-arrow-up-right-from-square" />
+                      {isRTL ? 'فتح فولدر درايف' : 'Open Drive Folder'} <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
                   </div>
                 </div>

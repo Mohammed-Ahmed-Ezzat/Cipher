@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
 import { sfx } from '../../utils/soundEffects';
+import { getAssetUrl } from '../../utils/urlHelper';
 
-// Local worker file - 100% offline
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+// Local worker file - 100% offline & subpath compatible
+pdfjsLib.GlobalWorkerOptions.workerSrc = getAssetUrl('pdf.worker.min.js');
 
 // Dedicated single page canvas component for perfect lifecycle & memory management
 function PageCanvas({ pageNum, pdfDoc, scale }) {
@@ -96,8 +97,9 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
 
     const loadDocumentData = async () => {
       try {
-        // Fetch raw bytes into memory (IDM does NOT intercept .cipher files!)
-        const response = await fetch(targetUrl);
+        // Fetch raw bytes into memory using getAssetUrl
+        const resolvedUrl = getAssetUrl(targetUrl);
+        const response = await fetch(resolvedUrl);
         if (!response.ok) {
           throw new Error(`Failed to fetch document: HTTP ${response.status}`);
         }
@@ -317,7 +319,7 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
             <h4>Failed to render document</h4>
             <p>{error}</p>
             <a
-              href={pdfUrl}
+              href={getAssetUrl(pdfUrl)}
               download={`${title || 'Roadmap'}.pdf`}
               className="btn-main"
             >

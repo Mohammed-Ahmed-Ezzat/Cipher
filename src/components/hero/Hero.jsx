@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ThreeCanvas from './ThreeCanvas';
-import { siteConfig } from '../../data/siteConfig';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Hero() {
+  const { t, isRTL } = useLanguage();
   const [counts, setCounts] = useState({ paths: 0, community: 0, showInfinity: false });
   const metaRef = useRef(null);
   const animatedRef = useRef(false);
@@ -54,49 +55,49 @@ export default function Hero() {
       <div className="container-xl hero-content">
         <div className="eyebrow">
           <span className="pulse-dot" />
-          STUDENT • TECH • COMMUNITY
+          {t('hero', 'kicker', 'STUDENT • TECH • COMMUNITY')}
         </div>
 
         <h1>
-          Choose Your <span className="gradient">Path.</span>
+          {t('hero', 'titlePrefix', 'Choose Your')}{' '}
+          <span className="gradient">{t('hero', 'titleGradient', 'Path.')}</span>
           <br />
-          Build Your Future.
+          {t('hero', 'titleSuffix', 'Build Your Future.')}
         </h1>
 
         <p>
-          Clear learning directions for students who want to explore technology, build real
-          skills, and know what to learn next.
+          {t('hero', 'desc', 'Clear learning directions for students who want to explore technology, build real skills, and know what to learn next.')}
         </p>
 
         <div className="actions">
           <a href="#roadmaps" className="btn-main">
-            Explore Roadmaps <i className="fa-solid fa-arrow-down" />
+            {t('hero', 'exploreBtn', 'Explore Roadmaps')} <i className="fa-solid fa-arrow-down" />
           </a>
           <a href="#intro" className="btn-ghost">
-            Meen Cipher <i className="fa-solid fa-arrow-right" />
+            {t('hero', 'meenCipherBtn', 'Who is Cipher?')} <i className="fa-solid fa-arrow-right" />
           </a>
         </div>
 
         <div className="hero-meta" ref={metaRef}>
           <div className="meta">
             <strong>{String(counts.paths).padStart(2, '0')}</strong>
-            <span>Learning Paths</span>
+            <span>{t('hero', 'badgeRoadmaps', 'Learning Paths')}</span>
           </div>
           <div className="meta">
             <strong>{String(counts.community).padStart(2, '0')}</strong>
-            <span>Community</span>
+            <span>{t('hero', 'badgeCommunity', 'Community')}</span>
           </div>
           <div className="meta">
             <strong className={`infinity-count ${counts.showInfinity ? 'pop' : ''}`}>
               ∞
             </strong>
-            <span>Potential</span>
+            <span>{t('hero', 'badgePotential', 'Potential')}</span>
           </div>
         </div>
       </div>
 
       <div className="scroll-cue" id="scrollCue">
-        Scroll to explore <i className="fa-solid fa-chevron-down" />
+        {t('hero', 'scrollCue', 'Scroll to explore')} <i className="fa-solid fa-chevron-down" />
       </div>
 
       <div className="hero-divider" aria-hidden="true">

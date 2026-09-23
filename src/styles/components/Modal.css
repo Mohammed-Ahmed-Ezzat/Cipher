@@ -1068,6 +1068,23 @@
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
+.resource-card.desktop-only {
+  display: flex;
+}
+
+.resource-card.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .resource-card.desktop-only {
+    display: none !important;
+  }
+  .resource-card.mobile-only {
+    display: flex !important;
+  }
+}
+
 .resource-card:hover {
   transform: translateY(-2px);
   border-color: rgba(91, 224, 255, 0.35);
@@ -1162,9 +1179,7 @@
     justify-content: center;
   }
   .workshop-meta-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    display: none !important;
   }
   .meta-actions-right {
     width: 100%;
@@ -1175,6 +1190,9 @@
   .meta-actions-right .workshop-action-btn {
     width: 100%;
     justify-content: center;
+  }
+  .stage-floating-launch-bar {
+    display: none;
   }
 }
 

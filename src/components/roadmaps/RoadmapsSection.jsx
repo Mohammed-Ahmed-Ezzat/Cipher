@@ -3,8 +3,10 @@ import RoadmapCard from './RoadmapCard';
 import { roadmapsData } from '../../data/roadmapsData';
 import { siteConfig } from '../../data/siteConfig';
 import { sfx } from '../../utils/soundEffects';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function RoadmapsSection({ onOpenRoadmap }) {
+  const { t, isRTL } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -43,11 +45,13 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
     <section id="roadmaps">
       <div className="container-xl">
         <div className="roadmaps-header-wrap reveal-on-scroll">
-          <div className="section-kicker">01 / Roadmaps Explorer</div>
-          <h2 className="section-title">Pick your direction.</h2>
+          <div className="section-kicker">{t('roadmaps', 'kicker', '01 / Roadmaps Explorer')}</div>
+          <h2 className="section-title">
+            {t('roadmaps', 'title', 'Pick your')}{' '}
+            <span className="gradient">{t('roadmaps', 'titleGradient', 'direction.')}</span>
+          </h2>
           <p className="section-desc">
-            Explore curated learning paths designed by Cipher mentors. Search by topic,
-            filter by specialty, or browse all available roadmaps.
+            {t('roadmaps', 'desc', 'Explore curated learning paths designed by Cipher mentors. Search by topic, filter by specialty, or browse all available roadmaps.')}
           </p>
         </div>
 
@@ -59,7 +63,7 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
             <input
               type="text"
               className="roadmap-search-input"
-              placeholder="Search by path, tech, or skill (e.g. React, Docker, Logic)..."
+              placeholder={t('roadmaps', 'searchPlaceholder', 'Search by path, tech, or skill (e.g. React, Docker, Logic)...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Search roadmaps"
@@ -79,6 +83,7 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
           <div className="category-pills-row" role="tablist" aria-label="Filter roadmaps by category">
             {siteConfig.categories.map((cat) => {
               const isActive = selectedCategory === cat.id;
+              const catLabel = t('categories', cat.id, cat.label);
               return (
                 <button
                   key={cat.id}
@@ -88,7 +93,7 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
                   aria-selected={isActive}
                 >
                   <i className={`fa-solid ${cat.icon}`} />
-                  <span>{cat.label}</span>
+                  <span>{catLabel}</span>
                 </button>
               );
             })}
@@ -99,14 +104,18 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
         <div className="roadmaps-status-row">
           <span className="results-count-badge">
             <i className="fa-solid fa-layer-group" />
-            Showing <b>{filteredRoadmaps.length}</b> of {roadmapsData.length} paths
+            {t('roadmaps', 'showing', 'Showing')}{' '}
+            <b>{filteredRoadmaps.length}</b>{' '}
+            {t('roadmaps', 'of', 'of')}{' '}
+            {roadmapsData.length}{' '}
+            {t('roadmaps', 'pathsCount', 'paths')}
           </span>
           {(searchQuery || selectedCategory !== 'all') && (
             <button
               className="reset-filters-btn"
               onClick={handleResetFilters}
             >
-              <i className="fa-solid fa-arrow-rotate-left" /> Reset Filters
+              <i className="fa-solid fa-arrow-rotate-left" /> {t('roadmaps', 'resetFilters', 'Reset Filters')}
             </button>
           )}
         </div>
@@ -131,13 +140,13 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
             <div className="empty-icon-wrap">
               <i className="fa-solid fa-radar" />
             </div>
-            <h3>No matching roadmaps found</h3>
+            <h3>{t('roadmaps', 'noMatchTitle', 'No matching roadmaps found')}</h3>
             <p>
-              We couldn't find any path matching "<b>{searchQuery}</b>" in this category.
-              Try adjusting your search keywords or reset filters.
+              {t('roadmaps', 'noMatchDesc', "We couldn't find any path matching")} "<b>{searchQuery}</b>"{' '}
+              {t('roadmaps', 'noMatchDescEnd', 'in this category. Try adjusting your search keywords or reset filters.')}
             </p>
             <button className="btn-main" onClick={handleResetFilters}>
-              <i className="fa-solid fa-arrow-rotate-left" /> Show All Roadmaps
+              <i className="fa-solid fa-arrow-rotate-left" /> {t('roadmaps', 'showAllBtn', 'Show All Roadmaps')}
             </button>
           </div>
         )}

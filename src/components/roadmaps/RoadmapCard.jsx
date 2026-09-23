@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function RoadmapCard({ roadmap, index, onOpenRoadmap }) {
+  const { t, isRTL } = useLanguage();
   const cardRef = useRef(null);
+
+  const itemTranslation = t('roadmaps', 'items', {})[roadmap.id];
+  const displayTitle = (isRTL && itemTranslation?.title) ? itemTranslation.title : roadmap.title;
+  const displayDesc = (isRTL && itemTranslation?.desc) ? itemTranslation.desc : roadmap.desc;
 
   const handlePointerMove = (e) => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
@@ -43,23 +49,25 @@ export default function RoadmapCard({ roadmap, index, onOpenRoadmap }) {
       onClick={handleCardClick}
     >
       <div className="card-top-bar">
-        <div className="roadmap-number">
-          <b>0{index + 1}</b> / PATH
-        </div>
-        {roadmap.hasWorkshop && (
+        {roadmap.hasWorkshop ? (
           <div className="card-workshop-badge" title="Includes recorded live workshop sessions">
             <i className="fa-solid fa-graduation-cap" />
-            <span>Workshop</span>
+            <span>{t('roadmaps', 'workshopBadge', 'Workshop')}</span>
           </div>
+        ) : (
+          <div className="card-workshop-placeholder" />
         )}
+        <div className="roadmap-number">
+          <b>0{index + 1}</b> / {t('roadmaps', 'pathLabel', 'PATH')}
+        </div>
       </div>
 
       <div className="icon-box">
         <i className={`fa-solid ${roadmap.icon}`} />
       </div>
 
-      <h3>{roadmap.title}</h3>
-      <p>{roadmap.desc}</p>
+      <h3>{displayTitle}</h3>
+      <p>{displayDesc}</p>
 
       <div className="roadmap-tags">
         {(roadmap.tags || []).map((tag, i) => (
@@ -76,7 +84,9 @@ export default function RoadmapCard({ roadmap, index, onOpenRoadmap }) {
 
       <div className="card-footer">
         <span className="view">
-          {roadmap.comingSoon ? 'COMING SOON' : 'OPEN ROADMAP'}
+          {roadmap.comingSoon
+            ? t('roadmaps', 'comingSoon', 'COMING SOON')
+            : t('roadmaps', 'openRoadmap', 'OPEN ROADMAP')}
         </span>
         {roadmap.comingSoon ? (
           <div className="arrow" aria-hidden="true">
@@ -89,7 +99,7 @@ export default function RoadmapCard({ roadmap, index, onOpenRoadmap }) {
               e.stopPropagation();
               onOpenRoadmap(roadmap);
             }}
-            aria-label={`Open ${roadmap.title} roadmap`}
+            aria-label={`Open ${displayTitle} roadmap`}
           >
             <i className="fa-solid fa-arrow-right" />
           </button>

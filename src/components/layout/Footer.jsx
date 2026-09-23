@@ -1,7 +1,10 @@
 import React from 'react';
 import { siteConfig } from '../../data/siteConfig';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Footer() {
+  const { t, isRTL } = useLanguage();
+
   return (
     <footer id="footer">
       <div className="container-xl footer-simple">
@@ -13,15 +16,19 @@ export default function Footer() {
             {siteConfig.brand.name}<i>.</i>
           </span>
         </a>
-        <p className="footer-tagline">{siteConfig.brand.tagline}</p>
+        <p className="footer-tagline">
+          {t('footer', 'tagline', siteConfig.brand.tagline)}
+        </p>
       </div>
 
       <div className="footer-divider" />
 
       <div className="container-xl footer-bottom">
-        <div className="footer-meta">© {new Date().getFullYear()} Cipher. All rights reserved.</div>
+        <div className="footer-meta">
+          {t('footer', 'rights', `© ${new Date().getFullYear()} Cipher. All rights reserved.`)}
+        </div>
         <div className="footer-credit">
-          Crafted with care by{' '}
+          {t('footer', 'crafted', 'Crafted with care by')}{' '}
           <a
             href={siteConfig.author.whatsapp}
             target="_blank"

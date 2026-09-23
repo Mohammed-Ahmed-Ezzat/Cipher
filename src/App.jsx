@@ -20,6 +20,7 @@ import { useScrollSpy } from './hooks/useScrollSpy';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import Lenis from 'lenis';
 import { sfx } from './utils/soundEffects';
+import { LanguageProvider } from './context/LanguageContext';
 
 const SECTIONS = ['home', 'roadmaps', 'workshops', 'intro', 'what-we-do', 'faq', 'connect'];
 
@@ -69,7 +70,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <LanguageProvider>
       <Preloader />
       <ScrollProgress />
       <HeroParticles />
@@ -99,6 +100,6 @@ export default function App() {
       )}
 
       <Toast message="Email copied to clipboard!" show={showToast} />
-    </>
+    </LanguageProvider>
   );
 }

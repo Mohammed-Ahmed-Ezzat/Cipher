@@ -30,3 +30,7 @@
 
 /* 8. Interactive Micro-Effects, Preloader, Toast & Breakpoints */
 @import './components/Effects.css';
+
+/* 9. Egyptian Arabic & RTL Dynamic Stylesheet */
+@import './rtl.css';
+

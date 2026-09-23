@@ -2,49 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { workshopsData } from '../../data/workshopsData';
 import LocalPdfViewer from '../roadmaps/LocalPdfViewer';
 import { sfx } from '../../utils/soundEffects';
+import { getAssetUrl } from '../../utils/urlHelper';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function WorkshopsSection() {
+  const { t, isRTL } = useLanguage();
   const [selectedTrack, setSelectedTrack] = useState('network'); // 'network' | 'backend' | 'frontend'
   const workshop = workshopsData[selectedTrack] || workshopsData.network;
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [activeView, setActiveView] = useState('video'); // 'video' | 'slides'
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
-  const [playerMode, setPlayerMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const isMobileWidth = window.innerWidth <= 768;
-      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      return (isMobileWidth || isMobileUA) ? 'direct' : 'embed';
-    }
-    return 'embed';
-  });
+  const [isTheaterOpen, setIsTheaterOpen] = useState(false);
 
   if (!workshop) return null;
 
   const currentSession = workshop.sessions[selectedDayIndex] || workshop.sessions[0];
 
   useEffect(() => {
-    // Safety timer: Dismiss skeleton after 3.5s in case onLoad is delayed or blocked by Safari ITP
+    // Safety timer: Dismiss skeleton after 3.5s in case onLoad is delayed or blocked
     const timer = setTimeout(() => {
       setIsVideoLoading(false);
     }, 3500);
     return () => clearTimeout(timer);
   }, [selectedTrack, selectedDayIndex, reloadKey]);
-
-  useEffect(() => {
-    let prevWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    const handleResize = () => {
-      const currentWidth = window.innerWidth;
-      if (prevWidth > 768 && currentWidth <= 768) {
-        setPlayerMode('direct');
-      } else if (prevWidth <= 768 && currentWidth > 768) {
-        setPlayerMode('embed');
-      }
-      prevWidth = currentWidth;
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleSelectTrack = (trackKey) => {
     sfx.playClick();
@@ -64,30 +45,42 @@ export default function WorkshopsSection() {
     setActiveView(view);
   };
 
-  const handleReloadVideo = () => {
-    sfx.playClick();
-    setIsVideoLoading(true);
-    setReloadKey(prev => prev + 1);
-  };
-
   const trackIcon = selectedTrack === 'network'
     ? 'fa-solid fa-network-wired'
     : selectedTrack === 'backend'
     ? 'fa-solid fa-server'
     : 'fa-solid fa-laptop-code';
 
+  const trackTitlesAr = {
+    network: 'ورشة شبكات الحاسب والـ OSI',
+    backend: 'ورشة تطوير الباك إند والـ APIs',
+    frontend: 'ورشة تطوير الفرونت إند والـ UI'
+  };
+
+  const sessionTitlesAr = {
+    'network-1': 'المحاضرة 01: أساسيات الشبكات ونموذج OSI',
+    'network-2': 'المحاضرة 02: التوجيه والـ Routing والـ Switching',
+    'backend-1': 'المحاضرة 01: معمارية الباك إند والـ APIs',
+    'backend-2': 'المحاضرة 02: قواعد البيانات وتصميم السيرفرات',
+    'frontend-1': 'المحاضرة 01: أساسيات الفرونت إند والـ UI'
+  };
+
+  const sessionKey = `${selectedTrack}-${currentSession.day}`;
+  const currentSessionTitle = isRTL ? (sessionTitlesAr[sessionKey] || currentSession.title) : currentSession.title;
+  const currentTrackTitle = isRTL ? (trackTitlesAr[selectedTrack] || workshop.trackTitle) : workshop.trackTitle;
+
   return (
     <section id="workshops">
       <div className="container-xl">
         {/* Section Header */}
         <div className="workshops-header-wrap reveal-on-scroll">
-          <div className="section-kicker">02 / Hands-On Workshops</div>
+          <div className="section-kicker">{t('workshops', 'kicker', '02 / Hands-On Workshops')}</div>
           <h2 className="section-title">
-            Recorded <span className="gradient">Live Sessions.</span>
+            {t('workshops', 'title', 'Recorded')}{' '}
+            <span className="gradient">{t('workshops', 'titleGradient', 'Workshops.')}</span>
           </h2>
           <p className="section-desc">
-            Missed the live lectures? Watch the complete recorded masterclasses, study the
-            presentation slides directly, and access timestamped meeting notes prepared by Cipher mentors.
+            {t('workshops', 'desc', 'Missed the live lectures? Watch the complete recorded masterclasses, study the presentation slides directly, and access timestamped meeting notes prepared by Cipher mentors.')}
           </p>
         </div>
 
@@ -100,6 +93,7 @@ export default function WorkshopsSection() {
               : key === 'backend'
               ? 'fa-solid fa-server'
               : 'fa-solid fa-laptop-code';
+            const title = isRTL ? (trackTitlesAr[key] || item.trackTitle) : item.trackTitle;
             return (
               <button
                 key={key}
@@ -111,7 +105,7 @@ export default function WorkshopsSection() {
                   <i className={icon} />
                 </div>
                 <div className="track-choice-text">
-                  <span className="track-choice-title">{item.trackTitle}</span>
+                  <span className="track-choice-title">{title}</span>
                   <span className="track-choice-badge">{item.badge}</span>
                 </div>
               </button>
@@ -125,7 +119,7 @@ export default function WorkshopsSection() {
           <div className="workshop-stage-topbar">
             <div className="workshop-track-badge-group">
               <span className="workshop-track-pill">
-                <i className={trackIcon} /> {workshop.trackTitle}
+                <i className={trackIcon} /> {currentTrackTitle}
               </span>
               <span className="workshop-live-chip">
                 <span className="live-pulse-dot" /> {workshop.badge || `${workshop.sessions.length} Recorded Sessions`}
@@ -141,7 +135,7 @@ export default function WorkshopsSection() {
                   onClick={() => handleSelectDay(idx)}
                 >
                   <b>0{session.day}</b>
-                  <span>Session {session.day}</span>
+                  <span>{isRTL ? `المحاضرة 0${session.day}` : `Session ${session.day}`}</span>
                 </button>
               ))}
             </div>
@@ -154,7 +148,7 @@ export default function WorkshopsSection() {
                 title="Stream session video recording"
               >
                 <i className="fa-solid fa-play" />
-                <span>Watch Video</span>
+                <span>{t('workshops', 'watchVideo', 'Watch Video')}</span>
               </button>
               <button
                 className={`stage-view-btn ${activeView === 'slides' ? 'active' : ''}`}
@@ -162,142 +156,164 @@ export default function WorkshopsSection() {
                 title="Browse session slides deck"
               >
                 <i className="fa-solid fa-file-powerpoint" />
-                <span>Session Slides</span>
+                <span>{t('workshops', 'sessionSlides', 'Session Slides')}</span>
               </button>
             </div>
           </div>
 
           {/* Main Stage Viewport */}
           {activeView === 'video' ? (
-            /* Video Theater Mode */
-            <div className="stage-player-box">
-              <div className="stage-ambient-glow" />
+            !isTheaterOpen ? (
+              /* Creative Cinema Teaser State (No abrupt black box on scroll!) */
+              <div className="workshop-cinema-teaser">
+                <div className="teaser-ambient-glow" />
+                <div className="teaser-grid-backdrop" />
 
-              {/* Player Mode Switcher Tabs */}
-              <div className="stage-player-mode-tabs">
-                <button
-                  type="button"
-                  className={`player-mode-tab ${playerMode === 'direct' ? 'active' : ''}`}
-                  onClick={() => {
-                    sfx.playClick();
-                    setPlayerMode('direct');
-                  }}
-                  title="Direct high-speed video player"
-                >
-                  <i className="fa-solid fa-bolt" />
-                  <span>Instant Player</span>
-                  <span className="player-tab-chip">Fast & Direct</span>
-                </button>
-                <button
-                  type="button"
-                  className={`player-mode-tab ${playerMode === 'embed' ? 'active' : ''}`}
-                  onClick={() => {
-                    sfx.playClick();
-                    setPlayerMode('embed');
-                  }}
-                  title="Embedded in-page video player"
-                >
-                  <i className="fa-solid fa-window-maximize" />
-                  <span>Embedded Player</span>
-                </button>
-              </div>
-
-              {playerMode === 'direct' ? (
-                /* Cinematic Direct Mobile Player Stage */
-                <div className="stage-iframe-holder direct-mode">
-                  <div className="direct-player-backdrop">
-                    <div className="direct-player-glow" />
+                <div className="teaser-content">
+                  <div className="teaser-badge-row">
+                    <span className="teaser-live-pill">
+                      <span className="live-pulse-dot" />
+                      {isRTL ? 'تسجيل ورشة عمل لايف' : 'Live Masterclass Recording'}
+                    </span>
+                    <span className="teaser-session-chip">
+                      {isRTL ? `المحاضرة 0${currentSession.day}` : `Session 0${currentSession.day}`}
+                    </span>
                   </div>
 
-                  <a
-                    href={currentSession.videoDriveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="direct-play-hero-btn"
-                    title="Launch session video stream"
-                    onClick={() => sfx.playClick()}
-                  >
-                    <div className="direct-play-circle">
+                  <h3 className="teaser-title">{currentSessionTitle}</h3>
+                  <p className="teaser-desc">
+                    {isRTL
+                      ? 'محاضرة عملية متسجلة لايف مع شباب ومينتورز سايفر.. افتح مسرح العرض وشوف الشرح كامل والسلايدز وملاحظات الجلسة.'
+                      : 'Hands-on masterclass recorded live by Cipher mentors. Launch the cinema to watch the full lecture, study presentation slides, and review notes.'}
+                  </p>
+
+                  <div className="teaser-features-row">
+                    <span className="teaser-feature-tag">
+                      <i className="fa-solid fa-circle-play" /> {isRTL ? 'محاضرة كاملة' : 'Full Session'}
+                    </span>
+                    <span className="teaser-feature-tag">
+                      <i className="fa-solid fa-file-powerpoint" /> {isRTL ? 'سلايدز الشرح' : 'Interactive Slides'}
+                    </span>
+                    <span className="teaser-feature-tag">
+                      <i className="fa-solid fa-file-lines" /> {isRTL ? 'تلخيص وملاحظات' : 'Gemini AI Notes'}
+                    </span>
+                  </div>
+
+                  <div className="teaser-actions">
+                    {/* Desktop Launch Cinema Button (Shown ONLY on Desktop) */}
+                    <button
+                      type="button"
+                      className="teaser-launch-btn teaser-desktop-btn"
+                      onClick={() => {
+                        sfx.playActivate();
+                        setIsTheaterOpen(true);
+                      }}
+                      title={isRTL ? 'افتح مسرح المحاضرة' : 'Launch Workshop Cinema'}
+                    >
                       <i className="fa-solid fa-play" />
-                    </div>
-                    <div className="direct-play-meta">
-                      <span className="direct-play-heading">Play Recorded Workshop</span>
-                      <span className="direct-play-subtext">
-                        <i className="fa-solid fa-bolt" /> 1080p Full HD • Instant Smooth Stream
-                      </span>
-                      <span className="direct-play-prompt">
-                        Click to stream via Google Drive Player <i className="fa-solid fa-arrow-up-right-from-square" />
-                      </span>
-                    </div>
-                  </a>
+                      <span>{t('workshops', 'launchTheaterBtn', 'Launch Workshop Cinema')}</span>
+                      <i className="fa-solid fa-arrow-right btn-arrow" />
+                    </button>
 
-                  <div className="direct-player-footer">
-                    <span className="direct-track-tag">
-                      <i className={trackIcon} /> {workshop.trackTitle}
-                    </span>
-                    <span className="direct-session-tag">
-                      Session {currentSession.day} • {currentSession.date}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                /* Embedded Iframe Player */
-                <div className="stage-iframe-holder">
-                  {isVideoLoading && (
-                    <div className="video-skeleton">
-                      <div className="video-spinner" />
-                      <span>Connecting to Google Drive Stream...</span>
-                    </div>
-                  )}
-
-                  <div className="stage-floating-launch-bar">
+                    {/* Mobile Direct Stream Button (Shown ONLY on Mobile) */}
                     <a
                       href={currentSession.videoDriveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="floating-launch-btn"
-                      title="Launch video in high-definition native player"
+                      className="teaser-launch-btn teaser-mobile-btn"
                       onClick={() => sfx.playClick()}
                     >
                       <i className="fa-brands fa-google-drive" />
-                      <span>Launch Stream (1080p)</span>
+                      <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
                       <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
                   </div>
-
-                  <iframe
-                    key={`${currentSession.videoUrl}-${reloadKey}`}
-                    src={currentSession.videoUrl}
-                    title={currentSession.title}
-                    className="stage-iframe"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="eager"
-                    onLoad={() => setIsVideoLoading(false)}
-                  />
                 </div>
-              )}
-
-              {/* Player Bottom Helper Note */}
-              <div className="stage-player-helper">
-                <div className="helper-hint">
-                  <i className="fa-solid fa-circle-info" />
-                  <span>
-                    Chrome DevTools touch mode drops clicks on iframes. Use <b>Instant Player</b> above or click <b>Open in Drive</b> for 1-click playback.
-                  </span>
-                </div>
-                <a
-                  href={currentSession.videoDriveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="helper-direct-link"
-                >
-                  <i className="fa-brands fa-google-drive" />
-                  <span>Open in Drive</span>
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                </a>
               </div>
-            </div>
+            ) : (
+              /* Active Video Theater Mode (when user clicks Launch Cinema) */
+              <div className="stage-player-box theater-active">
+                <div className="stage-ambient-glow" />
+
+                <div className="stage-theater-controls-bar">
+                  <span className="theater-status-tag">
+                    <span className="live-pulse-dot" /> {isRTL ? 'مسرح العرض شغال' : 'Cinema Theater Active'}
+                  </span>
+                  <button
+                    type="button"
+                    className="theater-collapse-btn"
+                    onClick={() => {
+                      sfx.playClick();
+                      setIsTheaterOpen(false);
+                    }}
+                    title={isRTL ? 'تصغير مسرح العرض' : 'Collapse Workshop Theater'}
+                  >
+                    <i className="fa-solid fa-compress" />
+                    <span>{t('workshops', 'collapseTheaterBtn', 'Collapse Cinema')}</span>
+                  </button>
+                </div>
+
+                {/* Desktop Player: Video embedded directly on computer */}
+                <div className="stage-desktop-player">
+                  <div className="stage-iframe-holder">
+                    {isVideoLoading && (
+                      <div className="video-skeleton">
+                        <div className="video-spinner" />
+                        <span>{isRTL ? 'جاري الاتصال بالبث...' : 'Loading Video Stream...'}</span>
+                      </div>
+                    )}
+
+                    <iframe
+                      key={`${currentSession.videoUrl}-${reloadKey}`}
+                      src={currentSession.videoUrl}
+                      title={currentSession.title}
+                      className="stage-iframe"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="eager"
+                      onLoad={() => setIsVideoLoading(false)}
+                    />
+                  </div>
+                </div>
+
+                {/* Mobile Player */}
+                <div className="stage-mobile-player">
+                  <div className="stage-drive-stream-card">
+                    <div className="stream-card-glow" />
+                    <div className="stream-card-top">
+                      <span className="stream-card-session">
+                        {isRTL ? `المحاضرة 0${currentSession.day}` : `Session 0${currentSession.day}`}
+                      </span>
+                    </div>
+
+                    <div className="stream-card-body">
+                      <div className="stream-play-glow-wrap">
+                        <div className="stream-play-pulse-ring" />
+                        <div className="stream-play-icon-circle">
+                          <i className="fa-solid fa-play" />
+                        </div>
+                      </div>
+                      <h4 className="stream-card-title">{currentSessionTitle}</h4>
+                      <p className="stream-card-subtitle">
+                        {isRTL ? 'محاضرة لايف مسجلة من مينتورز سايفر.' : 'Recorded live masterclass by Cipher mentors.'}
+                      </p>
+                    </div>
+
+                    <a
+                      href={currentSession.videoDriveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="stream-card-action-btn"
+                      onClick={() => sfx.playClick()}
+                    >
+                      <i className="fa-brands fa-google-drive" />
+                      <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
+                      <i className="fa-solid fa-arrow-up-right-from-square" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )
           ) : (
             /* Slides Deck Mode via Local Canvas Viewer */
             <div className="stage-slides-box">
@@ -310,10 +326,10 @@ export default function WorkshopsSection() {
             </div>
           )}
 
-          {/* Session Meta & Action Bar */}
-          <div className="stage-meta-row">
+          {/* Session Meta Bar (Desktop only, hidden on mobile) */}
+          <div className="stage-meta-row stage-desktop-player">
             <div className="stage-meta-info">
-              <h3 className="stage-session-title">{currentSession.title}</h3>
+              <h3 className="stage-session-title">{currentSessionTitle}</h3>
               <div className="stage-session-meta">
                 <span>
                   <i className="fa-regular fa-calendar" /> {currentSession.date}
@@ -324,42 +340,6 @@ export default function WorkshopsSection() {
                 </span>
               </div>
             </div>
-
-            <div className="stage-actions-cluster">
-              <a
-                href={currentSession.videoDriveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="stage-action-btn primary drive-highlight"
-                title="Open video directly in Google Drive app"
-              >
-                <i className="fa-brands fa-google-drive" />
-                <span>Open in Drive</span>
-              </a>
-
-              <a
-                href={currentSession.slidesPdf}
-                download={`${currentSession.title} Slides.pdf`}
-                className="stage-action-btn"
-                title="Download presentation slides"
-              >
-                <i className="fa-solid fa-download" />
-                <span>Download Slides</span>
-              </a>
-
-              {currentSession.notesUrl && (
-                <a
-                  href={currentSession.notesUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="stage-action-btn"
-                  title="View Gemini AI meeting notes"
-                >
-                  <i className="fa-solid fa-file-lines" />
-                  <span>Meeting Notes</span>
-                </a>
-              )}
-            </div>
           </div>
 
           {/* Stage Bottom Grid: Topics Covered & Material Links */}
@@ -368,7 +348,11 @@ export default function WorkshopsSection() {
             <div className="stage-topics-panel">
               <h4 className="stage-panel-heading">
                 <i className="fa-solid fa-list-check" />
-                <span>Topics Covered in Day {currentSession.day}</span>
+                <span>
+                  {isRTL
+                    ? `المحاور اللي اتشرحت في المحاضرة 0${currentSession.day}`
+                    : `Topics Covered in Day ${currentSession.day}`}
+                </span>
               </h4>
               <div className="stage-topics-list">
                 {currentSession.topics.map((topic, i) => (
@@ -382,17 +366,40 @@ export default function WorkshopsSection() {
 
             {/* Quick Resources List */}
             <div className="stage-resources-panel">
+              {/* Desktop Only: Replace button with Watch on Google Drive in a new tab */}
+              <a
+                href={currentSession.videoDriveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="stage-resource-item desktop-only"
+                onClick={() => sfx.playClick()}
+                title={isRTL ? "افتح وشغّل المحاضرة في تاب منفصل على درايف" : "Open video stream in new tab on Google Drive"}
+              >
+                <div className="stage-resource-icon" style={{ color: '#20f0d0' }}>
+                  <i className="fa-brands fa-google-drive" />
+                </div>
+                <div className="stage-resource-info">
+                  <h6>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</h6>
+                  <p>{t('workshops', 'watchOnDriveSub', 'Open and stream recorded session in a new tab.')}</p>
+                </div>
+                <div className="stage-resource-action">
+                  <i className="fa-solid fa-arrow-up-right-from-square" />
+                </div>
+              </a>
+
+              {/* Mobile Only: Interactive Slides Deck Viewer */}
               <div
-                className="stage-resource-item"
+                className="stage-resource-item mobile-only"
                 style={{ cursor: 'pointer' }}
                 onClick={() => handleToggleView('slides')}
+                title={isRTL ? "استعراض سلايدز الجلسة" : "Browse session slides deck"}
               >
                 <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
                   <i className="fa-solid fa-file-powerpoint" />
                 </div>
                 <div className="stage-resource-info">
                   <h6>{currentSession.slidesTitle}</h6>
-                  <p>Click to open the interactive canvas slides deck viewer.</p>
+                  <p>{t('workshops', 'slidesTitleSub', 'Click to open the interactive canvas slides deck viewer.')}</p>
                 </div>
                 <div className="stage-resource-action">
                   <i className="fa-solid fa-eye" />
@@ -411,7 +418,7 @@ export default function WorkshopsSection() {
                   </div>
                   <div className="stage-resource-info">
                     <h6>{currentSession.notesTitle}</h6>
-                    <p>Timestamped notes and AI summary on Google Docs.</p>
+                    <p>{t('workshops', 'meetingNotesSub', 'Timestamped notes and AI summary on Google Docs.')}</p>
                   </div>
                   <div className="stage-resource-action">
                     <i className="fa-solid fa-arrow-up-right-from-square" />
@@ -430,8 +437,8 @@ export default function WorkshopsSection() {
                     <i className="fa-brands fa-google-drive" />
                   </div>
                   <div className="stage-resource-info">
-                    <h6>Complete Google Drive Folder</h6>
-                    <p>Browse all raw files, recordings, and workshop assets.</p>
+                    <h6>{isRTL ? 'فولدر الورشة الكامل على درايف' : 'Complete Google Drive Folder'}</h6>
+                    <p>{t('workshops', 'driveFolderSub', 'Browse all raw files, recordings, and workshop assets.')}</p>
                   </div>
                   <div className="stage-resource-action">
                     <i className="fa-solid fa-folder-open" />
@@ -439,21 +446,6 @@ export default function WorkshopsSection() {
                 </a>
               )}
             </div>
-          </div>
-        </div>
-
-        {/* Upcoming Workshops Banner */}
-        <div className="upcoming-workshops-strip reveal-on-scroll">
-          <div className="upcoming-left">
-            <span className="upcoming-badge">
-              <i className="fa-solid fa-clock" /> In Progress
-            </span>
-            <span>More recorded tracks will be unlocked as workshops are completed:</span>
-          </div>
-          <div className="upcoming-tracks-list">
-            <span className="upcoming-pill">Problem Solving Live Sessions</span>
-            <span className="upcoming-pill">Flutter Mobile Masterclass</span>
-            <span className="upcoming-pill">DevOps Cloud Automation</span>
           </div>
         </div>
       </div>

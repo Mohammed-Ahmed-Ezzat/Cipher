@@ -3,8 +3,11 @@ import LocalPdfViewer from './LocalPdfViewer';
 import WorkshopStudio from './WorkshopStudio';
 import { workshopsData } from '../../data/workshopsData';
 import { sfx } from '../../utils/soundEffects';
+import { getAssetUrl } from '../../utils/urlHelper';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function PdfModal({ roadmap, onClose }) {
+  const { t, isRTL } = useLanguage();
   const workshopInfo = roadmap ? workshopsData[roadmap.id] : null;
   const hasWorkshop = Boolean(workshopInfo);
   const [activeTab, setActiveTab] = useState('roadmap'); // 'roadmap' | 'workshop'
@@ -63,11 +66,15 @@ export default function PdfModal({ roadmap, onClose }) {
     }
   };
 
+  const itemTranslation = t('roadmaps', 'items', {})[roadmap.id];
+  const displayTitle = (isRTL && itemTranslation?.title) ? itemTranslation.title : roadmap.title;
+  const displayDesc = (isRTL && itemTranslation?.desc) ? itemTranslation.desc : roadmap.desc;
+
   const localPdfUrl = roadmap.pdf || roadmap.download;
   const localDataUrl = roadmap.dataUrl || localPdfUrl;
   const openInTabUrl = activeTab === 'workshop' && workshopInfo?.folderDriveUrl
     ? workshopInfo.folderDriveUrl
-    : (roadmap.driveUrl || localPdfUrl);
+    : (roadmap.driveUrl || getAssetUrl(localPdfUrl));
 
   return (
     <div
@@ -100,17 +107,17 @@ export default function PdfModal({ roadmap, onClose }) {
                   {roadmap.level && <span className="modal-level-tag">{roadmap.level}</span>}
                   {hasWorkshop && (
                     <span className="modal-workshop-chip">
-                      <i className="fa-solid fa-sparkles" /> Recorded Workshop
+                      <i className="fa-solid fa-sparkles" /> {t('modal', 'recordedChip', 'Recorded Workshop')}
                     </span>
                   )}
                 </div>
                 <h3 className="modal-title" id="modalTitle">
-                  {roadmap.title}
+                  {displayTitle}
                 </h3>
                 <p className="modal-subtitle">
                   {activeTab === 'workshop'
-                    ? (workshopInfo.description || 'Watch recorded live workshop sessions, browse presentation slides, and access notes.')
-                    : roadmap.desc}
+                    ? (workshopInfo.description || (isRTL ? 'شاهد المحاضرات المسجلة لايف، وتصفح السلايدز والملاحظات.' : 'Watch recorded live workshop sessions, browse presentation slides, and access notes.'))
+                    : displayDesc}
                 </p>
               </div>
             </div>
@@ -119,12 +126,12 @@ export default function PdfModal({ roadmap, onClose }) {
               {activeTab === 'roadmap' && (
                 <a
                   className="mini-btn download-btn"
-                  href={localPdfUrl}
+                  href={getAssetUrl(localPdfUrl)}
                   download={`${roadmap.title} Roadmap.pdf`}
                   title="Download local PDF directly to your device"
                 >
                   <i className="fa-solid fa-download" />
-                  <span>Download</span>
+                  <span>{t('modal', 'downloadPdf', 'Download')}</span>
                 </a>
               )}
 
@@ -136,7 +143,7 @@ export default function PdfModal({ roadmap, onClose }) {
                 title={activeTab === 'workshop' ? 'Open workshop drive folder in new tab' : 'Open roadmap file in a new browser tab (Google Drive)'}
               >
                 <i className="fa-solid fa-arrow-up-right-from-square" />
-                <span>{activeTab === 'workshop' ? 'Drive Folder' : 'Open in Tab'}</span>
+                <span>{activeTab === 'workshop' ? t('modal', 'driveFolder', 'Drive Folder') : t('modal', 'openInTab', 'Open in Tab')}</span>
               </a>
 
               <button
@@ -146,7 +153,7 @@ export default function PdfModal({ roadmap, onClose }) {
                 title="Close Viewer (Esc)"
               >
                 <i className="fa-solid fa-xmark" />
-                <span>Close</span>
+                <span>{t('modal', 'close', 'Close')}</span>
               </button>
             </div>
           </div>
@@ -162,7 +169,7 @@ export default function PdfModal({ roadmap, onClose }) {
                 }}
               >
                 <i className="fa-solid fa-route" />
-                <span>Roadmap Path</span>
+                <span>{t('modal', 'roadmapPath', 'Roadmap Path')}</span>
               </button>
               <button
                 className={`modal-tab-pill workshop-pill ${activeTab === 'workshop' ? 'active' : ''}`}
@@ -173,9 +180,11 @@ export default function PdfModal({ roadmap, onClose }) {
                 style={{ '--pill-accent': roadmap.accent }}
               >
                 <i className="fa-solid fa-graduation-cap" />
-                <span>Workshop Studio</span>
+                <span>{t('modal', 'workshopStudio', 'Workshop Studio')}</span>
                 <span className="live-dot-tag">
-                  {workshopInfo?.sessions?.length === 1 ? '1 Live Session' : `${workshopInfo?.sessions?.length || 2} Sessions`}
+                  {workshopInfo?.sessions?.length === 1
+                    ? (isRTL ? 'محاضرة لايف مسجلة' : '1 Live Session')
+                    : (isRTL ? `${workshopInfo?.sessions?.length || 2} محاضرات مسجلة` : `${workshopInfo?.sessions?.length || 2} Sessions`)}
                 </span>
               </button>
             </div>
@@ -187,7 +196,7 @@ export default function PdfModal({ roadmap, onClose }) {
               <LocalPdfViewer
                 dataUrl={localDataUrl}
                 pdfUrl={localPdfUrl}
-                title={roadmap.title}
+                title={displayTitle}
                 accent={roadmap.accent}
               />
             ) : (

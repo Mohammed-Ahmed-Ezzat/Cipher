@@ -1,0 +1,312 @@
+/* ============================================================
+   EGYPTIAN ARABIC & RTL STYLING ENHANCEMENTS
+   ============================================================ */
+
+html[dir="rtl"],
+html.lang-ar {
+  --font-base: 'Alexandria', 'Cairo', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Cairo', 'Space Grotesk', sans-serif;
+  font-family: var(--font-base);
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-base);
+  text-align: right;
+  direction: rtl;
+}
+
+/* Headings in Arabic */
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] .section-title,
+html[dir="rtl"] .brand-word,
+html[dir="rtl"] .nav-link,
+html[dir="rtl"] .hero-title,
+html[dir="rtl"] .teaser-title,
+html[dir="rtl"] .modal-title {
+  font-family: var(--font-heading);
+  letter-spacing: normal;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+html[dir="rtl"] .brand-word i {
+  margin-right: 2px;
+  margin-left: 0;
+}
+
+/* Nav & Language Switcher Pill (Globe + EG only) */
+.lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(3, 25, 25, 0.85);
+  border: 1px solid rgba(166, 255, 242, 0.22);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.lang-toggle-btn:hover {
+  background: rgba(91, 224, 255, 0.15);
+  border-color: rgba(91, 224, 255, 0.5);
+  box-shadow: 0 0 16px rgba(91, 224, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.lang-toggle-btn i {
+  color: #20f0d0;
+  font-size: 14px;
+}
+
+.lang-toggle-badge {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(32, 240, 208, 0.15);
+  color: #20f0d0;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* RTL Arrow Mirroring */
+html[dir="rtl"] .cta-arrow i,
+html[dir="rtl"] .nav-cta .cta-arrow i,
+html[dir="rtl"] .arrow i.fa-arrow-right,
+html[dir="rtl"] .btn-arrow,
+html[dir="rtl"] .btn-ghost i.fa-arrow-right,
+html[dir="rtl"] .teaser-launch-btn .btn-arrow,
+html[dir="rtl"] .mobile-cta i.fa-arrow-right {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .card-footer .arrow:hover {
+  transform: translateX(-5px) rotate(3deg);
+}
+
+/* Roadmap Cards RTL */
+html[dir="rtl"] .card-top-bar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .card-top-bar .roadmap-number {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html[dir="rtl"] .roadmap-number b {
+  margin-left: 4px;
+  margin-right: 0;
+}
+
+html[dir="rtl"] .roadmap-tags {
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .roadmap-search-input {
+  text-align: right;
+  padding: 12px 48px 12px 48px;
+}
+
+html[dir="rtl"] .search-box-wrap .search-icon {
+  left: auto;
+  right: 18px;
+}
+
+html[dir="rtl"] .search-box-wrap .search-clear-btn {
+  right: auto;
+  left: 14px;
+}
+
+html[dir="rtl"] .roadmaps-status-row {
+  direction: rtl;
+}
+
+html[dir="rtl"] .reset-filters-btn {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Workshops RTL Adjustments */
+html[dir="rtl"] .workshop-track-selector-bar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .workshop-stage-topbar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .stage-day-switcher,
+html[dir="rtl"] .stage-view-switcher,
+html[dir="rtl"] .workshop-track-badge-group {
+  direction: rtl;
+}
+
+html[dir="rtl"] .stage-view-switcher {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .stage-topic-badge {
+  text-align: right;
+}
+
+html[dir="rtl"] .stage-resource-info {
+  text-align: right;
+}
+
+html[dir="rtl"] .stage-resource-action i.fa-arrow-up-right-from-square {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .teaser-content {
+  text-align: right;
+}
+
+html[dir="rtl"] .teaser-badge-row,
+html[dir="rtl"] .teaser-features-row,
+html[dir="rtl"] .teaser-actions {
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .stage-theater-controls-bar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .theater-collapse-btn {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .upcoming-workshops-strip {
+  direction: rtl;
+}
+
+html[dir="rtl"] .upcoming-left {
+  text-align: right;
+}
+
+/* Mobile Drawer in RTL (Slide from left or right smoothly) */
+html[dir="rtl"] .mobile-drawer {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+html[dir="rtl"] .mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* FAQ Accordion in RTL */
+html[dir="rtl"] .faq-question-btn {
+  text-align: right;
+  direction: rtl;
+}
+
+html[dir="rtl"] .faq-num {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+html[dir="rtl"] .faq-indicator {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .faq-answer-inner {
+  text-align: right;
+}
+
+/* About Section RTL */
+html[dir="rtl"] .intro-copy {
+  text-align: right;
+}
+
+html[dir="rtl"] .info-panel {
+  text-align: right;
+}
+
+html[dir="rtl"] .info-row {
+  text-align: right;
+}
+
+html[dir="rtl"] .info-icon {
+  margin-right: 0;
+  margin-left: 18px;
+}
+
+/* Connect Section RTL */
+html[dir="rtl"] .connect-tile {
+  text-align: right;
+}
+
+html[dir="rtl"] .connect-go {
+  right: auto;
+  left: 18px;
+  transform: scaleX(-1);
+}
+
+/* Modal RTL */
+html[dir="rtl"] .pdf-modal-header {
+  direction: rtl;
+}
+
+html[dir="rtl"] .pdf-modal-header-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .modal-header-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .modal-nav-tabs {
+  direction: rtl;
+}
+
+html[dir="rtl"] .workshop-top-controls {
+  direction: rtl;
+}
+
+html[dir="rtl"] .workshop-meta-bar {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .meta-actions-right {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .slides-header-bar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .slides-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .workshop-topics-box {
+  text-align: right;
+}
+
+html[dir="rtl"] .resource-card {
+  text-align: right;
+}
+
+/* Footer Section RTL */
+html[dir="rtl"] .footer-simple,
+html[dir="rtl"] .footer-bottom {
+  direction: rtl;
+}
