@@ -141,7 +141,7 @@ export default function WorkshopsSection() {
               ))}
             </div>
 
-            {/* View Switcher: Video vs Slides vs Download */}
+            {/* View Switcher: Video vs Slides */}
             <div className="stage-view-switcher">
               <button
                 className={`stage-view-btn ${activeView === 'video' ? 'active' : ''}`}
@@ -159,18 +159,6 @@ export default function WorkshopsSection() {
                 <i className="fa-solid fa-file-powerpoint" />
                 <span>{t('workshops', 'sessionSlides', 'Session Slides')}</span>
               </button>
-              {currentSession.slidesPdf && (
-                <a
-                  href={getAssetUrl(currentSession.slidesPdf)}
-                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-                  className="stage-view-btn stage-download-btn"
-                  onClick={() => sfx.playClick()}
-                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF مباشرة على جهازك" : "Download Workshop Slides PDF"}
-                >
-                  <i className="fa-solid fa-download" />
-                  <span>{isRTL ? 'تحميل PDF' : 'Download PDF'}</span>
-                </a>
-              )}
             </div>
           </div>
 
@@ -196,8 +184,8 @@ export default function WorkshopsSection() {
                   <h3 className="teaser-title">{currentSessionTitle}</h3>
                   <p className="teaser-desc">
                     {isRTL
-                      ? 'محاضرة عملية متسجلة لايف مع شباب ومينتورز سايفر.. افتح مسرح العرض وشوف الشرح كامل والسلايدز وملاحظات الجلسة.'
-                      : 'Hands-on masterclass recorded live by Cipher mentors. Launch the cinema to watch the full lecture, study presentation slides, and review notes.'}
+                      ? 'محاضرة عملية متسجلة لايف مع شباب ومينتورز سايفر.. شوف شرح المحاضرة كامل بالفيديو والسلايدز وملاحظات الجلسة.'
+                      : 'Hands-on masterclass recorded live by Cipher mentors. Watch the full lecture, study presentation slides, and review notes.'}
                   </p>
 
                   <div className="teaser-features-row">
@@ -221,7 +209,7 @@ export default function WorkshopsSection() {
                         sfx.playActivate();
                         setIsTheaterOpen(true);
                       }}
-                      title={isRTL ? 'افتح مسرح المحاضرة' : 'Launch Workshop Cinema'}
+                      title={isRTL ? 'شرح المحاضرة' : 'Watch Workshop Session'}
                     >
                       <i className="fa-solid fa-play" />
                       <span>{t('workshops', 'launchTheaterBtn', 'Launch Workshop Cinema')}</span>
@@ -240,20 +228,6 @@ export default function WorkshopsSection() {
                       <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
                       <i className="fa-solid fa-arrow-up-right-from-square" />
                     </a>
-
-                    {/* Download Workshop Slides PDF Button (Desktop Only) */}
-                    {currentSession.slidesPdf && (
-                      <a
-                        href={getAssetUrl(currentSession.slidesPdf)}
-                        download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-                        className="teaser-launch-btn teaser-download-btn desktop-only"
-                        onClick={() => sfx.playClick()}
-                        title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download Workshop Slides PDF"}
-                      >
-                        <i className="fa-solid fa-download" />
-                        <span>{isRTL ? 'تحميل السلايدز (PDF)' : 'Download Slides (PDF)'}</span>
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
@@ -264,7 +238,7 @@ export default function WorkshopsSection() {
 
                 <div className="stage-theater-controls-bar">
                   <span className="theater-status-tag">
-                    <span className="live-pulse-dot" /> {isRTL ? 'مسرح العرض شغال' : 'Cinema Theater Active'}
+                    <span className="live-pulse-dot" /> {isRTL ? 'شرح المحاضرة شغال' : 'Cinema Theater Active'}
                   </span>
                   <button
                     type="button"
@@ -273,7 +247,7 @@ export default function WorkshopsSection() {
                       sfx.playClick();
                       setIsTheaterOpen(false);
                     }}
-                    title={isRTL ? 'تصغير مسرح العرض' : 'Collapse Workshop Theater'}
+                    title={isRTL ? 'قفل شرح المحاضرة' : 'Collapse Workshop Theater'}
                   >
                     <i className="fa-solid fa-compress" />
                     <span>{t('workshops', 'collapseTheaterBtn', 'Collapse Cinema')}</span>
@@ -357,41 +331,11 @@ export default function WorkshopsSection() {
             </div>
           )}
 
-          {/* Session Meta Bar (Desktop only, hidden on mobile) */}
-          <div className="stage-meta-row stage-desktop-player">
-            <div className="stage-meta-info">
-              <h3 className="stage-session-title">{currentSessionTitle}</h3>
-              <div className="stage-session-meta">
-                <span>
-                  <i className="fa-regular fa-calendar" /> {currentSession.date}
-                </span>
-                <span>•</span>
-                <span>
-                  <i className="fa-solid fa-chalkboard-user" /> {workshop.instructor}
-                </span>
-              </div>
-            </div>
-
-            {currentSession.slidesPdf && (
-              <div className="stage-meta-actions">
-                <a
-                  href={getAssetUrl(currentSession.slidesPdf)}
-                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-                  className="mini-btn stage-meta-download-btn"
-                  onClick={() => sfx.playClick()}
-                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download Workshop Slides PDF"}
-                >
-                  <i className="fa-solid fa-download" />
-                  <span>{isRTL ? 'تحميل السلايدز (PDF)' : 'Download Slides (PDF)'}</span>
-                </a>
-              </div>
-            )}
-          </div>
 
           {/* Stage Bottom Grid: Topics Covered & Material Links */}
           <div className="stage-bottom-grid">
-            {/* Topics Covered */}
-            <div className="stage-topics-panel">
+            {/* Topics Covered (Desktop only, hidden on mobile) */}
+            <div className="stage-topics-panel desktop-only">
               <h4 className="stage-panel-heading">
                 <i className="fa-solid fa-list-check" />
                 <span>
@@ -455,24 +399,47 @@ export default function WorkshopsSection() {
                 </div>
               </a>
 
-              {/* Mobile Only: Interactive Slides Deck Viewer */}
-              <div
-                className="stage-resource-item mobile-only"
-                style={{ cursor: 'pointer' }}
-                onClick={() => handleToggleView('slides')}
-                title={isRTL ? "استعراض سلايدز الجلسة" : "Browse session slides deck"}
-              >
-                <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
-                  <i className="fa-solid fa-file-powerpoint" />
-                </div>
-                <div className="stage-resource-info">
-                  <h6>{currentSession.slidesTitle}</h6>
-                  <p>{t('workshops', 'slidesTitleSub', 'Click to open the interactive canvas slides deck viewer.')}</p>
-                </div>
-                <div className="stage-resource-action">
-                  <i className="fa-solid fa-eye" />
-                </div>
-              </div>
+              {/* Mobile Only: Download Workshop Slides PDF */}
+              {currentSession.slidesPdf ? (
+                <a
+                  href={getAssetUrl(currentSession.slidesPdf)}
+                  download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
+                  className="stage-resource-item mobile-only"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "تحميل ملف سلايدز الورشة PDF مباشرة على هاتفك" : "Download session presentation slides PDF"}
+                >
+                  <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
+                    <i className="fa-solid fa-file-pdf" />
+                  </div>
+                  <div className="stage-resource-info">
+                    <h6>{currentSession.slidesTitle || (isRTL ? 'تحميل سلايدز الورشة (PDF)' : 'Workshop Slides (PDF)')}</h6>
+                    <p>{isRTL ? 'اضغط هنا لتحميل سلايدز المحاضرة بصيغة PDF.' : 'Click to download presentation slides (PDF).'}</p>
+                  </div>
+                  <div className="stage-resource-action">
+                    <i className="fa-solid fa-download" />
+                  </div>
+                </a>
+              ) : currentSession.slidesDriveUrl ? (
+                <a
+                  href={currentSession.slidesDriveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="stage-resource-item mobile-only"
+                  onClick={() => sfx.playClick()}
+                  title={isRTL ? "فتح سلايدز الورشة على درايف" : "Open session slides on Google Drive"}
+                >
+                  <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
+                    <i className="fa-solid fa-file-powerpoint" />
+                  </div>
+                  <div className="stage-resource-info">
+                    <h6>{currentSession.slidesTitle}</h6>
+                    <p>{isRTL ? 'فتح السلايدز على Google Drive.' : 'Open presentation slides on Google Drive.'}</p>
+                  </div>
+                  <div className="stage-resource-action">
+                    <i className="fa-solid fa-arrow-up-right-from-square" />
+                  </div>
+                </a>
+              ) : null}
 
               {currentSession.notesUrl && (
                 <a

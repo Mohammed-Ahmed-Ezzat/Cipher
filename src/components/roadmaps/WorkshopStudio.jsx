@@ -84,7 +84,7 @@ export default function WorkshopStudio({
           ))}
         </div>
 
-        {/* View Switcher: Video vs Slides vs Download */}
+        {/* View Switcher: Video vs Slides */}
         <div className="workshop-view-switch">
           <button
             className={`view-switch-btn ${activeView === 'video' ? 'active' : ''}`}
@@ -102,18 +102,6 @@ export default function WorkshopStudio({
             <i className="fa-solid fa-file-powerpoint" />
             <span>{t('modal', 'sessionSlides', 'Session Slides')}</span>
           </button>
-          {currentSession.slidesPdf && (
-            <a
-              href={getAssetUrl(currentSession.slidesPdf)}
-              download={`${currentSession.slidesTitle || currentSession.title}.pdf`}
-              className="view-switch-btn download-pdf-btn"
-              onClick={() => sfx.playClick()}
-              title={isRTL ? "تحميل ملف سلايدز الورشة PDF" : "Download workshop slides PDF"}
-            >
-              <i className="fa-solid fa-download" />
-              <span>{isRTL ? 'تحميل PDF' : 'Download PDF'}</span>
-            </a>
-          )}
         </div>
       </div>
 

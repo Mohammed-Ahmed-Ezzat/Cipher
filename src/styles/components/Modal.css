@@ -939,14 +939,6 @@
   box-shadow: 0 0 20px rgba(91, 224, 255, 0.35);
 }
 
-.stage-mobile-banner.modal-variant {
-  margin-bottom: 12px;
-}
-
-.stage-player-helper.modal-variant {
-  margin-top: 12px;
-}
-
 /* Slides Mode in Workshop */
 .workshop-slides-pane {
   display: flex;
