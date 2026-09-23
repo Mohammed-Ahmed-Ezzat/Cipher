@@ -402,7 +402,8 @@
 /* Canvas Viewport */
 .pdf-canvas-viewport {
   flex: 1;
-  overflow-y: auto;
+  min-height: 0;
+  overflow-y: auto !important;
   overflow-x: auto;
   padding: clamp(16px, 3vw, 32px);
   display: flex;
@@ -410,7 +411,6 @@
   background: radial-gradient(circle at center, #031e1c 0%, #010f0e 100%);
   position: relative;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
 }
 
 .pdf-canvas-viewport::-webkit-scrollbar {
@@ -1006,11 +1006,30 @@
 }
 
 .slides-canvas-frame {
-  height: clamp(380px, 54vh, 600px);
+  height: clamp(450px, 64vh, 720px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   background: rgba(1, 15, 15, 0.8);
   border: 1px solid rgba(166, 255, 242, 0.12);
   border-radius: 18px;
   overflow: hidden;
+}
+
+.slides-canvas-frame .local-pdf-viewer {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.slides-canvas-frame .pdf-canvas-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: auto;
 }
 
 /* Details Section (Topics & Resources) */
@@ -1413,6 +1432,10 @@
     gap: 6px;
   }
 
+  .slides-actions .slides-drive-btn {
+    display: none !important;
+  }
+
   .slides-actions .workshop-action-btn {
     flex: 1;
     justify-content: center;
@@ -1422,7 +1445,10 @@
   }
 
   .slides-canvas-frame {
-    height: clamp(340px, 54vh, 480px);
+    height: clamp(360px, 58vh, 500px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 }
 

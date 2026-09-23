@@ -653,11 +653,30 @@
 /* Stage Slides Deck View */
 .stage-slides-box {
   height: clamp(480px, 60vh, 650px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   background: rgba(1, 15, 15, 0.85);
   border: 1px solid rgba(166, 255, 242, 0.16);
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 22px;
+}
+
+.stage-slides-box .local-pdf-viewer {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.stage-slides-box .pdf-canvas-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: auto;
 }
 
 /* Stage Bottom Grid: Topics & Resources */

@@ -301,7 +301,6 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
         className="pdf-canvas-viewport"
         ref={containerRef}
         data-lenis-prevent="true"
-        onWheel={(e) => e.stopPropagation()}
       >
         {loading && (
           <div className="pdf-loading-state">
