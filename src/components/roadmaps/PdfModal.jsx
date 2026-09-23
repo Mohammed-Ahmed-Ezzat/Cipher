@@ -6,12 +6,16 @@ import { sfx } from '../../utils/soundEffects';
 import { getAssetUrl } from '../../utils/urlHelper';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function PdfModal({ roadmap, onClose }) {
+export default function PdfModal({ roadmap, initialTab = 'roadmap', onClose }) {
   const { t, isRTL } = useLanguage();
   const workshopInfo = roadmap ? workshopsData[roadmap.id] : null;
   const hasWorkshop = Boolean(workshopInfo);
-  const [activeTab, setActiveTab] = useState('roadmap'); // 'roadmap' | 'workshop'
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [workshopDayIndex, setWorkshopDayIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab, roadmap]);
 
   useEffect(() => {
     if (!roadmap) return;
@@ -119,14 +123,16 @@ export default function PdfModal({ roadmap, onClose }) {
                 </h3>
                 <p className="modal-subtitle">
                   {activeTab === 'workshop'
-                    ? (workshopInfo.description || (isRTL ? 'شاهد المحاضرات المسجلة لايف، وتصفح السلايدز والملاحظات.' : 'Watch recorded live workshop sessions, browse presentation slides, and access notes.'))
+                    ? (isRTL
+                        ? (workshopInfo.descriptionAr || 'شاهد المحاضرات المسجلة لايف، وتصفح السلايدز والملاحظات.')
+                        : (workshopInfo.description || 'Watch recorded live workshop sessions, browse presentation slides, and access notes.'))
                     : displayDesc}
                 </p>
               </div>
             </div>
 
             <div className="modal-header-actions">
-              {activeTab === 'roadmap' ? (
+              {activeTab === 'roadmap' && (
                 <a
                   className="mini-btn download-btn"
                   href={getAssetUrl(localPdfUrl)}
@@ -136,18 +142,6 @@ export default function PdfModal({ roadmap, onClose }) {
                   <i className="fa-solid fa-download" />
                   <span>{t('modal', 'downloadPdf', 'Download')}</span>
                 </a>
-              ) : (
-                activeSession?.slidesPdf && (
-                  <a
-                    className="mini-btn download-btn"
-                    href={getAssetUrl(activeSession.slidesPdf)}
-                    download={`${activeSession.slidesTitle || activeSession.title}.pdf`}
-                    title={isRTL ? "تحميل سلايدز الورشة PDF مباشرة على جهازك" : "Download workshop slides PDF"}
-                  >
-                    <i className="fa-solid fa-download" />
-                    <span>{t('modal', 'downloadPdf', 'Download')}</span>
-                  </a>
-                )
               )}
 
               <a

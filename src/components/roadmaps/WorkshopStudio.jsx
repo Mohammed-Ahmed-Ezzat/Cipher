@@ -78,7 +78,7 @@ export default function WorkshopStudio({
               }}
             >
               <span className="day-number">0{session.day}</span>
-              <span className="day-label">{isRTL ? `المحاضرة 0${session.day}` : `Day ${session.day}`}</span>
+              <span className="day-label">{isRTL ? 'المحاضرة' : 'Session'}</span>
               {session.date && <span className="day-date">{session.date}</span>}
             </button>
           ))}
@@ -89,10 +89,10 @@ export default function WorkshopStudio({
           <button
             className={`view-switch-btn ${activeView === 'video' ? 'active' : ''}`}
             onClick={() => handleToggleView('video')}
-            title={isRTL ? 'مشاهدة تسجيل المحاضرة' : 'Watch recorded live session'}
+            title={isRTL ? 'شرح المحاضرة' : 'Watch recorded live session'}
           >
             <i className="fa-solid fa-play" />
-            <span>{t('modal', 'watchVideo', 'Watch Video')}</span>
+            <span>{isRTL ? 'شرح المحاضرة' : t('modal', 'watchVideo', 'Watch Video')}</span>
           </button>
           <button
             className={`view-switch-btn ${activeView === 'slides' ? 'active' : ''}`}
@@ -174,48 +174,6 @@ export default function WorkshopStudio({
                     <i className="fa-solid fa-arrow-up-right-from-square" />
                   </a>
                 </div>
-              </div>
-            </div>
-
-            {/* Video Meta Info Bar (Desktop only, hidden on mobile) */}
-            <div className="workshop-meta-bar stage-desktop-player">
-              <div className="meta-info-left">
-                <span className="session-badge">
-                  <i className="fa-solid fa-video" /> {t('modal', 'liveRecording', 'Live Recording')}
-                </span>
-                <h4 className="session-title">{currentSessionTitle}</h4>
-                <div className="session-subline">
-                  <span>
-                    <i className="fa-regular fa-calendar" /> {currentSession.date}
-                  </span>
-                  <span>•</span>
-                  <span>
-                    <i className="fa-solid fa-user-tie" /> {workshop.instructor}
-                  </span>
-                </div>
-              </div>
-
-              <div className="meta-actions-right">
-                <a
-                  href={currentSession.videoDriveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mini-btn workshop-action-btn highlight stage-desktop-player"
-                  onClick={() => sfx.playClick()}
-                  title={isRTL ? "افتح الفيديو في تاب منفصل على درايف" : "Open video in new tab on Google Drive"}
-                >
-                  <i className="fa-brands fa-google-drive" />
-                  <span>{t('workshops', 'watchOnDrive', 'Watch on Google Drive')}</span>
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                </a>
-                <button
-                  className="mini-btn workshop-action-btn"
-                  onClick={() => handleToggleView('slides')}
-                  title={isRTL ? "قراءة السلايدز" : "Read presentation slides for this session"}
-                >
-                  <i className="fa-solid fa-file-pdf" />
-                  <span>{t('modal', 'readSlides', 'Read Slides')}</span>
-                </button>
               </div>
             </div>
           </div>

@@ -50,7 +50,14 @@ export default function RoadmapCard({ roadmap, index, onOpenRoadmap }) {
     >
       <div className="card-top-bar">
         {roadmap.hasWorkshop ? (
-          <div className="card-workshop-badge" title="Includes recorded live workshop sessions">
+          <div
+            className="card-workshop-badge"
+            title={isRTL ? "مشاهدة تسجيلات ورشة العمل مباشرة" : "Open recorded workshop sessions directly"}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenRoadmap(roadmap, 'workshop');
+            }}
+          >
             <i className="fa-solid fa-graduation-cap" />
             <span>{t('roadmaps', 'workshopBadge', 'Workshop')}</span>
           </div>

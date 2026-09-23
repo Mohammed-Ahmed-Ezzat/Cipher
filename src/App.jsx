@@ -26,6 +26,7 @@ const SECTIONS = ['home', 'roadmaps', 'workshops', 'intro', 'what-we-do', 'faq',
 
 export default function App() {
   const [selectedRoadmap, setSelectedRoadmap] = useState(null);
+  const [initialModalTab, setInitialModalTab] = useState('roadmap');
   const [showToast, setShowToast] = useState(false);
   const { activeSection, isScrolled } = useScrollSpy(SECTIONS);
 
@@ -80,7 +81,12 @@ export default function App() {
 
       <main>
         <Hero />
-        <RoadmapsSection onOpenRoadmap={(roadmap) => setSelectedRoadmap(roadmap)} />
+        <RoadmapsSection
+          onOpenRoadmap={(roadmap, tab = 'roadmap') => {
+            setSelectedRoadmap(roadmap);
+            setInitialModalTab(tab);
+          }}
+        />
         <WorkshopsSection />
         <AboutSection />
         <WhatWeDoSection />
@@ -95,6 +101,7 @@ export default function App() {
       {selectedRoadmap && (
         <PdfModal
           roadmap={selectedRoadmap}
+          initialTab={initialModalTab}
           onClose={() => setSelectedRoadmap(null)}
         />
       )}

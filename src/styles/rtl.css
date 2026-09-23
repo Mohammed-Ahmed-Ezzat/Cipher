@@ -34,10 +34,29 @@ html[dir="rtl"] .modal-title {
   text-wrap: balance;
   word-break: keep-all;
 }
+html[dir="rtl"] .brand {
+  direction: ltr !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+html[dir="rtl"] .brand-word {
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+}
 
 html[dir="rtl"] .brand-word i {
-  margin-right: 2px;
-  margin-left: 0;
+  margin-left: 1px !important;
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .workshop-day-pill .day-date {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
 }
 
 /* Nav & Language Switcher Pill (Globe + EG only) */

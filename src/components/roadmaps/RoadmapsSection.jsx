@@ -128,9 +128,9 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
                 key={roadmap.id}
                 roadmap={roadmap}
                 index={index}
-                onOpenRoadmap={(r) => {
+                onOpenRoadmap={(r, tab) => {
                   sfx.playActivate();
-                  onOpenRoadmap(r);
+                  onOpenRoadmap(r, tab);
                 }}
               />
             ))}
