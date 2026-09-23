@@ -3,8 +3,8 @@
    ========================================================== */
 .intro-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(30px, 5vw, 70px);
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(24px, 3.5vw, 50px);
   align-items: center;
 }
 
@@ -21,10 +21,11 @@
   border-radius: 22px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018));
   backdrop-filter: blur(10px);
-  padding: clamp(20px, 3.5vw, 28px);
+  padding: clamp(20px, 3vw, 28px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px rgba(0, 0, 0, 0.16);
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .info-panel::after {
@@ -97,8 +98,15 @@
 }
 
 .team-value {
-  font-size: clamp(11px, 1.2vw, 13px);
+  font-size: clamp(12px, 1.05vw, 13.5px);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .team-value {
+    white-space: normal;
+  }
 }
 
 /* ==========================================================

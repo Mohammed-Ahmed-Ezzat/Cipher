@@ -246,7 +246,7 @@ html[dir="rtl"] .info-row {
 
 html[dir="rtl"] .info-icon {
   margin-right: 0;
-  margin-left: 18px;
+  margin-left: 0;
 }
 
 /* Connect Section RTL */
