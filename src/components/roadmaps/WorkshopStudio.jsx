@@ -22,7 +22,7 @@ export default function WorkshopStudio({
     return (
       <div className="workshop-empty">
         <i className="fa-solid fa-graduation-cap" />
-        <p>{isRTL ? 'سيتم الإعلان عن محاضرات الورشة قريباً.' : 'Workshop sessions will be announced soon.'}</p>
+        <p>{isRTL ? 'محاضرات الورشة هتنزل هنا قريب جداً خليك متابع.' : 'Workshop sessions will be announced soon.'}</p>
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function WorkshopStudio({
                   {isVideoLoading && (
                     <div className="video-skeleton">
                       <div className="video-spinner" />
-                      <span>{isRTL ? 'جاري الاتصال بالبث...' : 'Loading Video Stream...'}</span>
+                      <span>{isRTL ? 'بيحمّل الفيديو دلوقتي...' : 'Loading Video Stream...'}</span>
                     </div>
                   )}
 
@@ -162,7 +162,7 @@ export default function WorkshopStudio({
                     </div>
                     <h4 className="stream-card-title">{currentSessionTitle}</h4>
                     <p className="stream-card-subtitle">
-                      {isRTL ? 'محاضرة لايف مسجلة من مينتورز سايفر.' : 'Recorded live masterclass by Cipher mentors.'}
+                      {isRTL ? 'محاضرة لايف مسجلة مع مينتورز سايفر.' : 'Recorded live masterclass by Cipher mentors.'}
                     </p>
                   </div>
 

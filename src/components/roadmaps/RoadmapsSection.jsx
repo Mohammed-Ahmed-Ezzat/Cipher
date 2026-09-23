@@ -6,29 +6,13 @@ import { sfx } from '../../utils/soundEffects';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function RoadmapsSection({ onOpenRoadmap }) {
-  const { t, isRTL } = useLanguage();
-  const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredRoadmaps = useMemo(() => {
-    return roadmapsData.filter((roadmap) => {
-      // 1. Category Filter
-      const matchesCategory =
-        selectedCategory === 'all' || roadmap.category === selectedCategory;
-
-      // 2. Search Query Filter
-      const q = searchQuery.trim().toLowerCase();
-      if (!q) return matchesCategory;
-
-      const matchesTitle = roadmap.title.toLowerCase().includes(q);
-      const matchesDesc = roadmap.desc.toLowerCase().includes(q);
-      const matchesTags = (roadmap.tags || []).some((tag) =>
-        tag.toLowerCase().includes(q)
-      );
-
-      return matchesCategory && (matchesTitle || matchesDesc || matchesTags);
-    });
-  }, [searchQuery, selectedCategory]);
+    if (selectedCategory === 'all') return roadmapsData;
+    return roadmapsData.filter((roadmap) => roadmap.category === selectedCategory);
+  }, [selectedCategory]);
 
   const handleCategoryClick = (catId) => {
     sfx.playClick();
@@ -37,7 +21,6 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
 
   const handleResetFilters = () => {
     sfx.playClick();
-    setSearchQuery('');
     setSelectedCategory('all');
   };
 
@@ -51,35 +34,12 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
             <span className="gradient">{t('roadmaps', 'titleGradient', 'direction.')}</span>
           </h2>
           <p className="section-desc">
-            {t('roadmaps', 'desc', 'Explore curated learning paths designed by Cipher mentors. Search by topic, filter by specialty, or browse all available roadmaps.')}
+            {t('roadmaps', 'desc', 'Explore curated learning paths designed by Cipher mentors. Filter by specialty or browse all available roadmaps.')}
           </p>
         </div>
 
-        {/* Search and Filters Bar */}
+        {/* Category Filters Bar */}
         <div className="roadmaps-controls-bar reveal-on-scroll">
-          {/* Search Input */}
-          <div className="search-box-wrap">
-            <i className="fa-solid fa-magnifying-glass search-icon" />
-            <input
-              type="text"
-              className="roadmap-search-input"
-              placeholder={t('roadmaps', 'searchPlaceholder', 'Search by path, tech, or skill (e.g. React, Docker, Logic)...')}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search roadmaps"
-            />
-            {searchQuery && (
-              <button
-                className="search-clear-btn"
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search query"
-              >
-                <i className="fa-solid fa-xmark" />
-              </button>
-            )}
-          </div>
-
-          {/* Category Filter Pills */}
           <div className="category-pills-row" role="tablist" aria-label="Filter roadmaps by category">
             {siteConfig.categories.map((cat) => {
               const isActive = selectedCategory === cat.id;
@@ -110,7 +70,7 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
             {roadmapsData.length}{' '}
             {t('roadmaps', 'pathsCount', 'paths')}
           </span>
-          {(searchQuery || selectedCategory !== 'all') && (
+          {selectedCategory !== 'all' && (
             <button
               className="reset-filters-btn"
               onClick={handleResetFilters}
@@ -142,8 +102,7 @@ export default function RoadmapsSection({ onOpenRoadmap }) {
             </div>
             <h3>{t('roadmaps', 'noMatchTitle', 'No matching roadmaps found')}</h3>
             <p>
-              {t('roadmaps', 'noMatchDesc', "We couldn't find any path matching")} "<b>{searchQuery}</b>"{' '}
-              {t('roadmaps', 'noMatchDescEnd', 'in this category. Try adjusting your search keywords or reset filters.')}
+              {t('roadmaps', 'noMatchDesc', 'No roadmaps currently available in this track.')}
             </p>
             <button className="btn-main" onClick={handleResetFilters}>
               <i className="fa-solid fa-arrow-rotate-left" /> {t('roadmaps', 'showAllBtn', 'Show All Roadmaps')}

@@ -132,21 +132,6 @@ html[dir="rtl"] .roadmap-tags {
   justify-content: flex-start;
 }
 
-html[dir="rtl"] .roadmap-search-input {
-  text-align: right;
-  padding: 12px 48px 12px 48px;
-}
-
-html[dir="rtl"] .search-box-wrap .search-icon {
-  left: auto;
-  right: 18px;
-}
-
-html[dir="rtl"] .search-box-wrap .search-clear-btn {
-  right: auto;
-  left: 14px;
-}
-
 html[dir="rtl"] .roadmaps-status-row {
   direction: rtl;
 }

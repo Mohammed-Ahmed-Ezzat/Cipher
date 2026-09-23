@@ -119,7 +119,7 @@ export default function PdfModal({ roadmap, initialTab = 'roadmap', onClose }) {
                 <p className="modal-subtitle">
                   {activeTab === 'workshop'
                     ? (isRTL
-                        ? (workshopInfo.descriptionAr || 'شاهد المحاضرات المسجلة لايف، وتصفح السلايدز والملاحظات.')
+                        ? (workshopInfo.descriptionAr || 'اتفرج على المحاضرات المسجلة لايف، وتصفح السلايدز وملاحظات الشرح.')
                         : (workshopInfo.description || 'Watch recorded live workshop sessions, browse presentation slides, and access notes.'))
                     : displayDesc}
                 </p>
@@ -190,7 +190,7 @@ export default function PdfModal({ roadmap, initialTab = 'roadmap', onClose }) {
                 <span className="live-dot-tag">
                   {workshopInfo?.sessions?.length === 1
                     ? (isRTL ? 'محاضرة لايف مسجلة' : '1 Live Session')
-                    : (isRTL ? `${workshopInfo?.sessions?.length || 2} محاضرات مسجلة` : `${workshopInfo?.sessions?.length || 2} Sessions`)}
+                    : (isRTL ? `${workshopInfo?.sessions?.length || 2} محاضرات متسجلة` : `${workshopInfo?.sessions?.length || 2} Sessions`)}
                 </span>
               </button>
             </div>

@@ -1,78 +1,33 @@
 /* ==========================================================
-   ROADMAPS SECTION WITH SEARCH & FILTER
+   ROADMAPS SECTION - CATEGORY FILTER & CARDS
    ========================================================== */
 .roadmaps-controls-bar {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 24px;
-}
-
-.search-box-wrap {
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #6d8883;
-  font-size: 15px;
-  pointer-events: none;
-}
-
-.roadmap-search-input {
-  width: 100%;
-  min-height: 52px;
-  padding: 12px 48px 12px 48px;
-  border-radius: 14px;
-  background: rgba(7, 34, 32, 0.7);
-  border: 1px solid var(--line);
-  color: #fff;
-  font-family: inherit;
-  font-size: 14px;
-  transition: border-color 0.25s, box-shadow 0.25s;
-  backdrop-filter: blur(8px);
-}
-
-.roadmap-search-input:focus {
-  border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(32, 240, 208, 0.15);
-}
-
-.search-clear-btn {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: #83a09b;
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.search-clear-btn:hover {
-  color: #fff;
 }
 
 .category-pills-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   overflow-x: auto;
   padding-bottom: 6px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  max-width: 100%;
 }
 
 .category-pills-row::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .category-pills-row {
+    justify-content: flex-start;
+  }
 }
 
 .category-pill {

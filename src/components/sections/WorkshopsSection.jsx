@@ -264,7 +264,7 @@ export default function WorkshopsSection() {
                     {isVideoLoading && (
                       <div className="video-skeleton">
                         <div className="video-spinner" />
-                        <span>{isRTL ? 'جاري الاتصال بالبث...' : 'Loading Video Stream...'}</span>
+                        <span>{isRTL ? 'بيحمّل الفيديو دلوقتي...' : 'Loading Video Stream...'}</span>
                       </div>
                     )}
 
@@ -413,7 +413,7 @@ export default function WorkshopsSection() {
                   </div>
                   <div className="stage-resource-info">
                     <h6>{currentSession.slidesTitle || (isRTL ? 'تحميل سلايدز الورشة (PDF)' : 'Workshop Slides (PDF)')}</h6>
-                    <p>{isRTL ? 'اضغط هنا لتحميل سلايدز المحاضرة بصيغة PDF.' : 'Click to download presentation slides (PDF).'}</p>
+                    <p>{isRTL ? 'دوس هنا عشان تنزل سلايدز المحاضرة بصيغة PDF على جهازك.' : 'Click to download presentation slides (PDF).'}</p>
                   </div>
                   <div className="stage-resource-action">
                     <i className="fa-solid fa-download" />
@@ -426,14 +426,14 @@ export default function WorkshopsSection() {
                   rel="noopener noreferrer"
                   className="stage-resource-item mobile-only"
                   onClick={() => sfx.playClick()}
-                  title={isRTL ? "فتح سلايدز الورشة على درايف" : "Open session slides on Google Drive"}
+                  title={isRTL ? "افتح سلايدز الورشة على درايف" : "Open session slides on Google Drive"}
                 >
                   <div className="stage-resource-icon" style={{ color: '#ff5c5c' }}>
                     <i className="fa-solid fa-file-powerpoint" />
                   </div>
                   <div className="stage-resource-info">
                     <h6>{currentSession.slidesTitle}</h6>
-                    <p>{isRTL ? 'فتح السلايدز على Google Drive.' : 'Open presentation slides on Google Drive.'}</p>
+                    <p>{isRTL ? 'افتح السلايدز على Google Drive في صفحة تانية.' : 'Open presentation slides on Google Drive.'}</p>
                   </div>
                   <div className="stage-resource-action">
                     <i className="fa-solid fa-arrow-up-right-from-square" />

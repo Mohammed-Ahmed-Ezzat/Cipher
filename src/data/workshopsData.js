@@ -5,7 +5,7 @@ export const workshopsData = {
     badge: "2 Live Sessions Recorded",
     instructor: "Cipher Network Mentors",
     description: "Intensive 2-day recorded workshop covering core networking concepts, OSI layers, protocols, switching, routing, and practical demonstrations.",
-    descriptionAr: "ورشة عمل مكثفة مسجلة تغطي أساسيات شبكات الحاسب، ونموذج OSI، والبروتوكولات، والـ Routing & Switching مع تطبيقات عملية.",
+    descriptionAr: "ورشة عمل متسجلة لايف بتغطي أساسيات شبكات الحاسب، ونموذج الـ OSI، والبروتوكولات، والـ Routing & Switching مع تطبيق عملي خطوة بخطوة.",
     folderDriveUrl: "https://drive.google.com/drive/folders/1AEQZMo-KFMgl7HI-13swKyW8SUOLWRYh",
     sessions: [
       {
@@ -67,7 +67,7 @@ export const workshopsData = {
     badge: "2 Live Sessions Recorded",
     instructor: "Cipher Backend Mentors",
     description: "In-depth 2-day recorded backend masterclass covering system architecture, client-server models, RESTful APIs, databases, authentication, and deployment.",
-    descriptionAr: "ورشة عمل تطبيقية مسجلة لاحتراف بناء أنظمة الباك إند، وتصميم الـ RESTful APIs، وهندسة قواعد البيانات والخوادم.",
+    descriptionAr: "ورشة عمل متسجلة لايف بتعلمك إزاي تبني أنظمة الباك إند باحتراف، وتصمم الـ APIs وقواعد البيانات وتهندل السيرفرات صح.",
     folderDriveUrl: "https://drive.google.com/drive/folders/1F_Z8ilLBkHH4HKRbuv4czE4g2zAdsrFJ?usp=sharing",
     sessions: [
       {
@@ -123,7 +123,7 @@ export const workshopsData = {
     badge: "2 Live Sessions Recorded",
     instructor: "Cipher Frontend Mentors",
     description: "Hands-on 2-day recorded masterclass exploring modern web fundamentals, HTML5 structure, CSS styling, frontend architecture, and interactive JavaScript.",
-    descriptionAr: "ورشة عمل تطبيقية مسجلة لاحتراف أساسيات الويب الحديث، وهيكلة HTML5، وتنسيق CSS، وبناء واجهات تفاعلية.",
+    descriptionAr: "ورشة عمل متسجلة لايف بتعلمك أساسيات الويب الحديث، من أول كود الـ HTML5 وتنسيق الـ CSS لحد ما تبني واجهات تفاعلية كاملة.",
     folderDriveUrl: "https://drive.google.com/drive/folders/1zg1IrPmxsus0KXbngz_4w6Ts5tfMQl61?usp=drive_link",
     hasSeparateSessionFolders: true,
     sessions: [
