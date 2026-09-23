@@ -190,6 +190,24 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
     }
   };
 
+  const lastWheelTime = useRef(0);
+  const handleSinglePageWheel = (e) => {
+    if (viewMode !== 'single') return;
+    const now = Date.now();
+    if (now - lastWheelTime.current < 280) return;
+    if (e.deltaY > 25) {
+      if (pageNum < numPages) {
+        lastWheelTime.current = now;
+        handleNextPage();
+      }
+    } else if (e.deltaY < -25) {
+      if (pageNum > 1) {
+        lastWheelTime.current = now;
+        handlePrevPage();
+      }
+    }
+  };
+
   return (
     <div className="local-pdf-viewer">
       {/* Viewer Toolbar */}
@@ -330,7 +348,7 @@ export default function LocalPdfViewer({ dataUrl, pdfUrl, title, accent = '#20f0
         {!loading && !error && pdfDoc && (
           <div className={`pdf-pages-container mode-${viewMode}`}>
             {viewMode === 'single' ? (
-              <div className="single-page-wrapper">
+              <div className="single-page-wrapper" onWheel={handleSinglePageWheel}>
                 <PageCanvas
                   pageNum={pageNum}
                   pdfDoc={pdfDoc}

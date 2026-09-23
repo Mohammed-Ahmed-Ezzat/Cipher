@@ -557,6 +557,11 @@ html.lenis, html.lenis body {
   overscroll-behavior: contain;
 }
 
+.lenis.lenis-smooth .workshop-studio-root,
+.lenis.lenis-smooth .workshop-studio-root [data-lenis-prevent] {
+  overscroll-behavior: auto !important;
+}
+
 .lenis.lenis-stopped {
   overflow: hidden;
 }

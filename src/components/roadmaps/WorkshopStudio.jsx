@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LocalPdfViewer from './LocalPdfViewer';
 import { sfx } from '../../utils/soundEffects';
 import { getAssetUrl } from '../../utils/urlHelper';
@@ -11,6 +11,7 @@ export default function WorkshopStudio({
   onSelectDayIndex
 }) {
   const { t, isRTL } = useLanguage();
+  const studioRootRef = useRef(null);
   const [internalDayIndex, setInternalDayIndex] = useState(0);
   const selectedDayIndex = controlledDayIndex !== undefined ? controlledDayIndex : internalDayIndex;
   const [activeView, setActiveView] = useState('video'); // 'video' | 'slides'
@@ -61,10 +62,13 @@ export default function WorkshopStudio({
   const handleToggleView = (view) => {
     sfx.playClick();
     setActiveView(view);
+    if (studioRootRef.current) {
+      studioRootRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className="workshop-studio-root" data-lenis-prevent="true">
+    <div className="workshop-studio-root" ref={studioRootRef} data-lenis-prevent="true">
       {/* Workshop Navigation Header */}
       <div className="workshop-top-controls">
         <div className="workshop-day-selector">

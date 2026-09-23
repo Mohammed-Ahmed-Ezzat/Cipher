@@ -671,7 +671,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overscroll-behavior: contain;
+  overscroll-behavior: auto !important;
   scrollbar-width: thin;
   scrollbar-color: rgba(91, 224, 255, 0.3) rgba(0, 0, 0, 0.2);
 }
@@ -1006,30 +1006,47 @@
 }
 
 .slides-canvas-frame {
-  height: clamp(450px, 64vh, 720px);
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   background: rgba(1, 15, 15, 0.8);
   border: 1px solid rgba(166, 255, 242, 0.12);
   border-radius: 18px;
-  overflow: hidden;
+  overflow: visible;
+  overscroll-behavior: auto !important;
 }
 
 .slides-canvas-frame .local-pdf-viewer {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background: #021414;
+  border-radius: 18px;
+  overscroll-behavior: auto !important;
+}
+
+.slides-canvas-frame .pdf-viewer-toolbar {
+  position: sticky;
+  top: -14px;
+  z-index: 15;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(2, 20, 20, 0.95);
 }
 
 .slides-canvas-frame .pdf-canvas-viewport {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto !important;
+  overflow-y: visible !important;
   overflow-x: auto;
+  min-height: 480px;
+  padding: clamp(16px, 3vw, 32px);
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle at center, #031e1c 0%, #010f0e 100%);
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: auto !important;
 }
 
 /* Details Section (Topics & Resources) */
@@ -1445,10 +1462,19 @@
   }
 
   .slides-canvas-frame {
-    height: clamp(360px, 58vh, 500px);
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .slides-canvas-frame .pdf-viewer-toolbar {
+    top: -10px;
+  }
+
+  .slides-canvas-frame .pdf-canvas-viewport {
+    min-height: 320px;
+    padding: 12px 6px;
+    overflow-y: visible !important;
   }
 }
 
