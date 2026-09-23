@@ -1423,8 +1423,7 @@
   }
 
   .modal-tab-pill .live-dot-tag {
-    font-size: 9px;
-    padding: 1px 5px;
+    display: none !important;
   }
 
   .pdf-frame-wrap {
@@ -1466,7 +1465,7 @@
   }
 
   .workshop-day-pill .day-date {
-    font-size: 10px;
+    display: none !important;
   }
 
   .modal-stream-card {
@@ -1499,6 +1498,10 @@
     flex-direction: column;
     gap: 8px;
     padding: 10px 12px;
+  }
+
+  .slides-title-info .session-badge {
+    display: none !important;
   }
 
   .slides-actions {

@@ -77,11 +77,6 @@ export default function PdfModal({ roadmap, initialTab = 'roadmap', onClose }) {
 
   const localPdfUrl = roadmap.pdf || roadmap.download;
   const localDataUrl = roadmap.dataUrl || localPdfUrl;
-  const activeSession = workshopInfo?.sessions?.[workshopDayIndex] || workshopInfo?.sessions?.[0];
-  const activeWorkshopFolder = activeSession?.folderDriveUrl || workshopInfo?.folderDriveUrl;
-  const openInTabUrl = activeTab === 'workshop' && activeWorkshopFolder
-    ? activeWorkshopFolder
-    : (roadmap.driveUrl || getAssetUrl(localPdfUrl));
 
   return (
     <div
@@ -144,16 +139,18 @@ export default function PdfModal({ roadmap, initialTab = 'roadmap', onClose }) {
                 </a>
               )}
 
-              <a
-                className="mini-btn"
-                href={openInTabUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={activeTab === 'workshop' ? 'Open workshop drive folder in new tab' : 'Open roadmap file in a new browser tab (Google Drive)'}
-              >
-                <i className="fa-solid fa-arrow-up-right-from-square" />
-                <span>{activeTab === 'workshop' ? t('modal', 'driveFolder', 'Drive Folder') : t('modal', 'openInTab', 'Open in Tab')}</span>
-              </a>
+              {activeTab === 'roadmap' && (
+                <a
+                  className="mini-btn"
+                  href={roadmap.driveUrl || getAssetUrl(localPdfUrl)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Open roadmap file in a new browser tab (Google Drive)"
+                >
+                  <i className="fa-solid fa-arrow-up-right-from-square" />
+                  <span>{t('modal', 'openInTab', 'Open in Tab')}</span>
+                </a>
+              )}
 
               <button
                 className="mini-btn pdf-close-btn"
