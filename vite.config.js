@@ -16,5 +16,17 @@ export default defineConfig({
   preview: {
     host: true,
     port: 3000
+  },
+  build: {
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-three': ['three'],
+          'vendor-pdf': ['pdfjs-dist']
+        }
+      }
+    }
   }
-});
+});
